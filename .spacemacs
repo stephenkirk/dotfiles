@@ -1,6 +1,5 @@
 (setq-default dotspacemacs-configuration-layers '(
-                                                  ruby
-                                                  html
+                                                  helm
                                                   markdown
                                                   auto-completion
                                                   org
@@ -9,12 +8,15 @@
                                                   )
 )
 
+;; Custom key bindings
+(global-set-key (kbd "<f12>") 'org-agenda)
+
 ;; Option modifier for using right option key for symbols and left as meta
 (setq-default mac-right-option-modifier nil)
 
 ;; Temporary theme workaround
-(load-file "~/spacemacs/dash.el")
-(load-file "~/spacemacs/autothemer.el")
+;; (load-file "~/spacemacs/dash.el")
+;; (load-file "~/spacemacs/autothemer.el")
 
 ;; Font
 (setq dotspacemacs-default-font '("Roboto Mono"
@@ -23,21 +25,36 @@
                                   :width normal
                                   :powerline-scale 1.1))
 
-;; Org and Agenda
-(setq org-agenda-files '("~/org" "~/org/todos") )
-;; Custom TODO states
+;; Org and Agenda folders
+(setq org-agenda-files '("~/org") )
+(setq org-directory "~/org")
+(setq org-default-notes-file "~/org/refile.org")
+
+                                        ; Refile
+;; Allow refile to target anything in org folder
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+
+;; TODO states (with GTD as principle)
 (setq org-todo-keywords
-      '((sequence "TODO"
-                  "WORKING"
-                  "HOLD"
-                  "|"
-                  "DONE"))
-)
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "HOLD(h@/!)")
+              )))
+
+;; Capture templates
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "~/org/refile.org")
+               "* TODO %?\n%U\n%a\n")
+              ("r" "next" entry (file "~/org/refile.org")
+               "* NEXT from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+              ("n" "note" entry (file "~/org/refile.org")
+               "* %? :NOTE:\n%U\n%a\n")
+)))
 
 (setq org-todo-keyword-faces
       '(
         ("TODO" . "#fb4934")
-        ("WORKING" . "#fabd2f")
+        ("NEXT" . "#fabd2f")
         ("HOLD" . "#fdf4c1")
         ("DONE" . "#b8bb26")
         )
@@ -45,7 +62,6 @@
 
 ;; Themes
 (setq dotspacemacs-themes '(gruvbox))
-
 
 (setq multi-term-program "/usr/bin/zsh")
 (custom-set-variables
