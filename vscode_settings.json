@@ -1,0 +1,23 @@
+    {
+        "editor.fontFamily": "Roboto Mono",
+        "vim.easymotionMarkerFontFamily": "Roboto Mono",
+        // "editor.fontFamily": "Input Mono, Menlo",
+        // "vim.easymotionMarkerFontFamily": "Input Mono, Menlo",
+        "vim.easymotion": true,
+        "vim.easymotionMarkerBackgroundColor": "#000",
+        "vim.easymotionMarkerFontWeight": "bold",
+        "vim.hlsearch": true,
+        "window.zoomLevel": -1,
+        
+        "[ruby]": {
+            "editor.tabSize": 2
+        },
+
+        "workbench.panel.defaultLocation": "right",
+        "workbench.statusBar.visible": true,
+        "workbench.activityBar.visible": true,
+        "editor.minimap.enabled": false,
+        "workbench.colorTheme": "Ayu Light",
+
+        "telemetry.enableTelemetry": false
+    }
