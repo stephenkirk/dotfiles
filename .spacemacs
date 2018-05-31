@@ -56,6 +56,10 @@
                "* %? :NOTE:\n%U\n")
               ("m" "Meeting" entry (file "~/org/refile.org")
                "* MEETING with %? :MEETING:\n%U\n")
+              ("j" "Journal" entry (file+datetree "~/org/diary.org")
+               "* %? :JOURNAL:\n%U\n")
+              ("d" "Diary" entry (file+datetree "~/org/diary.org")
+               "* %? :DIARY:\n%U\n")
 )))
 
 (setq org-todo-keyword-faces
