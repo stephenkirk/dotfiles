@@ -51,3 +51,4 @@ brew install emacs-plus
 brew linkapps emacs-plus
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+brew install git-extras

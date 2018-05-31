@@ -1,9 +1,10 @@
     {
-        "editor.fontFamily": "Roboto Mono",
-        "vim.easymotionMarkerFontFamily": "Roboto Mono",
-        // "editor.fontFamily": "Input Mono, Menlo",
-        // "vim.easymotionMarkerFontFamily": "Input Mono, Menlo",
+        "editor.fontLigatures": true,
+        "editor.fontFamily": "Operator Mono",
+        "editor.fontSize": 15,
+        "vim.easymotionMarkerFontFamily": "Operator Mono",
         "vim.easymotion": true,
+        "vim.leader": "<space>",
         "vim.easymotionMarkerBackgroundColor": "#000",
         "vim.easymotionMarkerFontWeight": "bold",
         "vim.hlsearch": true,
@@ -17,7 +18,8 @@
         "workbench.statusBar.visible": true,
         "workbench.activityBar.visible": true,
         "editor.minimap.enabled": false,
-        "workbench.colorTheme": "Ayu Light",
 
-        "telemetry.enableTelemetry": false
+        "telemetry.enableTelemetry": false,
+        "workbench.colorTheme": "Gruvbox Dark (Medium)",
+        "workbench.iconTheme": "vscode-icons"
     }
