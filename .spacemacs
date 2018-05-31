@@ -8,15 +8,14 @@
                                                   )
 )
 
+;; Set a sane theme
+(setq dotspacemacs-additional-packages '(color-theme-solarized))
+
 ;; Custom key bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
 
 ;; Option modifier for using right option key for symbols and left as meta
 (setq-default mac-right-option-modifier nil)
-
-;; Temporary theme workaround
-;; (load-file "~/spacemacs/dash.el")
-;; (load-file "~/spacemacs/autothemer.el")
 
 ;; Font
 (setq dotspacemacs-default-font '("Roboto Mono"
@@ -44,11 +43,13 @@
 ;; Capture templates
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/org/refile.org")
-               "* TODO %?\n%U\n%a\n")
+               "* TODO %?\n%U\n")
               ("r" "next" entry (file "~/org/refile.org")
-               "* NEXT from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+               "* NEXT %?\n%U\n")
               ("n" "note" entry (file "~/org/refile.org")
-               "* %? :NOTE:\n%U\n%a\n")
+               "* %? :NOTE:\n%U\n")
+              ("m" "Meeting" entry (file "~/org/refile.org")
+               "* MEETING with %? :MEETING:\n%U\n")
 )))
 
 (setq org-todo-keyword-faces
