@@ -15,7 +15,7 @@
 (setq dotspacemacs-additional-packages '(color-theme-solarized))
 
 ;; Load config file with user defined functions
-(load ".spacemacs-config.el")
+(load "~/.spacemacs-config.el")
 
 ;; Custom key bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
@@ -70,9 +70,6 @@
         ("DONE" . "#b8bb26")
         )
 )
-
-;; Themes
-(setq dotspacemacs-themes '(gruvbox))
 
 (setq multi-term-program "/usr/bin/zsh")
 (custom-set-variables
