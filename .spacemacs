@@ -1,6 +1,8 @@
+
 (setq-default dotspacemacs-configuration-layers '(
                                                   helm
                                                   markdown
+                                                  git
                                                   auto-completion
                                                   org
                                                   (osx :variables osx-option-as 'meta
@@ -8,8 +10,12 @@
                                                   )
 )
 
+
 ;; Set a sane theme
 (setq dotspacemacs-additional-packages '(color-theme-solarized))
+
+;; Load config file with user defined functions
+(load ".spacemacs-config.el")
 
 ;; Custom key bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
