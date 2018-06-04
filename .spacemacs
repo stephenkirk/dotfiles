@@ -1,5 +1,6 @@
 
 (setq-default dotspacemacs-configuration-layers '(
+                                                  csharp
                                                   helm
                                                   markdown
                                                   git
@@ -36,9 +37,11 @@
 (setq org-default-notes-file "~/org/refile.org")
 
                                         ; Refile
-;; Allow refile to target anything in org folder
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
+;; Allow refile to target anything 3 layers down in org folder
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
+
+;; (setq org-agenda-prefix-format "%l")
 
 ;; TODO states (with GTD as principle)
 (setq org-todo-keywords
