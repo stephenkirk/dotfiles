@@ -20,5 +20,8 @@
 (evil-leader/set-key
   "fec" 'find-config-file)
 
+(evil-leader/set-key
+  "s!" 'shell)
+
 ;; Make fullscreen great again
 (setq ns-use-native-fullscreen nil)

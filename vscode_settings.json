@@ -8,8 +8,21 @@
         "vim.easymotionMarkerBackgroundColor": "#000",
         "vim.easymotionMarkerFontWeight": "bold",
         "vim.hlsearch": true,
-        "window.zoomLevel": -1,
+        "vim.visualstar": true,
         
+        "vim.otherModesKeyBindingsNonRecursive": [
+            {
+                "before": ["K"],
+                "after": [],
+                "commands": [
+                    {
+                        "command": "editor.action.goToDeclaration",
+                        "args": []
+                    }
+                ]
+            }
+        ],
+
         "[ruby]": {
             "editor.tabSize": 2
         },
@@ -20,6 +33,7 @@
         "editor.minimap.enabled": false,
 
         "telemetry.enableTelemetry": false,
-        "workbench.colorTheme": "Gruvbox Dark (Medium)",
-        "workbench.iconTheme": "vscode-icons"
+        "workbench.colorTheme": "Gruvbox Dark (Hard)",
+        "workbench.iconTheme": "vscode-icons",
+        "window.zoomLevel": -1,
     }
