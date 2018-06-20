@@ -5,5 +5,5 @@ ln -s ~/dotfiles/.* ~/
 rm -rf ~/.git # Remove accidental git folder committing
 
 # Symlink VS Code bindings
-ln -s ~/dotfiles/vscode_settings.json ~/Library/Application\ Support/Code/User/settings.json
-ln -s ~/dotfiles/vscode_keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+ln -s "~/dotfiles/vscode_settings.json" "~/Library/Application Support/Code/User/settings.json"
+ln -s "~/dotfiles/vscode_keybindings.json" "~/Library/Application Support/Code/User/keybindings.json"
