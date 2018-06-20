@@ -26,3 +26,5 @@ alias where='grealpath'
 # Colored trees
 alias tree='tree -C'
 eval $(thefuck --alias)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
