@@ -15,9 +15,10 @@
         "vim.easymotionMarkerFontWeight": "bold",
         "vim.hlsearch": true,
         "vim.leader": "<space>",
+        "vim.sneak": true,
+        "vim.useSystemClipboard": true,
         "vim.visualstar": true,
-        
-        "vim.otherModesKeyBindingsNonRecursive": [
+        "vim.normalModeKeyBindingsNonRecursive": [
             {
                 "before": ["K"],
                 "after": [],
@@ -30,22 +31,13 @@
             }
         ],
 
-        "[ruby]": {
-            "editor.tabSize": 2
-        },
-
-
-
         "telemetry.enableTelemetry": false,
 
-        "window.zoomLevel": -1
         "window.zoomLevel": -1,
 
         "workbench.activityBar.visible": false,
-        "workbench.activityBar.visible": true,
         "workbench.colorTheme": "Gruvbox Dark (Hard)",
         "workbench.iconTheme": "vscode-icons",
         "workbench.panel.defaultLocation": "right",
-        "workbench.statusBar.visible": true,
+        "workbench.statusBar.visible": true
 }
-    }
