@@ -65,6 +65,8 @@
                "* %? :JOURNAL:\n%U\n")
               ("d" "Diary" entry (file+datetree "~/org/diary.org")
                "* %? :DIARY:\n%U\n")
+              ("z" "Quote" entry (file+datetree "~/org/diary.org")
+               "*  :QUOTE:JOURNAL:\n%U\n%?\n")
 )))
 
 (setq org-todo-keyword-faces
