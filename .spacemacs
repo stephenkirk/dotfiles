@@ -1,5 +1,7 @@
 
 (setq-default dotspacemacs-configuration-layers '(
+                                                  html
+                                                  csv
                                                   javascript
                                                   csharp
                                                   helm

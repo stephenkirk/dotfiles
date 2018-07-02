@@ -27,4 +27,7 @@ alias where='grealpath'
 alias tree='tree -C'
 eval $(thefuck --alias)
 
+# Vim bindings
+ bindkey -v
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
