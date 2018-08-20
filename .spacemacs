@@ -16,7 +16,7 @@
 
 
 ;; Set a sane theme
-(setq dotspacemacs-additional-packages '(color-theme-solarized))
+(setq dotspacemacs-additional-packages '(color-theme-solarized org-clock-csv))
 (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
 
 ;; Load config file with user defined functions
@@ -50,7 +50,7 @@
 ;; TODO states (with GTD as principle)
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "HOLD(h@/!)")
+              (sequence "HOLD(h)")
               )))
 
 ;; Capture templates
