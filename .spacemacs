@@ -14,9 +14,9 @@
                                                   )
 )
 
+(setq dotspacemacs-additional-packages '(color-theme-solarized org-clock-csv))
 
 ;; Set a sane theme
-(setq dotspacemacs-additional-packages '(color-theme-solarized org-clock-csv))
 (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
 
 ;; Load config file with user defined functions
@@ -25,11 +25,11 @@
 ;; Custom key bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
 
-;; Option modifier for using right option key for symbols and left as meta
+;; Option modifier - right option key for symbols; left for meta
 (setq-default mac-right-option-modifier nil)
 
 ;; Font
-(setq dotspacemacs-default-font '("Roboto Mono"
+(setq dotspacemacs-default-font '("SF Mono"
                                   :size 14
                                   :weight normal
                                   :width normal
