@@ -50,7 +50,7 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ########################
 
 # Set a really fast keyboard repeat rate.
-defaults write -g InitialKeyRepeat -int 5
+defaults write -g InitialKeyRepeat -int 15
 defaults write -g KeyRepeat -int 1
 
 # Disable press-and-hold for keys in favor of key repeat.
@@ -109,4 +109,9 @@ sudo pmset -a sms 0
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
 
+############
+# MOJAVE
+############
 
+# Make text readable in Mojave
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
