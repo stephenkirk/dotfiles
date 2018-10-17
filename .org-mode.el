@@ -51,3 +51,9 @@
         ("DONE" . "#b8bb26")
         )
       )
+
+;; Untested
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((emacs-lisp . nil)
+;;    (R . t)))
