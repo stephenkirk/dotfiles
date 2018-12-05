@@ -29,8 +29,8 @@
 (setq-default mac-right-option-modifier nil)
 
 ;; Font
-(setq dotspacemacs-default-font '("SF Mono"
-                                  :size 14
+(setq dotspacemacs-default-font '("Fira Code"
+                                  :size 13
                                   :weight normal
                                   :width normal
                                   :powerline-scale 1.1))
@@ -52,3 +52,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+ '(variable-pitch ((t (:family "Fira Sans")))))
