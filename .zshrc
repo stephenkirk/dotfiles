@@ -2,9 +2,7 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(
-  git git-open git-extras
-)
+plugins=( docker git git-open git-extras )
 
 source $ZSH/oh-my-zsh.sh
 
