@@ -41,5 +41,6 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.statusBar.visible": true,
     "vsicons.dontShowNewVersionMessage": true,
-    "autoimport.filesToScan": "**/*.{js,jsx,ts,tsx}"
+    "autoimport.filesToScan": "**/*.{js,jsx,ts,tsx}",
+    "workbench.settings.editor": "json"
 }
