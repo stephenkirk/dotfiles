@@ -51,7 +51,7 @@
         "command": "-workbench.action.navigateForward"
     },
     {
-        "key": "cmd+d cmd+b",
+        "key": "cmd+b cmd+b",
         "command": "workbench.action.debug.start",
         "when": "!inDebugMode"
     },
@@ -61,7 +61,7 @@
         "when": "!inDebugMode"
     },
     {
-        "key": "cmd+d cmd+r",
+        "key": "cmd+b cmd+d",
         "command": "workbench.action.debug.run",
         "when": "!inDebugMode"
     },
@@ -69,5 +69,23 @@
         "key": "ctrl+f5",
         "command": "-workbench.action.debug.run",
         "when": "!inDebugMode"
+    },
+    {
+        "key": "ctrl+alt+cmd+[Equal]",
+        "command": "workbench.action.tasks.build"
+    },
+    {
+        "key": "shift+cmd+b",
+        "command": "-workbench.action.tasks.build"
+    },
+    {
+        "key": "cmd+b cmd+s",
+        "command": "workbench.action.debug.stop",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "shift+f5",
+        "command": "-workbench.action.debug.stop",
+        "when": "inDebugMode"
     }
 ]
