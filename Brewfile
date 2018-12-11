@@ -6,26 +6,25 @@ tap 'd12frosted/emacs-plus'
 # General purpose binaries
 
 cask 'alfred'
+cask 'anki'
 cask '1password'
 cask 'dropbox'
 cask 'spotify'
 cask 'spectacle'
 cask 'karabiner-elements'
 cask 'iterm2'
-cask 'flux'
 cask 'slack'
 cask 'firefox'
 cask 'google-chrome'
 cask 'vlc'
 
-
-
 # Development
+cask 'postman'
 cask 'visual-studio-code'
 cask 'sublime-text'
 cask 'sublime-merge'
 cask 'tableplus'
-brew 'emacs-plus'
+brew 'emacs-plus' --HEAD --with-natural-title-bars
 brew 'macvim'
 
 ## R
