@@ -54,7 +54,6 @@ defaults write -g InitialKeyRepeat -int 15
 defaults write -g KeyRepeat -int 1
 
 # Disable press-and-hold for keys in favor of key repeat.
-defaults write com.apple.universalaccess slowKey -int 0 # Disable Slow Keys.
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Require password immediately after sleep or screen saver.
