@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Setting upp Homebrew..."
+echo "Setting up Homebrew..."
 
 # Install homebrew (if we don't have it)
 if test ! $(which brew); then
