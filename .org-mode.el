@@ -1,17 +1,26 @@
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
-
-;; Org and Agenda folders
+;; Set org and agenda files and directories
 (setq org-agenda-files '("~/org") )
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
 
+;; Allow refile to target anything 3 layers down in org files
+;; TODO: Separate levels for separate files
+;; ;; EXAMPLE
+;; (setq org-refile-targets (quote (("tickler.org" :maxlevel . 1)
+;;                                  ("organizer.org" :level . 1)
+;;                                  ("someday.org" :level . 2))))
 
-;; Allow refile to target anything 3 layers down in org folder
 (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                  (org-agenda-files :maxlevel . 3))))
 
+; Refile in a single go
+(setq org-outline-path-complete-in-steps nil)         
+
+; Show full paths for refiling
+(setq org-refile-use-outline-path t)                  
 
 ;; TODO states (with GTD as principle)
 (setq org-todo-keywords
@@ -19,10 +28,13 @@
               (sequence "HOLD(h)")
               )))
 
-
 ;; Capture templates
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/org/refile.org")
+
+      (quote
+
+              ;; GTD
+              (("t" "todo" entry (file "~/org/refile.org")
                "* TODO %?\n%U\n")
               ("r" "next" entry (file "~/org/refile.org")
                "* NEXT %?\n%U\n")
@@ -30,19 +42,28 @@
                "* %? :NOTE:\n%U\n")
               ("m" "Meeting" entry (file "~/org/refile.org")
                "* MEETING with %? :MEETING:\n%U\n")
+
+              ;; New emacs shortcuts to integrate
+              ("s" "emacs shortcut" entry (file "~/org/shortcuts.org")
+               "* %? :SHORTCUT:\n%U\n")
+
+
+              ;; Personal
               ("j" "Journal" entry (file+datetree "~/org/diary.org")
                "* %? :JOURNAL:\n%U\n")
               ("d" "Diary" entry (file+datetree "~/org/diary.org")
                "* %? :DIARY:\n%U\n")
+              ("b" "Bucket list" entry (file+datetree "~/org/diary.org")
+              "* %? :BUCKETLIST:JOURNAL:\n%U\n")
               ("g" "Gratitude" entry (file+datetree "~/org/diary.org")
-               "* Today's gratitude :JOURNAL:GRATEFULNESS:\n%U\n%?")
+              "* Today's gratitude :JOURNAL:GRATEFULNESS:\n%U\n%?")
               )))
 
 
 ;; Enter insert mode after creating template
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-;; I like beautiful colours
+;; Spice things up a little
 (setq org-todo-keyword-faces
       '(
         ("TODO" . "#fb4934")
@@ -52,8 +73,11 @@
         )
       )
 
-;; Untested
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((emacs-lisp . nil)
-;;    (R . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (emacs-lisp . nil)
+   (R . t)
+   (shell . t)
+  )
+ )
