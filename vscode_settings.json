@@ -8,6 +8,7 @@
     "editor.minimap.showSlider": "always",
     "editor.minimap.side": "left",
 
+    "vim.debug.silent": true,
     "vim.easymotion": true,
     "vim.easymotionMarkerBackgroundColor": "#000",
     "vim.easymotionMarkerFontFamily": "Operator Mono",
@@ -42,5 +43,7 @@
     "workbench.statusBar.visible": true,
     "vsicons.dontShowNewVersionMessage": true,
     "autoimport.filesToScan": "**/*.{js,jsx,ts,tsx}",
-    "workbench.settings.editor": "json"
+    "workbench.settings.editor": "json",
+    "explorer.confirmDragAndDrop": false,
+    "javascript.updateImportsOnFileMove.enabled": "always"
 }
