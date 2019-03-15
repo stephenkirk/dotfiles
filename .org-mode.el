@@ -1,7 +1,11 @@
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
-;; Set org and agenda files and directories
+;; auto save org mode buffers only
+(when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
+  (real-auto-save-mode))
+
+;; Org and Agenda folders
 (setq org-agenda-files '("~/org") )
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
