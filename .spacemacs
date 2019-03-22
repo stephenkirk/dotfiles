@@ -14,19 +14,44 @@
 )
 
 (setq dotspacemacs-additional-packages '(org-clock-csv))
+(setq dotspacemacs-excluded-packages '(powerline))
 
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code."
+
+  ;; Make evil-mode up/down operate in screen lines instead of logical lines
+  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  ;; Also in visual mode
+  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  )
+
+;; Seems to speed up things
+(setq auto-window-vscroll nil)
+
+(defun export-org-files()
+  "Export all org files"
+  (org-html-export-to-html "~/org/diary.org")
+  )
+
+;; Midnight-mode
+;; (require 'midnight)
+;; (midnight-delay-set 'midnight-delay "10:30am") ;; I'm usually in emacs by then
+;; (add-hook 'midnight-hook (lambda
+;; 			                     (with-current-buffer "*cvs*"
+;; 				                     (call-interactively 'cvs-update))))
+
+;; Theming
+;; TODO Currently on hold as this seems super unreliable at the patchwork that is spacemacs
+;; (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
 ;; Disable unicode symbols in mode line to speed up performance
 (setq dotspacemacs-mode-line-unicode-symbols nil)
-
-
-;; Themeing
-;; (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
-
-(setq dotspacemacs-default-font '("Fira Code"
+(setq dotspacemacs-default-font '("Input Mono Narrow"
                                   :size 13
                                   :weight normal
                                   :width normal
-                                  :powerline-scale 1.1))
+                                  :powerline-scale 1.2))
 
 
 ;; Load other things
@@ -50,7 +75,6 @@
 ;; Use zsh as terminal
 (setq multi-term-program "/usr/bin/zsh")
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -65,4 +89,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(variable-pitch ((t (:family "Fira Sans")))))
+)
