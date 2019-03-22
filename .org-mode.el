@@ -2,8 +2,8 @@
 (global-set-key (kbd "<f12>") 'org-agenda)
 
 ;; auto save org mode buffers only
-(when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
-  (real-auto-save-mode))
+;; (when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
+;;   (real-auto-save-mode))
 
 ;; Org and Agenda folders
 (setq org-agenda-files '("~/org") )
@@ -21,10 +21,10 @@
                                  (org-agenda-files :maxlevel . 3))))
 
 ; Refile in a single go
-(setq org-outline-path-complete-in-steps nil)         
+(setq org-outline-path-complete-in-steps nil)
 
 ; Show full paths for refiling
-(setq org-refile-use-outline-path t)                  
+(setq org-refile-use-outline-path t)
 
 ;; TODO states (with GTD as principle)
 (setq org-todo-keywords
@@ -40,17 +40,19 @@
               ;; GTD
               (("t" "todo" entry (file "~/org/refile.org")
                "* TODO %?\n%U\n")
+              ("T" "todo, schedule today" entry (file "~/org/refile.org")
+               "* TODO %?\n%U\n SCHEDULED: <%(org-read-date nil nil \"+0d\")>\n")
               ("r" "next" entry (file "~/org/refile.org")
                "* NEXT %?\n%U\n")
+              ("R" "next, schedule today" entry (file "~/org/refile.org")
+               "* NEXT %?\n%U\n SCHEDULED: <%(org-read-date nil nil \"+0d\")>\n")
               ("n" "note" entry (file "~/org/refile.org")
                "* %? :NOTE:\n%U\n")
               ("m" "Meeting" entry (file "~/org/refile.org")
                "* MEETING with %? :MEETING:\n%U\n")
 
-              ;; New emacs shortcuts to integrate
               ("s" "emacs shortcut" entry (file "~/org/shortcuts.org")
                "* %? :SHORTCUT:\n%U\n")
-
 
               ;; Personal
               ("j" "Journal" entry (file+datetree "~/org/diary.org")
