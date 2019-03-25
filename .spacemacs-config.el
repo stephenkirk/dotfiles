@@ -13,12 +13,25 @@
   "~/.spacemacs-config.el"
   )
 
+(defun org-file ()
+  "Return the path to the org config file."
+  "~/.org-mode.el"
+  )
+
 (defun find-config-file ()
   (interactive)
   (find-file (config-file)))
 
+(defun find-org-file ()
+  (interactive)
+  (find-file (org-file)))
+
 (evil-leader/set-key
   "fec" 'find-config-file)
+
+(evil-leader/set-key
+  "feo" 'find-org-file)
+
 
 (evil-leader/set-key
   "s!" 'shell)

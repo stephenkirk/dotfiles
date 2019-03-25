@@ -1,4 +1,3 @@
-"set relativenumber
 set number
 set wildmenu " For file switching with :b
 syntax on
@@ -13,5 +12,10 @@ set showmode
 " minimum nr. of lines above and below cursor
 set so=5
 
+" infinite persistent undo
+set undofile
+set undodir=~/.vim/undodir
+
 " Bindings
-nnoremap <silent> <C-l> :nohl<CR><C-l> " Remove highlights with <Ctrl-l>
+" Remove highlights with <Ctrl-l>
+nnoremap <silent> <C-l> :nohl<CR><C-l> 
