@@ -2,14 +2,18 @@
 (global-set-key (kbd "<f12>") 'org-agenda)
 
 ;; auto save org mode buffers only
-(when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
-  (real-auto-save-mode))
+;; (when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
+;;  (real-auto-save-mode))
 
 ;; Org and Agenda folders
 (setq org-agenda-files '("~/org") )
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
 
+;; slightly longer week
+(setq org-agenda-span 10
+      org-agenda-start-on-weekday nil
+      org-agenda-start-day "-3d")
 
 ;; Allow refile to target anything 3 layers down in org folder
 (setq org-refile-targets (quote ((nil :maxlevel . 3)
