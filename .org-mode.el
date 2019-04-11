@@ -10,6 +10,11 @@
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
 
+;; slightly longer week
+(setq org-agenda-span 10
+      org-agenda-start-on-weekday nil
+      org-agenda-start-day "-3d")
+
 ;; Allow refile to target anything 3 layers down in org files
 ;; TODO: Separate levels for separate files
 ;; ;; EXAMPLE
