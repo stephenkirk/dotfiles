@@ -16,11 +16,34 @@
   (interactive)
   (find-file (org-file)))
 
+(defun my-org-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (org-display-inline-images)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (file-name-nondirectory (buffer-file-name))
+                  "_imgs/"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (unless (file-exists-p (file-name-directory filename))
+    (make-directory (file-name-directory filename)))
+                                        ; take screenshot
+  (if (eq system-type 'darwin)
+      (call-process "screencapture" nil nil nil "-i" filename))
+                                        ; insert into file if correctly taken
+  (if (file-exists-p filename)
+      (insert (concat "[[file:" filename "]]"))))
+
 (evil-leader/set-key
   "fec" 'find-config-file)
 
 (evil-leader/set-key
   "feo" 'find-org-file)
+
+(evil-leader/set-key
+  "S" 'my-org-screenshot)
 
 (evil-leader/set-key
   "s!" 'shell)

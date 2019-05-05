@@ -76,13 +76,10 @@
 ;; Enter insert mode after creating template
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-;; Spice things up a little
-(setq org-todo-keyword-faces
-      '(
-        ("TODO" . "#fb4934")
-        ("NEXT" . "#fabd2f")
-        ("HOLD" . "#fdf4c1")
-        ("DONE" . "#b8bb26")
-        )
-      )
-
+;; (org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (emacs-lisp . nil)
+   (R . t)
+   (shell . t)
+  )

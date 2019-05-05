@@ -38,6 +38,7 @@
 
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
     "workbench.statusBar.visible": true,
