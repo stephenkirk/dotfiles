@@ -13,7 +13,7 @@
                                                   )
 )
 
-(setq dotspacemacs-additional-packages '(org-clock-csv))
+(setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib))
 (setq dotspacemacs-excluded-packages '(powerline))
 
 (defun dotspacemacs/user-config ()
@@ -53,7 +53,6 @@
                                   :width normal
                                   :powerline-scale 1.2))
 
-
 ;; Load other things
 (load "~/.spacemacs-config.el")
 
@@ -80,13 +79,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
-
  '(package-selected-packages
-   '(web-mode web-beautify tagedit powerline smeargle slim-mode scss-mode sass-mode reveal-in-osx-finder pug-mode pbcopy spinner osx-trash osx-dictionary orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-clock-csv omnisharp flycheck markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd launchctl json-snatcher json-reformat js2-refactor multiple-cursors js-doc hydra htmlize parent-mode projectile pkg-info epl helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flx evil-magit magit magit-popup git-commit ghub treepy graphql with-editor smartparens iedit anzu evil goto-chg undo-tree highlight emmet-mode f csharp-mode company-web web-completion-data company-tern s dash-functional tern company color-theme-solarized color-theme bind-map bind-key auto-yasnippet helm avy helm-core async ac-ispell auto-complete popup solarized-theme yasnippet ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode lorem-ipsum linum-relative link-hint json-mode js2-mode indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump diminish csv-mode company-statistics column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+   (quote
+    (macrostep elisp-slime-nav define-word auto-compile packed ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-download org-clock-csv org-bullets open-junk-file omnisharp neotree move-text mmm-mode markdown-toc magit-gitflow lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode dumb-jump diminish csv-mode company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
