@@ -39,9 +39,7 @@
 
 ;; Capture templates
 (setq org-capture-templates
-
       (quote
-
               ;; GTD
               (("t" "todo" entry (file "~/org/refile.org")
                "* TODO %?\n%U\n")
@@ -60,6 +58,10 @@
                "* %? :SHORTCUT:\n%U\n")
 
               ;; Personal
+              ("p" "Personal note" entry (file+headline "~/org/personal.org" "Notes")
+               "* %u\n%U\n%?")
+
+              ;; Journal
               ("j" "Journal" entry (file+datetree "~/org/diary.org")
                "* %? :JOURNAL:\n%U\n")
               ("d" "Diary" entry (file+datetree "~/org/diary.org")
@@ -68,7 +70,7 @@
               "* %? :BUCKETLIST:JOURNAL:\n%U\n")
               ("g" "Gratitude" entry (file+datetree "~/org/diary.org")
               "* Today's gratitude :JOURNAL:GRATEFULNESS:\n%U\n%?")
-              )))
+)))
 
 
 ;; Enter insert mode after creating template
@@ -84,11 +86,3 @@
         )
       )
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (emacs-lisp . nil)
-   (R . t)
-   (shell . t)
-  )
- )
