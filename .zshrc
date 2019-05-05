@@ -19,7 +19,6 @@ alias pt=papertrail
 
 # Colored trees
 alias tree='tree -C'
-eval $(thefuck --alias)
 
 # Vim bindings
 bindkey -v
