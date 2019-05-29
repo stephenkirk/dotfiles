@@ -50,6 +50,8 @@
                "* NEXT %?\n%U\n SCHEDULED: <%(org-read-date nil nil \"+0d\")>\n")
               ("m" "Meeting" entry (file "~/org/refile.org")
                "* MEETING with %? :MEETING:\n%U\n")
+              ("M" "Book meeting with" entry (file "~/org/refile.org")
+               "* Book meeting with %? :MEETING:\n%U\n SCHEDULED: <%(org-read-date nil nil \"+5d\")>\n")
 
               ("s" "emacs shortcut" entry (file "~/org/shortcuts.org")
                "* %? :SHORTCUT:\n%U\n")
