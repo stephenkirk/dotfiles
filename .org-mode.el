@@ -40,7 +40,6 @@
 ;; Capture templates
 (setq org-capture-templates
       (quote
-              ;; GTD
               (("t" "todo" entry (file "~/org/refile.org")
                "* TODO %?\n%U\n")
               ("T" "todo, schedule today" entry (file "~/org/refile.org")
@@ -49,23 +48,19 @@
                "* NEXT %?\n%U\n")
               ("R" "next, schedule today" entry (file "~/org/refile.org")
                "* NEXT %?\n%U\n SCHEDULED: <%(org-read-date nil nil \"+0d\")>\n")
-              ("n" "note" entry (file "~/org/refile.org")
-               "* %? :NOTE:\n%U\n")
               ("m" "Meeting" entry (file "~/org/refile.org")
                "* MEETING with %? :MEETING:\n%U\n")
 
               ("s" "emacs shortcut" entry (file "~/org/shortcuts.org")
                "* %? :SHORTCUT:\n%U\n")
 
-              ;; Personal
-              ("p" "Personal note" entry (file+headline "~/org/personal.org" "Notes")
-               "* %u\n%U\n%?")
-
               ;; Journal
               ("j" "Journal" entry (file+datetree "~/org/diary.org")
                "* %? :JOURNAL:\n%U\n")
               ("d" "Diary" entry (file+datetree "~/org/diary.org")
                "* %? :DIARY:\n%U\n")
+              ("n" "note" entry (file+datetree "~/org/diary.org")
+               "* %? :NOTE:\n%U\n")
               ("b" "Bucket list" entry (file+datetree "~/org/diary.org")
               "* %? :BUCKETLIST:JOURNAL:\n%U\n")
               ("g" "Gratitude" entry (file+datetree "~/org/diary.org")
