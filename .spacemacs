@@ -13,6 +13,9 @@
                                                   )
 )
 
+;; Always follow symlinks instead of asking.
+(setq vc-follow-symlinks t)
+
 (setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib))
 (setq dotspacemacs-excluded-packages '(powerline))
 
