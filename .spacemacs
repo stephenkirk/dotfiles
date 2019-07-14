@@ -30,7 +30,7 @@
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
   )
 
-;; Seems to speed up things
+;; spacemacs speedup hack
 (setq auto-window-vscroll nil)
 
 (defun export-org-files()
@@ -66,7 +66,7 @@
 (setq-default mac-right-option-modifier nil)
 
 ;; Make fullscreen sane
-;; TODO: still not iterm style fullscreen
+;; TODO: classic iterm style fullscreen
 (setq-default dotspacemacs-fullscreen-use-non-native nil)
 (setq-default dotspacemacs-maximized-at-startup t)
 (setq-default ns-use-native-fullscreen nil)
