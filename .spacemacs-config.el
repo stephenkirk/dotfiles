@@ -1,3 +1,7 @@
+;; define lambdas using "interactive" with macro shorthand
+;; Found at https://stackoverflow.com/a/37422551/8058988 
+(defmacro interactive-lambda (&rest body)
+  `(lambda () (interactive) ,@body))
 
 (defun my-org-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the
