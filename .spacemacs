@@ -33,11 +33,6 @@
 ;; spacemacs speedup hack
 (setq auto-window-vscroll nil)
 
-(defun export-org-files()
-  "Export all org files"
-  (org-html-export-to-html "~/org/diary.org")
-  )
-
 ;; Midnight-mode
 ;; (require 'midnight)
 ;; (midnight-delay-set 'midnight-delay "10:30am") ;; I'm usually in emacs by then
