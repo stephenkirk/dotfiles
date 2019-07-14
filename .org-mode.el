@@ -1,3 +1,6 @@
+;; Load private config shared from dropbox
+;; TODO: symlink
+(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
