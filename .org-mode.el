@@ -1,6 +1,20 @@
 ;; Load private config shared from dropbox
 ;; TODO: symlink
 (mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
+
+;; evil bindings for important files
+(defun find-refile-file ()
+  (interactive)
+  (find-file "~/org/refile.org"))
+
+(defun find-mobile-refile-file ()
+  (interactive)
+  (find-file "~/org/refile_mobile.org"))
+
+(evil-leader/set-key
+  "orr" 'find-refile-file
+  "orm" 'find-mobile-refile-file)
+
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
