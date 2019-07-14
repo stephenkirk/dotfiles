@@ -7,6 +7,7 @@
   (interactive)
   (find-file "~/org/refile.org"))
 
+;; keep a separate refile for beorg notes - this reduces conflicts slightly
 (defun find-mobile-refile-file ()
   (interactive)
   (find-file "~/org/refile_mobile.org"))
@@ -18,16 +19,12 @@
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
-;; auto save org mode buffers only
-;; (when (s-starts-with? "~/org" (buffer-file-name (current-buffer)))
-;;   (real-auto-save-mode))
-
 ;; Org and Agenda folders
 (setq org-agenda-files '("~/org") )
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
 
-;; slightly longer week
+;; i prefer slightly longer weeks in org agenda
 (setq org-agenda-span 10
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
