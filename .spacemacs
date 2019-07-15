@@ -13,11 +13,13 @@
                                                   )
 )
 
-;; private config shared from dropbox
-;; this is where i keep all my private bindings
-(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el")) 
-(load "~/.spacemacs-config.el") ;; spacemacs config 
+;; load dotfiles
+(load "~/.spacemacs-config.el") ;; spacemacs config
 (load "~/.org-mode.el") ;; org-related config
+;; private config shared from dropbox
+;; where i keep all my custom things that i don't want to share in version control
+;; such as "go to client 1 org file"
+(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
 
 ;; Always follow symlinks instead of asking
 (setq vc-follow-symlinks t)
@@ -27,11 +29,10 @@
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code."
-
-  ;; Make evil-mode up/down operate in screen lines instead of logical lines
+  ;; make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-motion-state-map "j" 'evil-next-visual-line)
   (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-  ;; Also in visual mode
+  ;; ..also in visual mode
   (define-key evil-visual-state-map "j" 'evil-next-visual-line)
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
   )
@@ -40,8 +41,9 @@
 (setq auto-window-vscroll nil)
 
 ;; Theming
-;; TODO Currently on hold as this seems super unreliable at the patchwork that is spacemacs
+;; TODO Currently seems super unreliable at the patchwork that is spacemacs
 ;; (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
+
 ;; Disable unicode symbols in mode line to speed up performance
 (setq dotspacemacs-mode-line-unicode-symbols nil)
 (setq dotspacemacs-default-font '("Input Mono Narrow"
