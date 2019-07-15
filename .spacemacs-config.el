@@ -1,6 +1,6 @@
 ;; define lambdas using "interactive" with macro shorthand
 ;; Found at https://stackoverflow.com/a/37422551/8058988 
-(defmacro interactive-lambda (&rest body)
+(defmacro !! (&rest body)
   `(lambda () (interactive) ,@body))
 
 (defun my-org-screenshot ()
@@ -32,7 +32,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (defun find-org-file ()
   (interactive)
-  (find-file (("~/.org-mode.el"))))
+  (find-file "~/.org-mode.el"))
 
 (defun export-org-files()
   "Export all org files"
