@@ -3,18 +3,10 @@
 (mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
 
 ;; evil bindings for important files
-(defun find-refile-file ()
-  (interactive)
-  (find-file "~/org/refile.org"))
-
-;; keep a separate refile for beorg notes - this reduces conflicts slightly
-(defun find-mobile-refile-file ()
-  (interactive)
-  (find-file "~/org/refile_mobile.org"))
-
 (evil-leader/set-key
-  "orr" 'find-refile-file
-  "orm" 'find-mobile-refile-file)
+  "orr" (!! (find-file "~/org/refile.org"))
+  "orm" (!! (find-file "~/org/refile_mobile.org")) ;; keep separate refile for beorg notes - reduces conflicts slightly
+)
 
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
@@ -28,6 +20,11 @@
 (setq org-agenda-span 10
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
+
+(defun export-org-files()
+  "Export all org files"
+  (org-html-export-to-html "~/org/diary.org")
+  )
 
 ;; Allow refile to target anything 3 layers down in org files
 ;; TODO: Separate levels for separate files

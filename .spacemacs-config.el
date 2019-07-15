@@ -23,30 +23,13 @@ same directory as the org-buffer and insert a link to this file."
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
 
-(defun find-config-file ()
-  (interactive)
-  (find-file "~/.spacemacs-config.el"))
-
+;; some default evil bindings
 (evil-leader/set-key
-  "fec" 'find-config-file)
-
-(defun find-org-file ()
-  (interactive)
-  (find-file "~/.org-mode.el"))
-
-(defun export-org-files()
-  "Export all org files"
-  (org-html-export-to-html "~/org/diary.org")
-  )
-
-(evil-leader/set-key
-  "feo" 'find-org-file)
-
-(evil-leader/set-key
-  "S" 'my-org-screenshot)
-
-(evil-leader/set-key
-  "s!" 'shell)
+  "fec" (!! (find-file "~/.spacemacs-config.el"))
+  "feo" (!! (find-file "~/.org-mode.el"))
+  "S" 'my-org-screenshot
+  "s!" 'shell
+)
 
 (add-hook 'org-mode-hook
           '(lambda ()
