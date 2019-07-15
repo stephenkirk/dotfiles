@@ -16,6 +16,9 @@
 ;; private config shared from dropbox
 ;; this is where i keep all my private bindings
 (mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el")) 
+(load "~/.spacemacs-config.el") ;; spacemacs config 
+(load "~/.org-mode.el") ;; org-related config
+
 ;; Always follow symlinks instead of asking
 (setq vc-follow-symlinks t)
 
@@ -36,13 +39,6 @@
 ;; spacemacs speedup hack
 (setq auto-window-vscroll nil)
 
-;; Midnight-mode
-;; (require 'midnight)
-;; (midnight-delay-set 'midnight-delay "10:30am") ;; I'm usually in emacs by then
-;; (add-hook 'midnight-hook (lambda
-;; 			                     (with-current-buffer "*cvs*"
-;; 				                     (call-interactively 'cvs-update))))
-
 ;; Theming
 ;; TODO Currently on hold as this seems super unreliable at the patchwork that is spacemacs
 ;; (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
@@ -53,12 +49,6 @@
                                   :weight normal
                                   :width normal
                                   :powerline-scale 1.2))
-
-;; Load other things
-(load "~/.spacemacs-config.el")
-
-;; Load org-related config
-(load "~/.org-mode.el")
 
 ;; Option modifier - right option key for symbols; left for meta
 (setq-default mac-right-option-modifier nil)

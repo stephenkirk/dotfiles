@@ -1,4 +1,3 @@
-
 ;; evil bindings for important files
 (evil-leader/set-key
   "orr" (!! (find-file "~/org/refile.org"))
