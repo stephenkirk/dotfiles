@@ -1,6 +1,3 @@
-;; Load private config shared from dropbox
-;; TODO: symlink
-(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
 
 ;; evil bindings for important files
 (evil-leader/set-key

@@ -13,6 +13,9 @@
                                                   )
 )
 
+;; private config shared from dropbox
+;; this is where i keep all my private bindings
+(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el")) 
 ;; Always follow symlinks instead of asking
 (setq vc-follow-symlinks t)
 
