@@ -13,19 +13,18 @@
                                                   )
 )
 
+(setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib solarized-theme))
+(setq dotspacemacs-excluded-packages '(powerline))
+
 ;; load dotfiles
 (load "~/.spacemacs-config.el") ;; spacemacs config
 (load "~/.org-mode.el") ;; org-related config
+
 ;; private config shared from dropbox
-;; where i keep all my custom things that i don't want to share in version control
-;; such as "go to client 1 org file"
+;; where i keep all my custom configuration that i don't want to share in version control
+;; for example, i have different org files for each client i work with in my org folder
+;; this allows me to have bindings such as "go to org file for client", without cluttering my dotfiles
 (mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
-
-;; Always follow symlinks instead of asking
-(setq vc-follow-symlinks t)
-
-(setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib))
-(setq dotspacemacs-excluded-packages '(powerline))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code."
@@ -40,17 +39,8 @@
 ;; spacemacs speedup hack
 (setq auto-window-vscroll nil)
 
-;; Theming
-;; TODO Currently seems super unreliable at the patchwork that is spacemacs
-;; (setq-default dotspacemacs-themes '(solarized-light solarized-dark))
-
 ;; Disable unicode symbols in mode line to speed up performance
 (setq dotspacemacs-mode-line-unicode-symbols nil)
-(setq dotspacemacs-default-font '("Input Mono Narrow"
-                                  :size 13
-                                  :weight normal
-                                  :width normal
-                                  :powerline-scale 1.2))
 
 ;; Option modifier - right option key for symbols; left for meta
 (setq-default mac-right-option-modifier nil)
@@ -60,12 +50,6 @@
 (setq-default dotspacemacs-fullscreen-use-non-native nil)
 (setq-default dotspacemacs-maximized-at-startup t)
 (setq-default ns-use-native-fullscreen nil)
-
-;; Make C-i act as vim jumplist instead
-(setq-default evil-want-C-i-jump t)
-
-;; Use zsh as terminal
-(setq multi-term-program "/usr/bin/zsh")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

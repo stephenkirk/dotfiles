@@ -76,6 +76,23 @@
               "* Today's gratitude :JOURNAL:GRATEFULNESS:\n%U\n%?")
 )))
 
+;; font customizations
+(add-hook 'org-mode-hook
+          '(lambda ()
+             ;; (setq line-spacing 0.2) ;; Add more line padding for readability
+             ;; (variable-pitch-mode 1) ;; All fonts with variable pitch.
+             (mapc
+              (lambda (face) ;; Other fonts with fixed-pitch.
+                (set-face-attribute face nil :inherit 'fixed-pitch))
+              (list 'org-code
+                    'org-link
+                    'org-block
+                    'org-table
+                    'org-verbatim
+                    'org-block-begin-line
+                    'org-block-end-line
+                    'org-meta-line
+                    'org-document-info-keyword))))
 
 ;; Enter insert mode after creating template
 (add-hook 'org-capture-mode-hook 'evil-insert-state)

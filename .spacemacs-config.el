@@ -18,7 +18,7 @@ same directory as the org-buffer and insert a link to this file."
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
 
-;; define lambdas using "interactive" with macro shorthand
+;; define lambdas using "interactive" with macro shorthand !!
 ;; Found at https://stackoverflow.com/a/37422551/8058988 
 (defmacro !! (&rest body)
   `(lambda () (interactive) ,@body))
@@ -31,20 +31,20 @@ same directory as the org-buffer and insert a link to this file."
   "s!" 'shell
 )
 
-(add-hook 'org-mode-hook
-          '(lambda ()
-             ;; (setq line-spacing 0.2) ;; Add more line padding for readability
-             ;; (variable-pitch-mode 1) ;; All fonts with variable pitch.
-             (mapc
-              (lambda (face) ;; Other fonts with fixed-pitch.
-                (set-face-attribute face nil :inherit 'fixed-pitch))
-              (list 'org-code
-                    'org-link
-                    'org-block
-                    'org-table
-                    'org-verbatim
-                    'org-block-begin-line
-                    'org-block-end-line
-                    'org-meta-line
-                    'org-document-info-keyword))))
+;; Always follow symlinks instead of asking
+(setq vc-follow-symlinks t)
 
+;; Theming
+(setq-default dotspacemacs-themes '(solarized-dark solarized-light))
+(setq solarized-use-variable-pitch nil) ;; don't use any crazy fonts
+(setq dotspacemacs-default-font '("Input Mono Narrow"
+                                  :size 13
+                                  :weight normal
+                                  :width normal
+                                  :powerline-scale 1.2))
+
+;; Make C-i act as vim jumplist instead
+(setq-default evil-want-C-i-jump t)
+
+;; Use zsh as terminal
+(setq multi-term-program "/usr/bin/zsh")
