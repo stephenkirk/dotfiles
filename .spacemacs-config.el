@@ -48,3 +48,4 @@ same directory as the org-buffer and insert a link to this file."
 
 ;; Use zsh as terminal
 (setq multi-term-program "/usr/bin/zsh")
+
