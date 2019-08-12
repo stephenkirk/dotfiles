@@ -7,6 +7,10 @@
 (setq org-hide-leading-stars t)
 (setq org-ellipsis "⤵")
 
+;; Don’t ask me if I want to run an babel code block. I know what I’m doing.
+(setq org-confirm-babel-evaluate nil)
+
+
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
@@ -19,6 +23,13 @@
 (setq org-agenda-span 10
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
+
+;; List stuck projects when pressing A in agenda view
+;; TODO: Define stuck projects
+(setq org-agenda-custom-commands
+      (quote (("A" "Custom Agenda"
+                (stuck ""
+                       ((org-agenda-overriding-header "Stuck Projects")))))))
 
 (defun export-org-files()
   "Export all org files"
