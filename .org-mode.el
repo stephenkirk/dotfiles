@@ -46,6 +46,12 @@
 (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                  (org-agenda-files :maxlevel . 3))))
 
+;; TODO states
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "HOLD(h)")
+              )))
+
 ; Refile in a single go
 (setq org-outline-path-complete-in-steps nil)
 
