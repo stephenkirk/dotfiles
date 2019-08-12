@@ -41,11 +41,15 @@
 ; Show full paths for refiling
 (setq org-refile-use-outline-path t)
 
-;; TODO states (with GTD as principle)
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "HOLD(h)")
-              )))
+; Refile start with the file name - allows creating level 1 tasks
+(setq org-refile-use-outline-path (quote file))
+
+
+;; evil bindings for important files
+(evil-leader/set-key
+  "orr" (!! (find-file "~/org/refile.org"))
+  "orm" (!! (find-file "~/org/refile_mobile.org")) ;; keep separate refile for beorg notes - reduces conflicts slightly
+  )
 
 ;; Capture templates
 (setq org-capture-templates
