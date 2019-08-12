@@ -1,8 +1,3 @@
-;; evil bindings for important files
-(evil-leader/set-key
-  "orr" (!! (find-file "~/org/refile.org"))
-  "orm" (!! (find-file "~/org/refile_mobile.org")) ;; keep separate refile for beorg notes - reduces conflicts slightly
-)
 
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
