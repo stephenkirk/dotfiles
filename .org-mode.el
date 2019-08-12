@@ -1,3 +1,11 @@
+;; Replace ugly #+BEGIN_SRC blocks in org-mode documents with lambda symbol
+;; I use <sTAB anyway to insert
+(setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "λ")))
+(add-hook 'org-mode-hook 'prettify-symbols-mode)
+
+;; Hide leading stars; replace '...' in org headings with a less in-your-face symbol
+(setq org-hide-leading-stars t)
+(setq org-ellipsis "⤵")
 
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
