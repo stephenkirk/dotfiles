@@ -1,8 +1,15 @@
-;; evil bindings for important files
-(evil-leader/set-key
-  "orr" (!! (find-file "~/org/refile.org"))
-  "orm" (!! (find-file "~/org/refile_mobile.org")) ;; keep separate refile for beorg notes - reduces conflicts slightly
-)
+;; Replace ugly #+BEGIN_SRC blocks in org-mode documents with lambda symbol
+;; I use <sTAB anyway to insert
+(setq-default prettify-symbols-alist '(("#+BEGIN_SRC" . "λ")))
+(add-hook 'org-mode-hook 'prettify-symbols-mode)
+
+;; Hide leading stars; replace '...' in org headings with a less in-your-face symbol
+(setq org-hide-leading-stars t)
+(setq org-ellipsis "⤵")
+
+;; Don’t ask me if I want to run an babel code block. I know what I’m doing.
+(setq org-confirm-babel-evaluate nil)
+
 
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
@@ -16,6 +23,13 @@
 (setq org-agenda-span 10
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
+
+;; List stuck projects when pressing A in agenda view
+;; TODO: Define stuck projects
+(setq org-agenda-custom-commands
+      (quote (("A" "Custom Agenda"
+                (stuck ""
+                       ((org-agenda-overriding-header "Stuck Projects")))))))
 
 (defun export-org-files()
   "Export all org files"
@@ -32,17 +46,27 @@
 (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                  (org-agenda-files :maxlevel . 3))))
 
+;; TODO states
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "HOLD(h)")
+              )))
+
 ; Refile in a single go
 (setq org-outline-path-complete-in-steps nil)
 
 ; Show full paths for refiling
 (setq org-refile-use-outline-path t)
 
-;; TODO states (with GTD as principle)
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "HOLD(h)")
-              )))
+; Refile start with the file name - allows creating level 1 tasks
+(setq org-refile-use-outline-path (quote file))
+
+
+;; evil bindings for important files
+(evil-leader/set-key
+  "orr" (!! (find-file "~/org/refile.org"))
+  "orm" (!! (find-file "~/org/refile_mobile.org")) ;; keep separate refile for beorg notes - reduces conflicts slightly
+  )
 
 ;; Capture templates
 (setq org-capture-templates
