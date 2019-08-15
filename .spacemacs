@@ -22,7 +22,7 @@
 ;; (package-refresh-contents)
 
 (setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib solarized-theme))
-(setq dotspacemacs-excluded-packages '(powerline))
+(setq dotspacemacs-excluded-packages '(powerline magit-gitflow))
 
 ;; load dotfiles
 (load "~/.spacemacs-config.el") ;; spacemacs config
