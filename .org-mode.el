@@ -10,7 +10,6 @@
 ;; Don’t ask me if I want to run an babel code block. I know what I’m doing.
 (setq org-confirm-babel-evaluate nil)
 
-
 ;; Custom key binding for agenda
 (global-set-key (kbd "<f12>") 'org-agenda)
 
@@ -88,15 +87,15 @@
                "* %? :SHORTCUT:\n%U\n")
 
               ;; Journal
-              ("j" "Journal" entry (file+datetree "~/org/diary.org")
+              ("j" "Journal" entry (file+datetree+prompt "~/org/diary.org")
                "* %? :JOURNAL:\n%U\n")
-              ("d" "Diary" entry (file+datetree "~/org/diary.org")
+              ("d" "Diary" entry (file+datetree+prompt "~/org/diary.org")
                "* %? :DIARY:\n%U\n")
-              ("n" "note" entry (file+datetree "~/org/diary.org")
+              ("n" "note" entry (file+datetree+prompt "~/org/diary.org")
                "* %? :NOTE:\n%U\n")
-              ("b" "Bucket list" entry (file+datetree "~/org/diary.org")
+              ("b" "Bucket list" entry (file+datetree+prompt "~/org/diary.org")
               "* %? :BUCKETLIST:JOURNAL:\n%U\n")
-              ("g" "Gratitude" entry (file+datetree "~/org/diary.org")
+              ("g" "Gratitude" entry (file+datetree+prompt "~/org/diary.org")
               "* Today's gratitude :JOURNAL:GRATEFULNESS:\n%U\n%?")
 )))
 
