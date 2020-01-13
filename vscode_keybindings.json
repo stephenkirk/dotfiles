@@ -123,5 +123,18 @@
     {
         "key": "cmd+k enter",
         "command": "-workbench.action.keepEditor"
+    },
+    {
+        "key": "cmd+]",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
+        "key": "cmd+]",
+        "command": "-editor.action.indentLines",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]

@@ -52,7 +52,6 @@ cask "spectacle"
 cask "sublime-merge"
 cask "sublime-text"
 cask "tableplus"
-cask "visual-studio-code"
 # Set up taps
 tap 'caskroom/cask'
 tap 'homebrew/bundle'
@@ -78,7 +77,7 @@ cask 'dupeguru'
 
 # Development
 cask 'postman'
-cask 'visual-studio-code'
+cask 'vscodium'
 cask 'sublime-text'
 cask 'sublime-merge'
 cask 'tableplus'

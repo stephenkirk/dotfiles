@@ -1,13 +1,18 @@
 {
     "editor.fontFamily": "SF Mono",
     "editor.fontLigatures": true,
-
+    "editor.formatOnSave": true,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 80,
     "editor.minimap.renderCharacters": true,
     "editor.minimap.showSlider": "always",
     "editor.minimap.side": "left",
-
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Gruvbox Dark (Hard)",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.statusBar.visible": true,
     "vim.debug.silent": true,
     "vim.easymotion": true,
     "vim.easymotionMarkerBackgroundColor": "#000",
@@ -21,7 +26,9 @@
     "vim.visualstar": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["K"],
+            "before": [
+                "K"
+            ],
             "after": [],
             "commands": [
                 {
@@ -31,20 +38,13 @@
             ]
         }
     ],
-
     "telemetry.enableTelemetry": false,
-
+    "telemetry.enableCrashReporter": false,
     "window.zoomLevel": 0,
-
-    "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "Gruvbox Dark (Hard)",
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.panel.defaultLocation": "right",
-    "workbench.statusBar.visible": true,
     "vsicons.dontShowNewVersionMessage": true,
     "autoimport.filesToScan": "**/*.{js,jsx,ts,tsx}",
     "workbench.settings.editor": "json",
     "explorer.confirmDragAndDrop": false,
-    "javascript.updateImportsOnFileMove.enabled": "always"
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "python.envFile": "",
 }
