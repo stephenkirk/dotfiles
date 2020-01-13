@@ -3,25 +3,20 @@ export LC_ALL=C
 export LANG=""
 
 # Aliases
-## Make git great again
 alias gs='git status'
 alias gca='git commit -a'
 alias gc='git commit'
 alias grc='git rebase --continue'
 alias gpl='git pull'
 
-## Remapping
 alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
 
-## Other aliases
-alias pt=papertrail
-
 # Activate z
 . /usr/local/opt/z/etc/profile.d/z.sh
 
-# Colored trees
+# Colored trees by default
 alias tree='tree -C'
 
 # Vim bindings
@@ -31,7 +26,7 @@ bindkey -v
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
-antigen theme amuse
+antigen theme robbyrussell
 antigen bundle paulirish/git-open
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
