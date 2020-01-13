@@ -1,3 +1,7 @@
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export LC_ALL=C
+export LANG=""
+
 # Aliases
 ## Make git great again
 alias gs='git status'
@@ -33,6 +37,3 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# env variables
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
