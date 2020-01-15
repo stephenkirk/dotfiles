@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "SF Mono",
+    "editor.fontFamily": "Jetbrains Mono",
     "editor.fontLigatures": true,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": true,
@@ -10,7 +10,6 @@
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
     "workbench.editor.enablePreviewFromQuickOpen": false,
-    "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
     "workbench.statusBar.visible": true,
     "vim.debug.silent": true,
@@ -19,7 +18,6 @@
     "vim.easymotionMarkerFontFamily": "Operator Mono",
     "vim.easymotionMarkerFontWeight": "bold",
     "vim.hlsearch": true,
-    // "vim.leader": "<space>",
     "vim.surround": true,
     "vim.sneak": true,
     "vim.useSystemClipboard": true,
@@ -41,10 +39,8 @@
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "window.zoomLevel": 0,
-    "vsicons.dontShowNewVersionMessage": true,
-    "autoimport.filesToScan": "**/*.{js,jsx,ts,tsx}",
     "workbench.settings.editor": "json",
     "explorer.confirmDragAndDrop": false,
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "python.envFile": "",
+    "python.envFile": "", // Stop injecting env variables in plain text in the terminal - i can handle my environment myself
 }
