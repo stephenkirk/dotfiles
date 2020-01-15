@@ -15,9 +15,6 @@ alias where='grealpath'
 # Colored trees by default
 alias tree='tree -C'
 
-# Vim bindings
-bindkey -v
-
 # Antigen setup
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
@@ -31,3 +28,7 @@ antigen apply
 
 # env variables
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# vi mode
+bindkey -v
+KEYTIMEOUT=1 # 10ms for key sequences
