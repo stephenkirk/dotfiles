@@ -14,7 +14,7 @@
 (global-set-key (kbd "<f12>") 'org-agenda)
 
 ;; Org and Agenda folders
-(setq org-agenda-files '("~/org") )
+(setq org-agenda-files '("~/org" "~/org/journal/") )
 (setq org-directory "~/org")
 (setq org-default-notes-file "~/org/refile.org")
 
@@ -24,19 +24,15 @@
       org-agenda-start-day "-3d")
 
 ;; List stuck projects when pressing A in agenda view
-;; TODO: Define stuck projects
+;; TODO Define stuck projects
 (setq org-agenda-custom-commands
       (quote (("A" "Custom Agenda"
                 (stuck ""
                        ((org-agenda-overriding-header "Stuck Projects")))))))
 
-(defun export-org-files()
-  "Export all org files"
-  (org-html-export-to-html "~/org/diary.org")
-  )
 
 ;; Allow refile to target anything 3 layers down in org files
-;; TODO: Separate levels for separate files
+;; TODO Separate levels for separate files
 ;; ;; EXAMPLE
 ;; (setq org-refile-targets (quote (("tickler.org" :maxlevel . 1)
 ;;                                  ("organizer.org" :level . 1)
