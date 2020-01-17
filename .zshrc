@@ -13,9 +13,6 @@ alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
 
-# Activate z
-. /usr/local/opt/z/etc/profile.d/z.sh
-
 # Colored trees by default
 alias tree='tree -C'
 
@@ -26,6 +23,7 @@ antigen bundle git
 antigen theme robbyrussell
 antigen bundle paulirish/git-open
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle agkozak/zsh-z
 antigen apply
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
