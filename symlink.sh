@@ -11,3 +11,5 @@ rm -rf ~/.git # Remove accidental git folder committing
 
 # spectacle
 ln -s ~/dotfiles/spectacle_shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
+
+ln -s ~/Dropbox/dotfiles_private ~/
