@@ -26,8 +26,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle agkozak/zsh-z
 antigen apply
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # vi mode
 bindkey -v
 KEYTIMEOUT=1 # 10ms for key sequences
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
