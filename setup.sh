@@ -11,3 +11,6 @@ fi
 brew update
 brew tap homebrew/bundle
 brew bundle
+
+# add symlinks
+source ./symlink.sh
