@@ -43,4 +43,5 @@
     "explorer.confirmDragAndDrop": false,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "python.envFile": "", // Stop injecting env variables in plain text in the terminal - i can handle my environment myself
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
 }
