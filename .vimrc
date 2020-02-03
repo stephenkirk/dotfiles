@@ -15,3 +15,16 @@ set undodir=~/.vim/undodir
 
 " Remove highlights with <Ctrl-l>
 nnoremap <silent> <C-l> :nohl<CR><C-l> 
+
+" Space as leader key
+let mapleader=" "
+
+" Bindings
+nnoremap <silent> <Leader>s :split<CR>
+nnoremap <silent> <Leader>v :vsplit<CR>
+nnoremap <silent> <Leader>q :close<CR>
+
+" Plugins
+call plug#begin()
+Plug 'dense-analysis/ale'
+call plug#end()
