@@ -1,6 +1,6 @@
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export LC_ALL=C
-export LANG=""
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Aliases
 alias gs='git status'
