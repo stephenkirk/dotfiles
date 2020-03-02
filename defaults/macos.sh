@@ -1,9 +1,6 @@
 #!/bin/bash
 
 # Set some useful OS X defaults.
-# Source for some of the important things:
-# https://github.com/nicksp/dotfiles
-
 
 # Ask for the administrator password upfront
 sudo -v
@@ -15,25 +12,8 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Safari Stuff
 ########################
 
-# Privacy: don’t send Safari search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-
 # Prevent Safari from opening ‘safe’ files automatically after downloading
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
-# Set Safari’s home page to `about:blank` for faster loading
-defaults write com.apple.Safari HomePage -string "about:blank"
-
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-
-# Disable stupid menu bar items
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-  "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-  "/System/Library/CoreServices/Menu Extras/User.menu"
-done
 
 ########################
 # Activity Monitor
@@ -83,7 +63,7 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Allow text-selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
-# DISABLE auto-correct
+# Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable the “Are you sure you want to open this application?” dialog
@@ -102,15 +82,5 @@ defaults write com.apple.CrashReporter DialogType -string "none"
 # OTHER
 ############
 
-# Disable the sudden motion sensor as it’s not useful for SSDs
-sudo pmset -a sms 0
-
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
-
-############
-# MOJAVE
-############
-
-# Make text readable in Mojave
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool FALSE
