@@ -47,10 +47,21 @@ function updateTimer()
 	secondsLeft = secondsLeft - 1
 	updateTimerMenu()
 	if secondsLeft <= 0 then
-		-- TODO: Log finished pomodoro's somewhere
 		stopTimer()
 		hs.alert.show("Timer done!")
-		-- TODO: Alert
+	end
+end
+
+function timeLeft()
+	local minutes = math.floor(secondsLeft / 60)
+	local seconds = secondsLeft - (minutes * 60)
+	return string.format("%02d:%02d", minutes, seconds)
+end
+
+function flashTimer()
+	-- TODO: hs alert for timer
+	if timerIsActive then
+		hs.alert.show(timeLeft() .. " remaining")
 	end
 end
 
@@ -67,10 +78,6 @@ function updateTimerMenu()
 		timerMenu:setTitle("paused")
 	end
 
-    local minutes = math.floor(secondsLeft / 60)
-	local seconds = secondsLeft - (minutes * 60)
-	local timeLeft = string.format("%02d:%02d", minutes, seconds)
-
     local items = {
             {title = "Stop", fn = function() stopTimer() end},
         }
@@ -80,8 +87,6 @@ function updateTimerMenu()
     else
         table.insert(items, 1, {title = "Start", fn = function() startTimer() end})
     end
-    table.insert(items, 1, {title = timeLeft})
-
     timerMenu:setMenu(items)
 end
 
@@ -114,11 +119,7 @@ end
 
 hs.hotkey.bind(super, "T", function() toggleTimer() end)
 hs.hotkey.bind(super, "Y", function() stopTimer() end)
-
---
-
-hs.hotkey.bind(super, "R", function()
-  hs.reload()
-end)
+hs.hotkey.bind(super, "U", function() flashTimer() end)
+hs.hotkey.bind(super, "R", function() hs.reload() end)
 
 hs.alert.show("Config loaded")
