@@ -48,7 +48,7 @@ function updateTimer()
 	updateTimerMenu()
 	if secondsLeft <= 0 then
 		stopTimer()
-		hs.alert.show("Timer done!")
+		hs.notify.new({title="Timer Done", informativeText="Time for a break!"}):send()
 	end
 end
 
