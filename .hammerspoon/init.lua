@@ -45,7 +45,6 @@ local timerMenu
 
 function updateTimer()
 	secondsLeft = secondsLeft - 1
-	updateTimerMenu()
 	if secondsLeft <= 0 then
 		stopTimer()
 		hs.notify.new({title="Timer Done", informativeText="Time for a break!"}):send()
@@ -80,6 +79,7 @@ function updateTimerMenu()
 
     local items = {
             {title = "Stop", fn = function() stopTimer() end},
+	    {title = timeLeft() }
         }
 
     if timerIsActive then
@@ -102,6 +102,7 @@ function startTimer()
     if timerIsActive then return end
     timer:start()
     timerIsActive = true
+    updateTimerMenu()
 end
 
 function pauseTimer()
