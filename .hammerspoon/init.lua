@@ -125,9 +125,38 @@ function addToPlaylist(playlistUri)
 	hs.osascript.applescript(command)
 end
 
+-- Monitor config
+
+function isExternalScreen(screen)
+	return screen:name() ~= "Color LCD"
+end
+
+function externalScreenIsConnected()
+	local isConnected = false
+	screens = hs.screen.allScreens()
+
+	for _, screen in pairs(screens) do 
+		if isExternalScreen(screen) then isConnected = true end
+	end
+	return isConnected
+end
+
+function whenScreensAreChanged()
+	local monitorControl = hs.appfinder.appFromName("MonitorControl")
+	local monitorControlisRunning = monitorControl ~= nil
+
+	if externalScreenIsConnected and not monitorControlIsRunning then hs.application.open("MonitorControl")
+	elseif not externalScreenIsConnected and monitorControlIsRunning then monitorControl:kill() 
+	end
+end
+
+hs.hotkey.bind(super, "P", function() hs.alert.show(externalScreenIsConnected()) end)
+watcher = hs.screen.watcher.new(whenScreensAreChanged)
+watcher:start()
+
 -- Bindings
 hs.hotkey.bind(super, "T", function() toggleTimer() end)
-hs.hotkey.bind(super, "Y", function() stopTimer() end)
+-- hs.hotkey.bind(super, "Y", function() stopTimer() end)
 hs.hotkey.bind(super, "U", function() flashTimer() end)
 hs.hotkey.bind(super, "S", function() addToPlaylist("spotify:playlist:3p1IOx76h4xaSVzxwBu7g1") end)
 hs.hotkey.bind(super, "C", function() addToPlaylist("spotify:playlist:7Kcmr1uzpuEYkQbXFfp0LS") end)
