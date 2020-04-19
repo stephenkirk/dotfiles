@@ -1,2 +1,3 @@
 source ~/.vimrc
 set clipboard+=ideaput
+set ideajoin
