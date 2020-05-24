@@ -8,6 +8,7 @@ set autoindent          " Copy the same indent from the previous line
 set ignorecase smartcase
 set incsearch
 set showmode
+set linebreak
 
 " infinite persistent undo
 set undofile
@@ -24,6 +25,9 @@ nnoremap <silent> <Leader>s :split<CR>
 nnoremap <silent> <Leader>v :vsplit<CR>
 nnoremap <silent> <Leader>q :close<CR>
 
+" Commands
+command! Jsonformat :%!python -m json.tool
+
 " Plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -34,3 +38,4 @@ endif
 call plug#begin()
 Plug 'dense-analysis/ale'
 call plug#end()
+
