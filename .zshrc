@@ -73,3 +73,18 @@ toggle_desktop () {
 journal() {
 	rg $1 ~/org
 }
+
+# completed-list
+cl() {
+	todoist cl -f 'today|yesterday' \
+		| tail -r \
+		| awk '!($1="")'
+}
+#
+# Schedule sleep in X minutes
+function sleep-in() {
+  local minutes=$1
+  local datetime=local datetime="`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`"
+  sudo pmset schedule sleep "$datetime"
+
+}
