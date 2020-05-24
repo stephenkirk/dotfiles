@@ -14,3 +14,4 @@ ln -fs ~/Dropbox/dotfiles_private ~/
 ln -fs ~/Dropbox/dotfiles_private/.profile ~/.profile
 ln -fs ~/Dropbox/org ~/
 ln -fs ~/Dropbox/dotfiles_private/bin ~/bin
+ln -fs ~/Dropbox/data ~/data
