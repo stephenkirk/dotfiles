@@ -31,21 +31,18 @@ same directory as the org-buffer and insert a link to this file."
   "s!" 'shell
 )
 
-;; Always follow symlinks instead of asking
-(setq vc-follow-symlinks t)
+(setq vc-follow-symlinks t) ;; Always follow symlinks instead of asking
 
+(setq dotspacemacs-auto-resume-layouts t)
 ;; Theming
 (setq-default dotspacemacs-themes '(solarized-dark solarized-light))
-(setq solarized-use-variable-pitch nil) ;; don't use any crazy fonts
 (setq dotspacemacs-default-font '("Input Mono Narrow"
                                   :size 13
                                   :weight normal
                                   :width normal
                                   :powerline-scale 1.2))
 
-;; Make C-i act as vim jumplist instead
-(setq-default evil-want-C-i-jump t)
+(setq-default evil-want-C-i-jump t) ;; Make C-i act as vim jumplist instead
 
-;; Use zsh as terminal
+(setq solarized-use-variable-pitch nil) ;; don't use weird fonts
 (setq multi-term-program "/usr/bin/zsh")
-
