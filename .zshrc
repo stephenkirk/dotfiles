@@ -8,22 +8,24 @@ fi
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export EDITOR=vim
 
-# Aliases
 alias gs='git status'
 alias gca='git commit -a'
 alias gc='git commit'
 alias grc='git rebase --continue'
 alias gpl='git pull'
-
+alias -s git="git clone" # https://github.com/stephenkirk/dotfiles.git becomes `git clone https://github.com/stephenkirk/dotfiles.git`
+alias rc="$EDITOR $HOME/.zshrc"
 alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
 
+
 # Colored trees by default
 alias tree='tree -C'
 
-# Antigen setup
+# Antigen
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
