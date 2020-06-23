@@ -1,15 +1,106 @@
+;; define interactive lambda with !!
+;; https://stackoverflow.com/a/37422551/8058988
+(defmacro !! (&rest body)
+  `(lambda () (interactive) ,@body))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (helm-rg powerline spinner org-category-capture alert log4e gntp org-mime flycheck markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode hydra lv parent-mode projectile pkg-info epl request haml-mode gitignore-mode flx highlight magit git-commit with-editor transient smartparens iedit anzu evil goto-chg undo-tree f csharp-mode web-completion-data s dash-functional tern company bind-map bind-key yasnippet helm avy helm-core async auto-complete popup yaml-mode solarized-theme macrostep elisp-slime-nav define-word auto-compile packed ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-download org-clock-csv org-bullets open-junk-file omnisharp neotree move-text mmm-mode markdown-toc magit-gitflow lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode dumb-jump diminish csv-mode company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq custom-file "~/.custom.el")
+
+(setq vc-follow-symlinks t)
+(setq-default dotspacemacs-configuration-layers '(
+                                                  yaml
+                                                  html
+                                                  csv
+                                                  javascript
+                                                  csharp
+                                                  helm
+                                                  markdown
+                                                  git
+                                                  auto-completion
+                                                  org
+                                                  (osx :variables osx-option-as 'meta
+                                                       osx-right-option-as 'none)
+                                                  )
+              )
+
+(setq dotspacemacs-auto-resume-layouts t)
+
+;; Theming
+(setq-default dotspacemacs-themes '(solarized-dark solarized-light))
+(setq dotspacemacs-default-font '("Input Mono Narrow"
+                                  :size 13
+                                  :weight normal
+                                  :width normal
+                                  :powerline-scale 1.2))
+
+(setq-default evil-want-C-i-jump t) ;; Make C-i act as vim jumplist instead
+(setq solarized-use-variable-pitch nil) ;; don't use weird fonts
+(setq multi-term-program "/usr/bin/zsh")
+(setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib solarized-theme helm-rg))
+(setq dotspacemacs-excluded-packages '(powerline magit-gitflow yasnippet))
+;; spacemacs speedup hack
+(setq auto-window-vscroll nil)
+
+;; Disable unicode symbols in mode line to speed up performance
+(setq dotspacemacs-mode-line-unicode-symbols nil)
+
+;; Option modifier - right option key for symbols; left for meta
+(setq-default mac-right-option-modifier nil)
+
+;; Make fullscreen sane
+(setq-default dotspacemacs-fullscreen-use-non-native nil)
+(setq-default dotspacemacs-maximized-at-startup t)
+(setq-default ns-use-native-fullscreen nil)
+
+(evil-leader/set-key
+  "fec" (!! (find-file "~/.spacemacs.el"))
+  "feo" (!! (find-file "~/.org-mode.el"))
+  "S" 'my-org-screenshot
+  "s!" 'shell
+)
+
+;; on one of my computers, melpa as a package endpoint doesn't exist for some reason
+(require 'package)
+(add-to-list 'package-archives
+              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; (package-refresh-contents)
+
+dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code."
+  ;; make evil-mode up/down operate in screen lines instead of logical lines
+  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  ;; ..also in visual mode
+  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  )
+
+(defun my-org-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (org-display-inline-images)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (file-name-nondirectory (buffer-file-name))
+                  "_imgs/"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (unless (file-exists-p (file-name-directory filename))
+    (make-directory (file-name-directory filename)))
+                                        ; take screenshot
+  (if (eq system-type 'darwin)
+      (call-process "screencapture" nil nil nil "-i" filename))
+                                        ; insert into file if correctly taken
+  (if (file-exists-p filename)
+      (insert (concat "[[file:" filename "]]"))))
+
+;; Load rest of config
+(load "~/.org-mode.el")
+
+;; private config shared from dropbox
+;; where i keep all my custom configuration that i don't want to share in version control
+;; for example, i have different org files for each client i work with in my org folder
+;; this allows me to have bindings such as "go to org file for client", without cluttering my public repo
+(mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
