@@ -53,6 +53,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 source ~/.profile
 
 path+=("$HOME/bin")
+path+=("$HOME/.dotnet/tools")
 export PATH
 
 toggle_desktop () {
