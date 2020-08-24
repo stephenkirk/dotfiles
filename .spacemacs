@@ -22,8 +22,6 @@
                                                   )
               )
 
-(setq dotspacemacs-auto-resume-layouts t)
-
 ;; Theming
 (setq-default dotspacemacs-themes '(solarized-dark solarized-light))
 (setq dotspacemacs-default-font '("Input Mono Narrow"
@@ -36,7 +34,7 @@
 (setq solarized-use-variable-pitch nil) ;; don't use weird fonts
 (setq multi-term-program "/usr/bin/zsh")
 (setq dotspacemacs-additional-packages '(org-clock-csv org-plus-contrib solarized-theme helm-rg))
-(setq dotspacemacs-excluded-packages '(powerline magit-gitflow yasnippet))
+(setq dotspacemacs-excluded-packages '(powerline magit-gitflow company-tern yasnippet))
 ;; spacemacs speedup hack
 (setq auto-window-vscroll nil)
 
@@ -52,7 +50,6 @@
 (setq-default ns-use-native-fullscreen nil)
 
 (evil-leader/set-key
-  "fec" (!! (find-file "~/.spacemacs.el"))
   "feo" (!! (find-file "~/.org-mode.el"))
   "S" 'my-org-screenshot
   "s!" 'shell
@@ -104,3 +101,13 @@ same directory as the org-buffer and insert a link to this file."
 ;; for example, i have different org files for each client i work with in my org folder
 ;; this allows me to have bindings such as "go to org file for client", without cluttering my public repo
 (mapc 'load (file-expand-wildcards "~/Dropbox/dotfiles_private/*.el"))
+
+(defun ediff-copy-both-to-C ()
+  "Copy both diff A and B to buffer C."
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
