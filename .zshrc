@@ -21,6 +21,7 @@ alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
 
+alias nvimrc="nvim ~/.config/nvim/init.vim"
 
 # Colored trees by default
 alias tree='tree -C'
@@ -89,5 +90,4 @@ function sleep-in() {
   local minutes=$1
   local datetime=local datetime="`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`"
   sudo pmset schedule sleep "$datetime"
-
 }
