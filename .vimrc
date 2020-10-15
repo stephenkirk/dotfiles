@@ -37,5 +37,8 @@ endif
 
 call plug#begin()
 Plug 'dense-analysis/ale'
+if (has('nvim'))
+	Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+endif
 call plug#end()
 
