@@ -118,19 +118,10 @@ function stopTimer()
 	timerMenu:delete()
 end
 
--- Add current track to my playlists
--- Requires alfred spotify mini player
-function addToPlaylist(playlistUri)
-	command = "tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"add_current_track_to\" in workflow \"com.vdesabou.spotify.mini.player\" with argument \"" .. playlistUri .. "\""
-	hs.osascript.applescript(command)
-end
-
 -- Bindings
 hs.hotkey.bind(super, "T", function() toggleTimer() end)
--- hs.hotkey.bind(super, "Y", function() stopTimer() end)
 hs.hotkey.bind(super, "U", function() flashTimer() end)
-hs.hotkey.bind(super, "S", function() addToPlaylist("spotify:playlist:3p1IOx76h4xaSVzxwBu7g1") end)
-hs.hotkey.bind(super, "C", function() addToPlaylist("spotify:playlist:7Kcmr1uzpuEYkQbXFfp0LS") end)
 hs.hotkey.bind(super, "R", function() hs.reload() end)
+hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
 
 hs.alert.show("Config loaded")
