@@ -1,84 +1,83 @@
 tap "d12frosted/emacs-plus"
+tap "github/gh"
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "mopidy/mopidy"
 tap "sachaos/todoist"
-# Plugin manager for zsh, inspired by oh-my-zsh and vundle
 brew "antigen"
-# Statistics utility to count lines of code
+brew "azure-cli"
 brew "cloc"
-# Command-line encoder frontend for libfdk-aac
+brew "csvkit"
 brew "fdk-aac-encoder"
-# Command-line fuzzy finder written in Go
 brew "fzf"
-# Distributed revision control system
+brew "gh"
+brew "ghostscript"
 brew "git"
-# Small git utilities
 brew "git-extras"
-# Make JSON greppable
 brew "gron"
-# High quality MPEG Audio Layer III (MP3) encoder
+brew "hugo"
+brew "imagemagick@6"
+brew "inetutils"
+brew "jq"
 brew "lame"
-# GNOME XML library
+brew "libav"
 brew "libxml2"
-# Powerful, clean, object-oriented scripting language
 brew "ruby"
-# GUI for vim, made for macOS
 brew "macvim"
-# GDI+-compatible API on non-Windows operating systems
 brew "mono-libgdiplus"
-# Platform built on V8 to build network applications
 brew "node"
-# Python version management
+brew "nativefier"
+brew "osx-cpu-temp"
 brew "pyenv"
-# Reattach process (e.g., tmux) to background
+brew "r"
 brew "reattach-to-user-namespace"
-# Code-search similar to ack
-brew "the_silver_searcher"
-# Terminal multiplexer
+brew "ripgrep"
+brew "tldr"
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
 brew "tree"
-# Internet file retriever
+brew "unrar"
 brew "wget"
-# Download YouTube videos from the command-line
+brew "wtfutil"
 brew "youtube-dl"
-# UNIX shell (command interpreter)
 brew "zsh"
-# GNU Emacs text editor
-brew "d12frosted/emacs-plus/emacs-plus", args: ["HEAD"]
-# Todoist CLI client
+brew "d12frosted/emacs-plus/emacs-plus@27", link: false
+brew "mopidy/mopidy/pyspotify"
 brew "sachaos/todoist/todoist"
-
-# casks
 cask "1password"
 cask "alacritty"
 cask "alfred"
+cask "amethyst"
 cask "anki"
 cask "contexts"
+cask "dotnet-sdk"
 cask "dropbox"
 cask "dupeguru"
+cask "eloston-chromium"
 cask "firefox"
-cask "google-chrome"
+cask "font-fira-mono"
 cask "hammerspoon"
 cask "handbrake"
 cask "iina"
 cask "iterm2"
 cask "karabiner-elements"
-cask "messenger"
+cask "keycastr"
+cask "monitorcontrol"
 cask "mono-mdk"
 cask "onedrive"
+cask "pock"
+cask "pycharm"
 cask "rider"
 cask "rstudio"
 cask "slack"
 cask "sloth"
+cask "soundflower"
 cask "spectacle"
 cask "spotify"
 cask "sublime-merge"
 cask "sublime-text"
 cask "tableplus"
 cask "transmission"
-cask "vanilla"
 cask "visual-studio-code"
-cask "vlc"
+cask "whichspace"
