@@ -91,3 +91,36 @@ function sleep-in() {
   local datetime=local datetime="`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`"
   sudo pmset schedule sleep "$datetime"
 }
+
+function resize-cursor() {
+	osascript -e 'tell application "System Preferences"
+	    reveal anchor "Seeing_Cursor" of pane id "com.apple.preference.universalaccess"
+	    delay 0.2
+
+	    tell application "System Events"
+		set contentView to tab group 1 of group 1 of window "Accessibility" of application process "System Preferences"
+		set theSlider to slider "Cursor size:" of contentView
+
+		set stash to value of theSlider
+		if value of theSlider is 1.0 then
+		    set value of theSlider to 4.0
+		else
+		    set value of theSlider to 1.0
+		end if
+		stash
+	    end tell
+	end tell'
+}
+
+function toggle-cursor-size() {
+	resize-cursor
+	resize-cursor
+}
+
+function td-get() {
+todoist --csv --header l -f today | csvcut -c Content,Project | csvformat -D " " | tail -n +2 | awk '{print "{{[[TODO]]}} " $0}' | pbcopy
+}
+
+function test() {
+	echo "Today"; td-get; echo "Test"
+}
