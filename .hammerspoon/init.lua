@@ -124,4 +124,8 @@ hs.hotkey.bind(super, "U", function() flashTimer() end)
 hs.hotkey.bind(super, "R", function() hs.reload() end)
 hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
 
+
+hs.hotkey.bind(super, "1", function() hs.execute('td-today', true) end)
+hs.hotkey.bind(super, "2", function() hs.execute('td-inbox', true) end)
+
 hs.alert.show("Config loaded")
