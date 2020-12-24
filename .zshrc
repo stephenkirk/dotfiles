@@ -117,10 +117,29 @@ function toggle-cursor-size() {
 	resize-cursor
 }
 
-function td-get() {
-todoist --csv --header l -f today | csvcut -c Content,Project | csvformat -D " " | tail -n +2 | awk '{print "{{[[TODO]]}} " $0}' | pbcopy
+function td-today() {
+	todoist sync
+	ITEMS=$(todoist --csv --header l -f 'today|overdue' \
+		| csvcut -c Content,Project \
+		| csvformat -D " " \
+		| tr -d '"' \
+		| tail -n +2 \
+		| awk '{print "\t{{[[TODO]]}} " $0}')
+	(echo "[[Todoist - Today]]"; echo $ITEMS ) | pbcopy
 }
 
-function test() {
-	echo "Today"; td-get; echo "Test"
+function td-inbox() {
+	todoist sync
+	ITEMS=$(todoist --csv --header l -f "#Inbox" \
+		| csvcut -c Content \
+		| csvformat -D " " \
+		| tr -d '"' \
+		| tail -n +2 \
+		| awk '{print "\t{{[[TODO]]}} " $0}')
+	(echo "[[Todoist - Inbox]]"; echo $ITEMS ) | pbcopy
 }
+
+function force-integrated-graphics-on-battery() {
+ sudo pmset -b gpuswitch 0
+}
+
