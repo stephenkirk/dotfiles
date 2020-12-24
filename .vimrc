@@ -40,5 +40,10 @@ Plug 'dense-analysis/ale'
 if (has('nvim'))
 	Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 endif
+Plug 'preservim/nerdtree'
 call plug#end()
 
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
