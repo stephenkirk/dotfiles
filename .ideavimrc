@@ -2,3 +2,4 @@ source ~/.vimrc
 set clipboard+=ideaput
 set ideajoin
 set surround
+nnoremap Y y$
