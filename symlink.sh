@@ -1,8 +1,6 @@
 ln -s -f ~/dotfiles/.hammerspoon ~/.hammerspoon
 ln -s -f ~/dotfiles/.ideavimrc ~/.ideavimrc
-ln -s -f ~/dotfiles/.org-mode.el ~/.org-mode.el
-ln -s -f ~/dotfiles/.spacemacs ~/.spacemacs
-ln -s -f ~/dotfiles/.spacemacs-config.el ~/.spacemacs-config.el
+ln -s -f ~/dotfiles/.doom.d ~/.doom.d
 ln -s -f ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s -f ~/dotfiles/.vimrc ~/.vimrc
 ln -s -f ~/dotfiles/.zshrc ~/.zshrc
