@@ -55,6 +55,7 @@ source ~/.profile
 
 path+=("$HOME/bin")
 path+=("$HOME/.dotnet/tools")
+path+=("$HOME/.emacs.d/bin")
 export PATH
 
 toggle_desktop () {
@@ -124,7 +125,7 @@ function td-today() {
 		| csvformat -D " " \
 		| tr -d '"' \
 		| tail -n +2 \
-		| awk '{print "\t{{[[TODO]]}} " $0}')
+		| awk '{print "\t" $0}')
 	(echo "[[Todoist - Today]]"; echo $ITEMS ) | pbcopy
 }
 
@@ -135,11 +136,10 @@ function td-inbox() {
 		| csvformat -D " " \
 		| tr -d '"' \
 		| tail -n +2 \
-		| awk '{print "\t{{[[TODO]]}} " $0}')
+		| awk '{print "\t" $0}')
 	(echo "[[Todoist - Inbox]]"; echo $ITEMS ) | pbcopy
 }
 
 function force-integrated-graphics-on-battery() {
  sudo pmset -b gpuswitch 0
 }
-
