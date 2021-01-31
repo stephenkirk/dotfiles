@@ -42,7 +42,7 @@ brew "wget"
 brew "wtfutil"
 brew "youtube-dl"
 brew "zsh"
-brew "d12frosted/emacs-plus/emacs-plus@27", link: false
+brew "d12frosted/emacs-plus/emacs-plus@28", link: false
 brew "mopidy/mopidy/pyspotify"
 brew "sachaos/todoist/todoist"
 cask "1password"
