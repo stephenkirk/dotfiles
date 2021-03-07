@@ -1,36 +1,23 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR=vim
 
-alias gs='git status'
-alias gca='git commit -a'
-alias gc='git commit'
-alias grc='git rebase --continue'
-alias gpl='git pull'
-alias -s git="git clone" # https://github.com/stephenkirk/dotfiles.git becomes `git clone https://github.com/stephenkirk/dotfiles.git`
-alias rc="$EDITOR $HOME/.zshrc"
-alias stat="stat -x"
-alias dir='pwd'
-alias where='grealpath'
+path+=("$HOME/bin")
+path+=("$HOME/.dotnet/tools")
+path+=("$HOME/.emacs.d/bin")
+export PATH
 
-alias nvimrc="nvim ~/.config/nvim/init.vim"
+source ~/.profile
 
-# Colored trees by default
-alias tree='tree -C'
+# Antigen pre-config
+export ALIEN_SECTION_TIME_FORMAT=%H:%M:%S # default is %r
 
 # Antigen
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
-antigen theme romkatv/powerlevel10k
+antigen theme eendroroy/alien alien
 antigen bundle paulirish/git-open
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle agkozak/zsh-z
@@ -38,25 +25,29 @@ antigen apply
 
 # z nice completions
 zstyle ':completion:*' menu select
-
-# vi mode
+# vi mode in shell
 bindkey -v
 KEYTIMEOUT=1 # 10ms for key sequences
 
-# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --inline-info"
 export FZF_DEFAULT_COMMAND='rg --files'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source ~/.profile
+# Aliases
+alias rc="$EDITOR $HOME/.zshrc"
+alias stat="stat -x"
+alias dir='pwd'
+alias where='grealpath'
+alias tree='tree -C' # Colored trees by default
 
-path+=("$HOME/bin")
-path+=("$HOME/.dotnet/tools")
-path+=("$HOME/.emacs.d/bin")
-export PATH
+alias gs='git status'
+alias gca='git commit -a'
+alias gc='git commit'
+alias grc='git rebase --continue'
+alias gpl='git pull'
+## https://github.com/stephenkirk/dotfiles.git expands into `git clone https://github.com/stephenkirk/dotfiles.git`
+alias -s git="git clone" 
 
 toggle_desktop () {
 	is_active=`defaults read com.apple.finder CreateDesktop`
@@ -74,25 +65,23 @@ toggle_desktop () {
 	fi
 }
 
-# TODO Only search org files once we have data processing
-journal() {
-	rg $1 ~/org
-}
-
-# completed-list
+# Todoist - tasks completed today or yesterday
 cl() {
 	todoist cl -f 'today|yesterday' \
 		| tail -r \
 		| awk '!($1="")'
 }
-#
-# Schedule sleep in X minutes
+
+# Schedule sleep in ARG minutes
 function sleep-in() {
   local minutes=$1
   local datetime=local datetime="`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`"
   sudo pmset schedule sleep "$datetime"
 }
 
+# Safari flickers on the integated graphics card when playing some full screen video with subtitles
+# Apparently this can be fixed by changing the cursor size in accessibility settings
+# Let's automate that
 function resize-cursor() {
 	osascript -e 'tell application "System Preferences"
 	    reveal anchor "Seeing_Cursor" of pane id "com.apple.preference.universalaccess"
@@ -118,6 +107,7 @@ function toggle-cursor-size() {
 	resize-cursor
 }
 
+# Push todoist tasklists into clipboard 
 function td-today() {
 	todoist sync
 	ITEMS=$(todoist --csv --header l -f 'today|overdue' \
@@ -138,8 +128,4 @@ function td-inbox() {
 		| tail -n +2 \
 		| awk '{print "\t" $0}')
 	(echo "[[Todoist - Inbox]]"; echo $ITEMS ) | pbcopy
-}
-
-function force-integrated-graphics-on-battery() {
- sudo pmset -b gpuswitch 0
 }
