@@ -56,3 +56,20 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 # Disable the crash reporter
 defaults write com.apple.CrashReporter DialogType -string "none"
 
+# animations
+
+# showing and hiding sheets, resizing preference windows, zooming windows
+defaults write -g NSWindowResizeTime -float 0.001
+
+# showing a toolbar or menu bar in full screen
+defaults write -g NSToolbarFullScreenAnimationDuration -float 0
+
+# showing and hiding Mission Control, command+numbers
+defaults write com.apple.dock expose-animation-duration -float 0
+
+# sending messages and opening windows for replies
+defaults write com.apple.Mail DisableSendAnimations -bool true
+defaults write com.apple.Mail DisableReplyAnimations -bool true
+
+# print
+defaults write NSGlobalDomain NSWindowResizeTime .001
