@@ -12,6 +12,7 @@ source ~/.profile
 
 # Antigen pre-config
 export ALIEN_SECTION_TIME_FORMAT=%H:%M:%S # default is %r
+export ALIEN_THEME="gruvbox"
 
 # Antigen
 source $(brew --prefix)/share/antigen/antigen.zsh
@@ -32,7 +33,6 @@ KEYTIMEOUT=1 # 10ms for key sequences
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --inline-info"
 export FZF_DEFAULT_COMMAND='rg --files'
-
 
 # Aliases
 alias rc="$EDITOR $HOME/.zshrc"
