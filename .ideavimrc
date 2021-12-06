@@ -1,6 +1,12 @@
+let mapleader=" "
 source ~/.vimrc
 set clipboard+=ideaput
-set ideajoin
 set surround
 set exchange
+set highlightedyank
+map <leader>f <Action>(ReformatCode)
+map <leader>r <Action>(RenameElement)
+map <leader>b <Action>(ToggleLineBreakpoint)
 nnoremap Y y$
+set ideajoin
+set ideastatusicon=gray
