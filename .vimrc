@@ -10,6 +10,8 @@ set incsearch
 set showmode
 set linebreak
 
+set so=5
+
 " infinite persistent undo
 set undofile
 set undodir=~/.vim/undodir

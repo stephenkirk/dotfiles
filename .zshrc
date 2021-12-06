@@ -33,6 +33,7 @@ KEYTIMEOUT=1 # 10ms for key sequences
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --inline-info"
 export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_CTRL_T_COMMAND="rg --files --hidden --follow --no-messages"
 
 # Aliases
 alias rc="$EDITOR $HOME/.zshrc"
@@ -40,6 +41,7 @@ alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
 alias tree='tree -C' # Colored trees by default
+alias pt='papertrail'
 
 alias gs='git status'
 alias gca='git commit -a'
@@ -111,9 +113,7 @@ function toggle-cursor-size() {
 function td-today() {
 	todoist sync
 	ITEMS=$(todoist --csv --header l -f 'today|overdue' \
-		| csvcut -c Content,Project \
-		| csvformat -D " " \
-		| tr -d '"' \
+		| csvcut -c Content \
 		| tail -n +2 \
 		| awk '{print "\t" $0}')
 	(echo "[[Todoist - Today]]"; echo $ITEMS ) | pbcopy
@@ -129,3 +129,8 @@ function td-inbox() {
 		| awk '{print "\t" $0}')
 	(echo "[[Todoist - Inbox]]"; echo $ITEMS ) | pbcopy
 }
+
+function twitch-latest-stream() {
+	youtube-dl 'https://www.twitch.tv/owlsteph/videos/all' --max-downloads 1
+}
+
