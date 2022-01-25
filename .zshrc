@@ -2,8 +2,10 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR=vim
+export DOTNET_ROOT=$HOME/.dotnet/dotnet
 
 path+=("$HOME/bin")
+path+=("$HOME/.dotnet/dotnet")
 path+=("$HOME/.dotnet/tools")
 path+=("$HOME/.emacs.d/bin")
 export PATH
@@ -132,5 +134,22 @@ function td-inbox() {
 
 function twitch-latest-stream() {
 	youtube-dl 'https://www.twitch.tv/owlsteph/videos/all' --max-downloads 1
+}
+
+######################
+
+JOURNAL_DIR="$HOME/journal"
+
+function me-query() {
+	local search=$1;
+	rg ${search} $JOURNAL_DIR
+}
+
+function me-new() {
+	local NOTE=$1
+	local TODAY=$(date +%d.%m.%y)
+	local FILENAME="$JOURNAL_DIR/$TODAY.md"
+	echo "# $NOTE" >> $FILENAME
+	subl $FILENAME
 }
 
