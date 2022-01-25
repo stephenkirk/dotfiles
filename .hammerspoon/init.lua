@@ -130,6 +130,7 @@ hs.hotkey.bind(super, "2", function() hs.execute('td-inbox', true) end)
 hs.hotkey.bind(super, "A", function() 
 	hs.execute('SwitchAudioSource -u 90-9c-4a-e0-9d-33:output', true) 
 	hs.notify.new({title="Hammerspoon", informativeText="Output device set to AirPods Max"}):send()
+	print("Changing output device")
 end)
 
 hs.alert.show("Config loaded")
