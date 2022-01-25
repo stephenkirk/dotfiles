@@ -6,12 +6,11 @@ ln -s -f ~/dotfiles/.vimrc ~/.vimrc
 ln -s -f ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/vscode_settings.json ~/Library/Application\ Support/Code/User/settings.json
 ln -s ~/dotfiles/vscode_keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
-ln -fs ~/dotfiles/spectacle_shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
 ln -fs ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 ln -fs ~/dotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/com.amethyst.Amethyst.plist
 
-ln -fs ~/Dropbox/dotfiles_private ~/
-ln -fs ~/Dropbox/dotfiles_private/.profile ~/.profile
-ln -fs ~/Dropbox/org ~/
-ln -fs ~/Dropbox/dotfiles_private/bin ~/bin
-ln -fs ~/Dropbox/data ~/data
+ln -fs ~/Documents/dotfiles_private ~/
+ln -fs ~/Documents/dotfiles_private/.profile ~/.profile
+ln -fs ~/Documents/org ~/
+ln -fs ~/Documents/dotfiles_private/bin ~/bin
+ln -fs ~/Documents/data ~/data
