@@ -7,6 +7,8 @@ set highlightedyank
 map <leader>f <Action>(ReformatCode)
 map <leader>r <Action>(RenameElement)
 map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>n <Action>(ReSharperGotoNextErrorInSolution)
+map <leader>p <Action>(ReSharperGotoPrevErrorInSolution)
 nnoremap Y y$
 set ideajoin
 set ideastatusicon=gray
