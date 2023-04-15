@@ -1,0 +1,24 @@
+{
+    "editor.inlineSuggest.enabled": true,
+    "telemetry.telemetryLevel": "off",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+    },
+    "explorer.confirmDragAndDrop": false,
+    "emmet.showAbbreviationSuggestions": false,
+    "emmet.showExpandedAbbreviation": "never",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "git.openRepositoryInParentFolders": "never",
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": true
+    },
+    "terminal.external.osxExec": "iTerm.app",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Gruvbox Light Soft",
+    "workbench.preferredDarkColorTheme": "Gruvbox Dark Medium",
+    "workbench.colorTheme": "Gruvbox Dark Medium",
+}
