@@ -1,9 +1,11 @@
+# Environment variables
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR=vim
 export DOTNET_ROOT=$HOME/.dotnet/dotnet
 
+# Paths
 path+=("$HOME/bin")
 path+=("/opt/homebrew/bin")
 path+=("$HOME/.dotnet/dotnet")
@@ -52,9 +54,9 @@ alias gca='git commit -a'
 alias gc='git commit'
 alias grc='git rebase --continue'
 alias gpl='git pull'
-## https://github.com/stephenkirk/dotfiles.git expands into `git clone https://github.com/stephenkirk/dotfiles.git`
-alias -s git="git clone" 
+alias -s git="git clone" # Expand urls into `git clone $URL` 
 
+# Functions
 toggle_desktop () {
 	is_active=`defaults read com.apple.finder CreateDesktop`
 	
