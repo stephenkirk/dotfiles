@@ -71,13 +71,6 @@ toggle_desktop () {
 	fi
 }
 
-# Todoist - tasks completed today or yesterday
-cl() {
-	todoist cl -f 'today|yesterday' \
-		| tail -r \
-		| awk '!($1="")'
-}
-
 # Schedule sleep in ARG minutes
 function sleep-in() {
   local minutes=$1
@@ -112,46 +105,3 @@ function toggle-cursor-size() {
 	resize-cursor
 	resize-cursor
 }
-
-# Push todoist tasklists into clipboard 
-function td-today() {
-	todoist sync
-	ITEMS=$(todoist --csv --header l -f 'today|overdue' \
-		| csvcut -c Content \
-		| tail -n +2 \
-		| awk '{print "\t" $0}')
-	(echo "[[Todoist - Today]]"; echo $ITEMS ) | pbcopy
-}
-
-function td-inbox() {
-	todoist sync
-	ITEMS=$(todoist --csv --header l -f "#Inbox" \
-		| csvcut -c Content \
-		| csvformat -D " " \
-		| tr -d '"' \
-		| tail -n +2 \
-		| awk '{print "\t" $0}')
-	(echo "[[Todoist - Inbox]]"; echo $ITEMS ) | pbcopy
-}
-
-function twitch-latest-stream() {
-	youtube-dl 'https://www.twitch.tv/owlsteph/videos/all' --max-downloads 1
-}
-
-######################
-
-JOURNAL_DIR="$HOME/journal"
-
-function me-query() {
-	local search=$1;
-	rg ${search} $JOURNAL_DIR
-}
-
-function me-new() {
-	local NOTE=$1
-	local TODAY=$(date +%d.%m.%y)
-	local FILENAME="$JOURNAL_DIR/$TODAY.md"
-	echo "# $NOTE" >> $FILENAME
-	subl $FILENAME
-}
-
