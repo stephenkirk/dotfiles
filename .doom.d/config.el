@@ -16,12 +16,12 @@
 ;; Option modifier - right option key for symbols; left for meta
 (setq-default mac-right-option-modifier nil)
 
+; magit
 (setq +magit-hub-features t)
-
 ;; Set switch project default behaviour to magit
 (setq +workspaces-switch-project-function #'magit-status)
 
-; theme
+; Set theme based on system appearance
 (setq doom-theme nil)
 (add-hook! 'ns-system-appearance-change-functions
   (defun update-theme (appearance)
