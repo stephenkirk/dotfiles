@@ -35,6 +35,7 @@ alias tree='tree -C' # Colored trees by default
 alias pt='papertrail'
 alias rc='vim ~/.config/fish/config.fish'
 
+alias gs='git add'
 alias gs='git status'
 alias gca='git commit -a'
 alias gc='git commit'
