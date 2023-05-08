@@ -10,11 +10,17 @@ set incsearch
 set showmode
 set linebreak
 
+
+
 set so=5
 
 " infinite persistent undo
 set undofile
 set undodir=~/.vim/undodir
+
+" Set different dirs for backup and swap
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
 
 " Remove highlights with <Ctrl-l>
 nnoremap <silent> <C-l> :nohl<CR><C-l> 
