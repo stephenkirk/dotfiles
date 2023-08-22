@@ -37,3 +37,8 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; Add hook for magit to use copilot
+(define-key global-map (kbd "C-c g") 'global-copilot-mode)
+(define-key global-map (kbd "C-c n") 'copilot-next-completion)
+(define-key global-map (kbd "C-c p") 'copilot-previous-completion)
