@@ -41,3 +41,7 @@ alias gca='git commit -a'
 alias gc='git commit'
 alias grc='git rebase --continue'
 alias gpl='git pull'
+
+alias grid='cd ~/src/grid && ./run.sh'
+
+alias whisperer='cd ~/src/whisperer && sh ./run.sh'
