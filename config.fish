@@ -48,5 +48,5 @@ alias whisperer='cd ~/src/whisperer && sh ./run.sh'
 
 # Fetch a list of pull requests where I am requested for review, format it as Markdown links, and copy to clipboard.
 function to_review
-	gh pr list -S "review-requested:@me" --json title,url --jq 'map("[\\"\\(.title)\\"](\\(.url))") | .[]' | pbcopy 
+	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]' 
 end
