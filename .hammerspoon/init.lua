@@ -36,6 +36,8 @@ if darkmode then
     setDm(dmIsOn())
 end
 
+-- END dark mode
+
 function killWorkApps()
   local appsToKill = {"Firefox", "Slack", "Notion", "iTerm", "Rider", "Webstorm", "VS Code"}
   for _, appName in ipairs(appsToKill) do
@@ -46,32 +48,9 @@ function killWorkApps()
   end
 end
 
-function openEssentials()
-  -- Go to desktop 1
-  hs.eventtap.keyStroke({"ctrl"}, "1")
-  
-  -- Open dev apps
-  hs.application.launchOrFocus("iTerm")
-  hs.application.launchOrFocus("Rider")
-  hs.application.launchOrFocus("1Password 7")
-  hs.application.launchOrFocus("Webstorm")
-  hs.application.launchOrFocus("Code")
-  
-  hs.timer.doAfter(2, function()
-    hs.eventtap.keyStroke({"ctrl"}, "2")
-    hs.application.launchOrFocus("Spotify")
-    hs.application.launchOrFocus("Firefox")
-    hs.application.launchOrFocus("Slack")
-    hs.application.launchOrFocus("Notion")
-  end)
-  
-  
-end
-
 -- Bindings
 hs.hotkey.bind(super, "R", function() hs.reload() end)
 hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
-hs.hotkey.bind(super, "Z", function() openEssentials() end)
 hs.hotkey.bind(super, "X", function() killWorkApps() end)
 hs.hotkey.bind(super, "A", function() 
 	hs.execute('SwitchAudioSource -u 90-9C-4A-E0-9D-33:output', true) 
