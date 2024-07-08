@@ -14,5 +14,5 @@ brew bundle
 
 # add symlinks
 source ./symlink.sh
-source ./defaults/macos.sh
+source ./scripts/macos.sh
 source ~/vscode-sync.sh
