@@ -5,8 +5,6 @@ ln -s -f ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s -f ~/dotfiles/.vimrc ~/.vimrc
 ln -s -f ~/dotfiles/.zshrc ~/.zshrc
 ln -s -f ~/dotfiles/config.fish ~/.config/fish/config.fish
-ln -s ~/dotfiles/vscode_settings.json ~/Library/Application\ Support/Code/User/settings.json
-ln -s ~/dotfiles/vscode_keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 ln -fs ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 ln -fs ~/dotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/com.amethyst.Amethyst.plist
 
