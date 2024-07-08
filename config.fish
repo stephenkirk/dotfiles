@@ -18,6 +18,8 @@ set -Ua fish_user_paths $HOME/.dotnet/dotnet
 set -Ua fish_user_paths $HOME/.dotnet/tools
 set -Ua fish_user_paths $HOME/.emacs.d/bin
 set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
+set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
+set -Ua fish_user_paths $HOME/go
 
 # vi mode in shell
 fish_vi_key_bindings
