@@ -18,10 +18,10 @@ create_symlink ~/dotfiles/.zshrc ~/.zshrc
 # Config files in .config directory
 mkdir -p ~/.config/fish
 create_symlink ~/dotfiles/config.fish ~/.config/fish/config.fish
+create_symlink ~/dotfiles/karabiner ~/.config
 
 # Karabiner configuration
 mkdir -p ~/.config/karabiner
-create_symlink ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 
 # Amethyst configuration
 create_symlink ~/dotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/com.amethyst.Amethyst.plist
