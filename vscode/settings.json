@@ -1,18 +1,29 @@
 {
-    "editor.inlineSuggest.enabled": true,
-    "telemetry.telemetryLevel": "off",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-    },
-    "explorer.confirmDragAndDrop": false,
-    "emmet.showAbbreviationSuggestions": false,
-    "emmet.showExpandedAbbreviation": "never",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "git.openRepositoryInParentFolders": "never",
-    "python.defaultInterpreterPath": "/usr/bin/python3",
-    "terminal.external.osxExec": "iTerm.app",
-    "window.autoDetectColorScheme": true,
-    "workbench.preferredLightColorTheme": "Gruvbox Light Soft",
-    "workbench.preferredDarkColorTheme": "Gruvbox Dark Medium",
-    "workbench.colorTheme": "Gruvbox Dark Medium",
+  "editor.inlineSuggest.enabled": true,
+  "telemetry.telemetryLevel": "off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showExpandedAbbreviation": "never",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "git.openRepositoryInParentFolders": "never",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "terminal.external.osxExec": "iTerm.app",
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
+  "workbench.preferredDarkColorTheme": "Gruvbox Dark Medium",
+  "workbench.colorTheme": "Gruvbox Light Soft",
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "gitlens.mode.active": "review",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "window.zoomLevel": -1,
+  "editor.accessibilitySupport": "off",
+  "editor.fontFamily": "Monaco, Menlo, 'Courier New', monospace"
 }
