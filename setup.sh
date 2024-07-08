@@ -13,6 +13,6 @@ brew tap homebrew/bundle
 brew bundle
 
 # add symlinks
-source ./symlink.sh
+source ./symlink-setup.sh
 source ./scripts/macos-defaults.sh
-source ~/vscode-sync.sh
+source ~/scripts/vscode-sync.sh

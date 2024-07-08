@@ -10,7 +10,6 @@ ln -fs ~/dotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/com.amethyst
 
 ln -fs ~/Documents/dotfiles_private ~/
 ln -fs ~/Documents/dotfiles_private/.profile ~/.profile
-ln -fs ~/Documents/org ~/
 ln -fs ~/Documents/dotfiles_private/bin ~/bin
 ln -fs ~/Documents/data ~/data
 
