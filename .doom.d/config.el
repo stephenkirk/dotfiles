@@ -11,6 +11,14 @@
       org-directory "~/org/"
       display-line-numbers-type t)
 
+;; Make emacs use bash instead of fish to prevent garbage output
+(setq shell-file-name (executable-find "bash"))
+
+;; ...but use fish for terminal emulators
+    (setq-default vterm-shell (executable-find "fish"))
+(setq-default explicit-shell-file-name (executable-find "fish")) 
+
+
 (setq-default evil-want-C-i-jump t)
 
 ;; Option modifier - right option key for symbols; left for meta
@@ -38,7 +46,5 @@
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
-;; Add hook for magit to use copilot
-(define-key global-map (kbd "C-c g") 'global-copilot-mode)
-(define-key global-map (kbd "C-c n") 'copilot-next-completion)
-(define-key global-map (kbd "C-c p") 'copilot-previous-completion)
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
