@@ -52,3 +52,7 @@ alias whisperer='cd ~/src/whisperer && sh ./run.sh'
 function to_review
 	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]' 
 end
+
+# vi key bindings
+set -g fish_key_bindings fish_vi_key_bindings
+set -g fish_cursor_insert line
