@@ -25,7 +25,8 @@
   "editor.formatOnSave": true,
   "window.zoomLevel": -1,
   "editor.accessibilitySupport": "off",
-  "editor.fontFamily": "Monaco, Menlo, 'Courier New', monospace",
+  "editor.fontFamily": "Iosevka, Monaco, Menlo, 'Courier New', monospace",
+  "editor.fontSize": 14,
   "eslint.codeActionsOnSave.rules": null,
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.settings.editor": "json"
