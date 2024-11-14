@@ -37,14 +37,5 @@
       (`light (load-theme 'gruvbox-light-medium t))
       (`dark  (load-theme 'gruvbox-dark-medium t)))))
 
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
 (use-package magit-delta
   :hook (magit-mode . magit-delta-mode))
