@@ -39,3 +39,5 @@
 
 (use-package magit-delta
   :hook (magit-mode . magit-delta-mode))
+
+(setq doom-font (font-spec :family "Iosevka Term" :size 14))
