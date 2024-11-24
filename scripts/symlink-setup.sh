@@ -19,7 +19,7 @@ create_symlink ~/dotfiles/.zshrc ~/.zshrc
 mkdir -p ~/.config/
 mkdir -p ~/.config/fish
 
-create_symlink ~/dotfiles/.config/config.fish ~/.config/fish/config.fish
+create_symlink ~/dotfiles/.config/fish/config.fish ~/.config/fish/config.fish
 create_symlink ~/dotfiles/.config/karabiner ~/.config/karabiner
 create_symlink ~/dotfiles/.config/amethyst ~/.config/amethyst
 create_symlink ~/dotfiles/.config/linearmouse ~/.config/linearmouse

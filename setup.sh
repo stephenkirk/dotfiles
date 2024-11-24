@@ -13,6 +13,12 @@ brew tap homebrew/bundle
 brew bundle
 
 # add symlinks
-source ./symlink-setup.sh
+source ./scripts/symlink-setup.sh
 source ./scripts/macos-defaults.sh
-source ~/scripts/vscode-sync.sh
+source ./scripts/vscode-sync.sh
+
+# vim folder structure
+mkdir ~/.vim
+mkdir ~/.vim/backup
+mkdir ~/.vim/swap
+mkdir ~/.vim/undodir
