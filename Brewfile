@@ -1,7 +1,5 @@
 tap "d12frosted/emacs-plus"
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
 brew "azure-cli"
 brew "bat"
 brew "cloc"
@@ -18,7 +16,7 @@ brew "git-delta"
 brew "git-extras"
 brew "go"
 brew "imagemagick"
-brew "d12frosted/emacs-plus/emacs-plus@29", args: ["with-elrumo2-icon"]
+brew "emacs-plus@29", args: ["with-elrumo2-icon"]
 brew "inetutils"
 brew "jd"
 brew "jnv"
