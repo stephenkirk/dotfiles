@@ -22,8 +22,9 @@ set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
 set -Ua fish_user_paths $HOME/go
 
 # vi mode in shell
-fish_vi_key_bindings
 set -U fish_escape_delay_ms 10
+set -g fish_key_bindings fish_vi_key_bindings
+set -g fish_cursor_insert line
 
 # fzf config
 set -gx FZF_DEFAULT_OPTS "--height 50% --layout=reverse --border --inline-info"
@@ -36,6 +37,7 @@ alias where='grealpath'
 alias tree='tree -C' # Colored trees by default
 alias pt='papertrail'
 alias rc='vim ~/.config/fish/config.fish'
+alias em='open -a Emacs'
 
 alias ga='git add'
 alias gs='git status'
@@ -53,6 +55,5 @@ function to_review
 	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]' 
 end
 
-# vi key bindings
-set -g fish_key_bindings fish_vi_key_bindings
-set -g fish_cursor_insert line
+# Created by `pipx` on 2024-11-28 14:13:39
+set PATH $PATH /Users/stephenkirk/.local/bin
