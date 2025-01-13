@@ -1,31 +1,50 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
     {
       "scrolling" : {
         "acceleration" : {
-          "horizontal" : 0.4,
-          "vertical" : 1
+          "vertical" : 1,
+          "horizontal" : 0.4
+        },
+        "speed" : {
+          "horizontal" : 68.9,
+          "vertical" : 21.92
         },
         "reverse" : {
           "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 21.92,
-          "horizontal" : 68.9
         }
       },
       "pointer" : {
         "speed" : 0.1488,
-        "acceleration" : 0.3634,
-        "disableAcceleration" : false
+        "disableAcceleration" : false,
+        "acceleration" : 0.3634
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "shift" : false,
+            "action" : "missionControl",
+            "command" : false,
+            "button" : 3,
+            "control" : false,
+            "option" : false
+          },
+          {
+            "control" : false,
+            "button" : 4,
+            "action" : "showDesktop",
+            "command" : false,
+            "shift" : false,
+            "option" : false
+          }
+        ]
       },
       "if" : {
         "device" : {
-          "productID" : "0xc548",
-          "productName" : "USB Receiver",
           "vendorID" : "0x46d",
-          "category" : "mouse"
+          "productID" : "0xc548",
+          "category" : "mouse",
+          "productName" : "USB Receiver"
         }
       }
     },
@@ -33,9 +52,9 @@
       "if" : {
         "device" : {
           "productID" : "0x0",
-          "productName" : "Apple Internal Keyboard \/ Trackpad",
           "vendorID" : "0x0",
-          "category" : "trackpad"
+          "category" : "trackpad",
+          "productName" : "Apple Internal Keyboard \/ Trackpad"
         }
       },
       "scrolling" : {
@@ -44,5 +63,6 @@
         }
       }
     }
-  ]
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
 }
