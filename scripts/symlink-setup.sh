@@ -14,6 +14,7 @@ create_symlink ~/dotfiles/.doom.d ~/.doom.d
 create_symlink ~/dotfiles/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/.zshrc ~/.zshrc
+create_symlink ~/dotfiles/.gitconfig ~/.gitconfig
 
 # Config files in .config directory
 mkdir -p ~/.config/
