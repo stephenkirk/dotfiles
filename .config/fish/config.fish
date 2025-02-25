@@ -57,3 +57,6 @@ end
 
 # Created by `pipx` on 2024-11-28 14:13:39
 set PATH $PATH /Users/stephenkirk/.local/bin
+
+# add zoxide / z
+zoxide init fish | source
