@@ -1,60 +1,61 @@
 {
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
     {
-      "scrolling" : {
-        "acceleration" : {
-          "vertical" : 1,
-          "horizontal" : 0.4
-        },
-        "speed" : {
-          "horizontal" : 68.9,
-          "vertical" : 21.92
-        },
-        "reverse" : {
-          "vertical" : true
-        }
-      },
-      "pointer" : {
-        "speed" : 0.1488,
-        "disableAcceleration" : false,
-        "acceleration" : 0.3634
-      },
       "buttons" : {
         "mappings" : [
           {
             "shift" : false,
-            "action" : "missionControl",
             "command" : false,
             "button" : 3,
             "control" : false,
-            "option" : false
+            "option" : false,
+            "action" : "missionControl"
           },
           {
             "control" : false,
-            "button" : 4,
-            "action" : "showDesktop",
             "command" : false,
+            "action" : "appExpose",
+            "button" : 4,
             "shift" : false,
             "option" : false
           }
         ]
       },
+      "pointer" : {
+        "disableAcceleration" : false,
+        "acceleration" : 0.3634,
+        "speed" : 0.1488
+      },
       "if" : {
         "device" : {
+          "productName" : "USB Receiver",
           "vendorID" : "0x46d",
           "productID" : "0xc548",
-          "category" : "mouse",
-          "productName" : "USB Receiver"
+          "category" : "mouse"
+        }
+      },
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "speed" : {
+          "vertical" : 21.92,
+          "horizontal" : 68.9
+        },
+        "acceleration" : {
+          "horizontal" : 0.4,
+          "vertical" : 1
         }
       }
     },
     {
       "if" : {
         "device" : {
-          "productID" : "0x0",
-          "vendorID" : "0x0",
           "category" : "trackpad",
-          "productName" : "Apple Internal Keyboard \/ Trackpad"
+          "productName" : "Apple Internal Keyboard \/ Trackpad",
+          "productID" : "0x0",
+          "vendorID" : "0x0"
         }
       },
       "scrolling" : {
@@ -62,7 +63,51 @@
           "vertical" : 1
         }
       }
+    },
+    {
+      "if" : {
+        "device" : {
+          "productID" : "0x40",
+          "vendorID" : "0x1915",
+          "productName" : "ProtoArc EM03",
+          "category" : "mouse"
+        }
+      },
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "speed" : {
+          "vertical" : 11.23
+        },
+        "acceleration" : {
+          "vertical" : 0.88
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0.9844,
+        "speed" : 0.0696
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "button" : 3,
+            "shift" : false,
+            "command" : false,
+            "action" : "missionControl",
+            "option" : false,
+            "control" : false
+          },
+          {
+            "option" : false,
+            "action" : "appExpose",
+            "button" : 4,
+            "shift" : false,
+            "command" : false,
+            "control" : false
+          }
+        ]
+      }
     }
-  ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+  ]
 }
