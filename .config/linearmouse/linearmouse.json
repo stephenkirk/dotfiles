@@ -1,113 +1,114 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
+    {
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "acceleration" : {
+          "vertical" : 1,
+          "horizontal" : 0.4
+        },
+        "speed" : {
+          "vertical" : 21.92,
+          "horizontal" : 68.9
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : false,
+        "acceleration" : 0.6741,
+        "speed" : 0.2735
+      },
+      "if" : {
+        "device" : {
+          "productName" : "USB Receiver",
+          "productID" : "0xc548",
+          "category" : "mouse",
+          "vendorID" : "0x46d"
+        }
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "command" : false,
+            "shift" : false,
+            "option" : false,
+            "control" : false,
+            "button" : 3,
+            "action" : "missionControl"
+          },
+          {
+            "shift" : false,
+            "control" : false,
+            "button" : 4,
+            "option" : false,
+            "action" : "appExpose",
+            "command" : false
+          }
+        ]
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "productName" : "Apple Internal Keyboard \/ Trackpad",
+          "vendorID" : "0x0",
+          "productID" : "0x0",
+          "category" : "trackpad"
+        }
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        }
+      }
+    },
     {
       "buttons" : {
         "mappings" : [
           {
+            "control" : false,
+            "action" : "missionControl",
             "shift" : false,
             "command" : false,
             "button" : 3,
-            "control" : false,
-            "option" : false,
-            "action" : "missionControl"
+            "option" : false
           },
           {
-            "control" : false,
-            "command" : false,
-            "action" : "appExpose",
-            "button" : 4,
             "shift" : false,
+            "command" : false,
+            "button" : 4,
+            "control" : false,
+            "action" : "appExpose",
             "option" : false
           }
         ]
       },
       "pointer" : {
+        "acceleration" : 1.6829,
         "disableAcceleration" : false,
-        "acceleration" : 0.3634,
-        "speed" : 0.1488
+        "speed" : 0.1113
       },
       "if" : {
         "device" : {
-          "productName" : "USB Receiver",
-          "vendorID" : "0x46d",
-          "productID" : "0xc548",
-          "category" : "mouse"
-        }
-      },
-      "scrolling" : {
-        "reverse" : {
-          "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 21.92,
-          "horizontal" : 68.9
-        },
-        "acceleration" : {
-          "horizontal" : 0.4,
-          "vertical" : 1
-        }
-      }
-    },
-    {
-      "if" : {
-        "device" : {
-          "category" : "trackpad",
-          "productName" : "Apple Internal Keyboard \/ Trackpad",
-          "productID" : "0x0",
-          "vendorID" : "0x0"
-        }
-      },
-      "scrolling" : {
-        "acceleration" : {
-          "vertical" : 1
-        }
-      }
-    },
-    {
-      "if" : {
-        "device" : {
-          "productID" : "0x40",
-          "vendorID" : "0x1915",
           "productName" : "ProtoArc EM03",
-          "category" : "mouse"
+          "productID" : "0x40",
+          "category" : "mouse",
+          "vendorID" : "0x1915"
         }
       },
       "scrolling" : {
+        "speed" : {
+          "vertical" : 17.65
+        },
         "reverse" : {
           "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 11.23
         },
         "acceleration" : {
           "vertical" : 0.88
         }
-      },
-      "pointer" : {
-        "acceleration" : 0.9844,
-        "speed" : 0.0696
-      },
-      "buttons" : {
-        "mappings" : [
-          {
-            "button" : 3,
-            "shift" : false,
-            "command" : false,
-            "action" : "missionControl",
-            "option" : false,
-            "control" : false
-          },
-          {
-            "option" : false,
-            "action" : "appExpose",
-            "button" : 4,
-            "shift" : false,
-            "command" : false,
-            "control" : false
-          }
-        ]
       }
     }
-  ]
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
 }
