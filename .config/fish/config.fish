@@ -52,7 +52,11 @@ alias whisperer='cd ~/src/whisperer && sh ./run.sh'
 
 # Fetch a list of pull requests where I am requested for review, format it as Markdown links, and copy to clipboard.
 function to_review
-	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]' 
+	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
+end
+
+function shell --argument-names param
+	llm -t shell "$param"
 end
 
 # Created by `pipx` on 2024-11-28 14:13:39
@@ -60,3 +64,8 @@ set PATH $PATH /Users/stephenkirk/.local/bin
 
 # add zoxide / z
 zoxide init fish | source
+
+# "Productivity Enhancement" alias
+function balatro
+    "/Users/stephenkirk/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
+end
