@@ -38,6 +38,24 @@ end
 
 -- END dark mode
 
+-- Night Shift toggle
+-- Had to set up Shortcuts manually because of course Apple won't just expose this API.
+-- Relies on two shortcuts: "Turn Night Shift On" and "Turn Night Shift Off"
+local nightShiftState = false
+
+function toggleNightShift()
+    if nightShiftState then
+        hs.execute('shortcuts run "Turn Night Shift Off"')
+        nightShiftState = false
+        hs.alert.show("Night Shift: OFF")
+    else
+        hs.execute('shortcuts run "Turn Night Shift On"')
+        nightShiftState = true
+        hs.alert.show("Night Shift: ON")
+    end
+end
+-- END Night Shift toggle
+
 function killWorkApps()
     local appsToKill = { "Firefox", "Slack", "Notion", "iTerm", "Rider", "Webstorm", "VS Code" }
     for _, appName in ipairs(appsToKill) do
@@ -52,6 +70,7 @@ end
 hs.hotkey.bind(super, "R", function() hs.reload() end)
 hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
 hs.hotkey.bind(super, "X", function() killWorkApps() end)
+hs.hotkey.bind(super, "N", function() toggleNightShift() end)
 hs.hotkey.bind(super, "A", function()
     local currentDevice = hs.execute('/opt/homebrew/bin/SwitchAudioSource -c')
     if currentDevice:find("MacBook Pro") then
