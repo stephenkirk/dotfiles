@@ -54,22 +54,8 @@ function toggleNightShift()
 end
 
 -- END Night Shift toggle
-
-function killWorkApps()
-    local appsToKill = { "Firefox", "Slack", "Notion", "iTerm", "Rider", "Webstorm", "VS Code" }
-    for _, appName in ipairs(appsToKill) do
-        local app = hs.application.find(appName)
-        if app then
-            app:kill()
-        end
-    end
-end
-
--- Bindings
 hs.hotkey.bind(super, "R", function() hs.reload() end)
 hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
-hs.hotkey.bind(super, "X", function() killWorkApps() end)
-hs.hotkey.bind(super, "N", function() toggleNightShift() end)
 hs.hotkey.bind(super, "A", function()
     local currentDevice = hs.execute('/opt/homebrew/bin/SwitchAudioSource -c'):gsub("%s+$", "")
 
