@@ -53,10 +53,7 @@ function toggleNightShift()
     end
 end
 
--- END Night Shift toggle
-hs.hotkey.bind(super, "R", function() hs.reload() end)
-hs.hotkey.bind(super, "D", function() darkmodeClicked() end)
-hs.hotkey.bind(super, "A", function()
+function cycleAudioOutputDevices()
     local currentDevice = hs.execute('/opt/homebrew/bin/SwitchAudioSource -c'):gsub("%s+$", "")
 
     local allDevicesOutput = hs.execute('/opt/homebrew/bin/SwitchAudioSource -a')
@@ -111,5 +108,30 @@ hs.hotkey.bind(super, "A", function()
     local output, status = hs.execute('/opt/homebrew/bin/SwitchAudioSource -s "' .. nextDevice .. '"')
     hs.alert.show("Output device: " .. nextDevice)
     print("Changing output device to " .. nextDevice)
-end)
+end
+
+-- END Night Shift toggle
+
+local hotkeyDescriptions = {
+    { key = "R", description = "Reload Hammerspoon config" },
+    { key = "D", description = "Toggle dark mode" },
+    { key = "A", description = "Cycle audio output devices" },
+    { key = "N", description = "Toggle Night Shift" },
+    { key = "H", description = "Show this hotkey help" }
+}
+
+function showHotkeys()
+    local helpText = "Available hotkeys (using Super modifier):\n"
+    for _, hotkey in ipairs(hotkeyDescriptions) do
+        helpText = helpText .. "Super+" .. hotkey.key .. ": " .. hotkey.description .. "\n"
+    end
+    hs.alert.closeAll()
+    hs.alert.show(helpText, 5)
+end
+
+hs.hotkey.bind(super, "R", hs.reload)
+hs.hotkey.bind(super, "D", darkmodeClicked)
+hs.hotkey.bind(super, "A", cycleAudioOutputDevices)
+hs.hotkey.bind(super, "N", toggleNightShift)
+hs.hotkey.bind(super, "H", showHotkeys)
 hs.alert.show("Config loaded")
