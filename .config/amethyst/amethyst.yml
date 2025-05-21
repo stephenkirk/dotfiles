@@ -48,7 +48,7 @@
   "reevaluate-windows": { "mod": "mod1", "key": "z" },
   "toggle-focus-follows-mouse": { "mod": "mod2", "key": "x" },
   "relaunch-amethyst": { "mod": "mod2", "key": "z" },
-  "floating": [],
+  "floating": ["com.apple.reminders", "com.googlecode.iterm2"],
   "floating-is-blacklist": true,
   "float-small-windows": true,
   "mouse-follows-focus": false,
