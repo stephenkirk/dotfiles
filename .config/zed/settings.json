@@ -7,10 +7,15 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
-  "assistant": {
-    "default_model": {
+  "agent": {
+    "default_profile": "minimal",
+    "inline_assistant_model": {
       "provider": "anthropic",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-sonnet-4-latest"
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
     },
     "version": "2"
   },
