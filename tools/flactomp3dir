@@ -1,7 +1,9 @@
 #!/bin/bash
 
 MOVE_FILES=false
+MOVE_DESTINATION=""
 DIRECTORY="."
+DRY_RUN=false
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -9,12 +11,39 @@ while [[ $# -gt 0 ]]; do
         -m|--move)
             MOVE_FILES=true
             shift
+            # Check if next argument exists and doesn't start with -
+            if [[ $# -gt 0 && "$1" != -* ]]; then
+                MOVE_DESTINATION="$1"
+                shift
+            else
+                # Default to ../FLAC when no path specified
+                MOVE_DESTINATION="../FLAC"
+            fi
+            ;;
+        -M|--move-local)
+            MOVE_FILES=true
+            MOVE_DESTINATION="./FLAC"
+            shift
+            ;;
+        -n|--dry-run)
+            DRY_RUN=true
+            shift
             ;;
         -h|--help)
             echo "Usage: $(basename "$0") [options] [directory]"
             echo "Options:"
-            echo "  -m, --move    Move original FLAC files to ./FLAC/ after conversion"
-            echo "  -h, --help    Show this help message"
+            echo "  -m, --move [path]     Move original FLAC files after conversion"
+            echo "                        Default destination: ../FLAC"
+            echo "                        Can specify custom path: -m /path/to/destination"
+            echo "  -M, --move-local      Move original FLAC files to ./FLAC/ (legacy behavior)"
+            echo "  -n, --dry-run         Preview operations without executing them"
+            echo "  -h, --help            Show this help message"
+            echo ""
+            echo "Examples:"
+            echo "  $(basename "$0") -m              # Convert and move to ../FLAC"
+            echo "  $(basename "$0") -m ~/Music/FLAC # Convert and move to ~/Music/FLAC"
+            echo "  $(basename "$0") -M              # Convert and move to ./FLAC (old behavior)"
+            echo "  $(basename "$0") -n -m           # Preview what would happen"
             exit 0
             ;;
         *)
@@ -29,19 +58,53 @@ if [ ! -d "$DIRECTORY" ]; then
     exit 1
 fi
 
-if $MOVE_FILES && [ ! -d "$DIRECTORY/FLAC" ]; then
-    mkdir -p "$DIRECTORY/FLAC"
+# Set up move destination path
+if $MOVE_FILES; then
+    # Handle relative paths from the target directory
+    if [[ "$MOVE_DESTINATION" == ./* ]] || [[ "$MOVE_DESTINATION" == ../* ]]; then
+        FULL_MOVE_PATH="$DIRECTORY/$MOVE_DESTINATION"
+    else
+        FULL_MOVE_PATH="$MOVE_DESTINATION"
+    fi
+
+    # Create destination directory if needed (and not in dry-run mode)
+    if [ ! -d "$FULL_MOVE_PATH" ] && ! $DRY_RUN; then
+        mkdir -p "$FULL_MOVE_PATH"
+        echo "Created directory: $FULL_MOVE_PATH"
+    elif $DRY_RUN && [ ! -d "$FULL_MOVE_PATH" ]; then
+        echo "[DRY RUN] Would create directory: $FULL_MOVE_PATH"
+    fi
+fi
+
+# Show dry-run header
+if $DRY_RUN; then
+    echo "=== DRY RUN MODE ==="
+    echo "No files will be modified. Showing what would happen:"
+    echo ""
 fi
 
 found_files=false
 for flacfile in "$DIRECTORY"/*.flac; do
     if [ -f "$flacfile" ]; then
         found_files=true
-        flactomp3 "$flacfile"
 
-        if [ $? -eq 0 ] && $MOVE_FILES; then
-            mv "$flacfile" "$DIRECTORY/FLAC/"
-            echo "Moved $flacfile to $DIRECTORY/FLAC/"
+        if $DRY_RUN; then
+            # Get the output filename that would be created
+            filename=$(basename "$flacfile")
+            mp3file="${flacfile%.flac}.mp3"
+            echo "[DRY RUN] Would convert: $flacfile -> $(basename "$mp3file")"
+
+            if $MOVE_FILES; then
+                echo "[DRY RUN] Would move: $flacfile -> $FULL_MOVE_PATH/$(basename "$flacfile")"
+            fi
+        else
+            # Actually run the conversion
+            flactomp3 "$flacfile"
+
+            if [ $? -eq 0 ] && $MOVE_FILES; then
+                mv "$flacfile" "$FULL_MOVE_PATH/"
+                echo "Moved $flacfile to $FULL_MOVE_PATH/"
+            fi
         fi
     fi
 done
@@ -49,4 +112,10 @@ done
 if ! $found_files; then
     echo "No FLAC files found in $DIRECTORY"
     exit 1
+fi
+
+if $DRY_RUN && $found_files; then
+    echo ""
+    echo "=== DRY RUN COMPLETE ==="
+    echo "Use without -n/--dry-run to execute these operations."
 fi
