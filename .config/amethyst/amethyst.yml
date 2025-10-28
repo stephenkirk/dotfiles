@@ -1,11 +1,11 @@
 {
-  "layouts": ["tall", "wide", "fullscreen", "column"],
+  "layouts": ["tall", "tall-right", "fullscreen", "column"],
   "mod1": ["option", "shift"],
   "mod2": ["option", "shift", "control"],
   "cycle-layout": { "mod": "", "key": "" },
   "cycle-layout-backward": { "mod": "", "key": "" },
   "select-tall-layout": { "mod": "mod1", "key": "a" },
-  "select-wide-layout": { "mod": "mod1", "key": "s" },
+  "select-tall-right-layout": { "mod": "mod1", "key": "s" },
   "select-fullscreen-layout": { "mod": "mod1", "key": "f" },
   "select-column-layout": { "mod": "mod1", "key": "d" },
   "focus-screen-ccw": { "mod": "mod1", "key": "p" },
@@ -48,7 +48,8 @@
   "reevaluate-windows": { "mod": "mod1", "key": "z" },
   "toggle-focus-follows-mouse": { "mod": "mod2", "key": "x" },
   "relaunch-amethyst": { "mod": "mod2", "key": "z" },
-  "floating": ["com.apple.reminders", "com.googlecode.iterm2"],
+  "floating":
+    ["com.apple.reminders", "com.googlecode.iterm2", "com.Balatro.localthunk","com.spotify.client" ],
   "floating-is-blacklist": true,
   "float-small-windows": true,
   "mouse-follows-focus": false,

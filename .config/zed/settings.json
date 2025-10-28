@@ -7,24 +7,27 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "ui_font_family": "Nokia Sans Wide",
+  // "ui_font_weight": 200,
+  // The default font size for text in the UI
+  "ui_font_size": 16,
+
   "agent": {
     "default_profile": "minimal",
     "inline_assistant_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-latest"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
     },
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
-    },
-    "version": "2"
+    }
   },
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
   "vim_mode": true,
-  "ui_font_size": 16,
   "buffer_font_size": 13.0,
   "theme": {
     "mode": "system",
@@ -40,6 +43,7 @@
       }
     }
   },
+  "autosave": "on_focus_change",
   "languages": {
     "Lua": {
       "format_on_save": "on",
@@ -47,7 +51,7 @@
         "external": {
           "command": "stylua",
           "arguments": [
-            "--syntax=Lua54",
+            // "--syntax=Lua54",
             "--respect-ignores",
             "--stdin-filepath",
             "{buffer_path}",

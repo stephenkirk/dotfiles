@@ -1,49 +1,50 @@
 {
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
     {
-      "scrolling" : {
-        "reverse" : {
-          "vertical" : true
-        },
-        "acceleration" : {
-          "vertical" : 1,
-          "horizontal" : 0.4
-        },
-        "speed" : {
-          "vertical" : 21.92,
-          "horizontal" : 68.9
-        }
-      },
       "pointer" : {
+        "speed" : 0.1084,
         "disableAcceleration" : false,
-        "acceleration" : 0.6741,
-        "speed" : 0.2735
+        "acceleration" : 1.0499
       },
       "if" : {
         "device" : {
           "productName" : "USB Receiver",
           "productID" : "0xc548",
-          "category" : "mouse",
-          "vendorID" : "0x46d"
+          "vendorID" : "0x46d",
+          "category" : "mouse"
+        }
+      },
+      "scrolling" : {
+        "speed" : {
+          "horizontal" : 68.9,
+          "vertical" : 21.92
+        },
+        "reverse" : {
+          "vertical" : true
+        },
+        "acceleration" : {
+          "horizontal" : 0.4,
+          "vertical" : 1
         }
       },
       "buttons" : {
         "mappings" : [
           {
-            "command" : false,
             "shift" : false,
+            "command" : false,
             "option" : false,
+            "action" : "missionControl",
             "control" : false,
-            "button" : 3,
-            "action" : "missionControl"
+            "button" : 3
           },
           {
             "shift" : false,
-            "control" : false,
-            "button" : 4,
+            "command" : false,
             "option" : false,
             "action" : "appExpose",
-            "command" : false
+            "control" : false,
+            "button" : 4
           }
         ]
       }
@@ -51,10 +52,10 @@
     {
       "if" : {
         "device" : {
+          "category" : "trackpad",
           "productName" : "Apple Internal Keyboard \/ Trackpad",
-          "vendorID" : "0x0",
           "productID" : "0x0",
-          "category" : "trackpad"
+          "vendorID" : "0x0"
         }
       },
       "scrolling" : {
@@ -64,51 +65,116 @@
       }
     },
     {
-      "buttons" : {
-        "mappings" : [
-          {
-            "control" : false,
-            "action" : "missionControl",
-            "shift" : false,
-            "command" : false,
-            "button" : 3,
-            "option" : false
-          },
-          {
-            "shift" : false,
-            "command" : false,
-            "button" : 4,
-            "control" : false,
-            "action" : "appExpose",
-            "option" : false
-          }
-        ]
-      },
       "pointer" : {
-        "acceleration" : 1.6829,
         "disableAcceleration" : false,
+        "acceleration" : 1.6829,
         "speed" : 0.1113
       },
       "if" : {
         "device" : {
           "productName" : "ProtoArc EM03",
-          "productID" : "0x40",
+          "vendorID" : "0x1915",
           "category" : "mouse",
-          "vendorID" : "0x1915"
+          "productID" : "0x40"
         }
       },
       "scrolling" : {
         "speed" : {
-          "vertical" : 17.65
-        },
-        "reverse" : {
-          "vertical" : true
+          "vertical" : 29.67
         },
         "acceleration" : {
           "vertical" : 0.88
+        },
+        "reverse" : {
+          "vertical" : true
+        }
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "action" : "missionControl",
+            "option" : false,
+            "control" : false,
+            "button" : 3,
+            "shift" : false,
+            "command" : false
+          },
+          {
+            "action" : "appExpose",
+            "option" : false,
+            "control" : false,
+            "button" : 4,
+            "shift" : false,
+            "command" : false
+          }
+        ]
+      }
+    },
+    {
+      "pointer" : {
+        "acceleration" : 1.6617,
+        "speed" : 0.0855
+      },
+      "if" : {
+        "device" : {
+          "productID" : "0xc52b",
+          "category" : "mouse",
+          "productName" : "USB Receiver",
+          "vendorID" : "0x46d"
+        }
+      },
+      "scrolling" : {
+        "distance" : {
+          "vertical" : 2
+        },
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "speed" : {
+          "vertical" : 0
+        },
+        "reverse" : {
+          "vertical" : true
         }
       }
+    },
+    {
+      "if" : {
+        "device" : {
+          "productName" : "USB Receiver",
+          "productID" : "0xc539",
+          "vendorID" : "0x46d",
+          "category" : "mouse"
+        }
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "reverse" : {
+          "vertical" : true
+        }
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "command" : false,
+            "shift" : false,
+            "button" : 3,
+            "option" : false,
+            "control" : false,
+            "action" : "missionControl"
+          },
+          {
+            "option" : false,
+            "action" : "showDesktop",
+            "button" : 4,
+            "command" : false,
+            "shift" : false,
+            "control" : false
+          }
+        ]
+      }
     }
-  ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+  ]
 }

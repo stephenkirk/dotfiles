@@ -11,5 +11,17 @@
     "bindings": {
       // "shift shift": "file_finder::Toggle"
     }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-shift-l": "editor::SplitSelectionIntoLines"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-alt-cmd-shift-l": "editor::SelectAllMatches"
+    }
   }
 ]
