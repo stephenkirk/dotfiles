@@ -33,4 +33,7 @@ create_symlink ~/Documents/dotfiles_private ~/dotfiles_private
 create_symlink ~/Documents/dotfiles_private/.profile ~/.profile
 create_symlink ~/Documents/dotfiles_private/bin ~/bin
 
+# Tools directory
+create_symlink ~/dotfiles/tools ~/bin/tools
+
 echo "Symlink creation completed."

@@ -1,0 +1,40 @@
+#!/bin/bash
+# Converts Markdown files to PDF via HTML with custom CSS styling using pandoc and wkhtmltopdf
+
+# Create the CSS file
+cat << EOF > custom.css
+body {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 12pt;
+}
+EOF
+
+mkdir -p OUTPUT
+
+# Check if a specific file was provided as an argument
+if [ $# -gt 0 ]; then
+    # Process only the specified file
+    file="$1"
+    if [ -f "$file" ] && [[ "$file" == *.md ]]; then
+        filename=$(basename "$file" .md)
+        pandoc "$file" -t html5 --pdf-engine=wkhtmltopdf --css=custom.css -o "OUTPUT/${filename}.pdf"
+        echo "Converted $file to OUTPUT/${filename}.pdf"
+    else
+        echo "Error: $file is not a valid Markdown file."
+        rm custom.css
+        exit 1
+    fi
+else
+    # No argument provided, process all markdown files in directory
+    for file in *.md; do
+        if [ -f "$file" ]; then
+            filename=$(basename "$file" .md)
+            pandoc "$file" -t html5 --pdf-engine=wkhtmltopdf --css=custom.css -o "OUTPUT/${filename}.pdf"
+            echo "Converted $file to OUTPUT/${filename}.pdf"
+        fi
+    done
+fi
+
+rm custom.css
+
+echo "Conversion complete. Check the OUTPUT folder for your PDF files."

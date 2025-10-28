@@ -1,0 +1,52 @@
+#!/bin/bash
+# Auto-configures Slay the Spire display settings based on detected monitor and launches the game
+
+CONFIG_FILE="$HOME/Library/Application Support/Steam/steamapps/common/SlayTheSpire/SlayTheSpire.app/Contents/Resources/info.displayconfig"
+
+# Desktop config (32" screen)
+DESKTOP_WIDTH=2048
+DESKTOP_HEIGHT=1280
+DESKTOP_REFRESH=60
+DESKTOP_LINE4=false
+DESKTOP_LINE5=false
+DESKTOP_LINE6=true
+
+# Laptop config
+LAPTOP_WIDTH=1800
+LAPTOP_HEIGHT=1169
+LAPTOP_REFRESH=120
+LAPTOP_LINE4=true
+LAPTOP_LINE5=false
+LAPTOP_LINE6=true
+
+DISPLAY_INFO=$(system_profiler SPDisplaysDataType)
+
+if echo "$DISPLAY_INFO" | grep -q "BenQ PD3220U"; then
+    echo "BenQ PD3220U detected, applying desktop settings..."
+    cat > "$CONFIG_FILE" << EOF
+${DESKTOP_WIDTH}
+${DESKTOP_HEIGHT}
+${DESKTOP_REFRESH}
+${DESKTOP_LINE4}
+${DESKTOP_LINE5}
+${DESKTOP_LINE6}
+
+EOF
+    echo "Applied desktop config: ${DESKTOP_WIDTH}x${DESKTOP_HEIGHT}"
+else
+    echo "Built-in display, applying laptop settings..."
+    cat > "$CONFIG_FILE" << EOF
+${LAPTOP_WIDTH}
+${LAPTOP_HEIGHT}
+${LAPTOP_REFRESH}
+${LAPTOP_LINE4}
+${LAPTOP_LINE5}
+${LAPTOP_LINE6}
+
+EOF
+    echo "Applied laptop config: ${LAPTOP_WIDTH}x${LAPTOP_HEIGHT}"
+fi
+
+# Launch the game
+echo "Launching Slay the Spire..."
+open "$HOME/Library/Application Support/Steam/steamapps/common/SlayTheSpire/SlayTheSpire.app"

@@ -1,0 +1,16 @@
+#!/bin/bash
+# Converts all Markdown files in current directory to PDFs using pandoc with LaTeX template
+
+mkdir -p OUTPUT
+TEMPLATE_PATH="$HOME/bin/template.tex"
+
+for file in *.md; do
+    if [ -f "$file" ]; then
+        filename=$(basename "$file" .md)
+        pandoc "$file" --pdf-engine=xelatex --template="$TEMPLATE_PATH" -o "OUTPUT/${filename}.pdf"
+        
+        echo "Converted $file to OUTPUT/${filename}.pdf"
+    fi
+done
+
+echo "Conversion complete. Check the OUTPUT folder for your PDF files."
