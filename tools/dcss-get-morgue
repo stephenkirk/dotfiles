@@ -1,0 +1,19 @@
+#!/bin/bash
+
+url="https://crawl.xtahua.com/crawl/morgue/steph/"
+local_directory="~/Documents/crawl-morgue"
+
+# Get the URLs of txt files using curl and parse them with grep and sed
+txt_file_urls=$(curl -s "$url" | grep -Eo 'href="[^"]+\.txt' | sed -E 's/^href="([^"]+\.txt)/\1/' | awk -v url="$url" '{print url$0}')
+
+for txt_file_url in $txt_file_urls; do
+    file_name=$(basename "$txt_file_url")
+    file_path="$local_directory/$file_name"
+
+    if [ ! -f "$file_path" ]; then
+        echo "Downloading $file_name..."
+        curl -s "$txt_file_url" -o "$file_path"
+    else
+        echo "File $file_name already exists, skipping..."
+    fi
+done

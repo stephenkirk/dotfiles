@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "=== System Login Items ==="
+osascript -e 'tell application "System Events" to get the name of every login item'
+
+echo -e "\n=== User Launch Agents ==="
+ls -1 ~/Library/LaunchAgents 2>/dev/null
+
+echo -e "\n=== System Launch Agents ==="
+sudo ls -1 /Library/LaunchAgents 2>/dev/null
+
+echo -e "\n=== Launch Daemons ==="
+sudo ls -1 /Library/LaunchDaemons 2>/dev/null
+
+echo -e "\n=== Login Items Folder ==="
+ls -1 ~/Library/Application\ Support/LoginItems 2>/dev/null

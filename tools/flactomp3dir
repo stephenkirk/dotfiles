@@ -1,0 +1,52 @@
+#!/bin/bash
+
+MOVE_FILES=false
+DIRECTORY="."
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -m|--move)
+            MOVE_FILES=true
+            shift
+            ;;
+        -h|--help)
+            echo "Usage: $(basename "$0") [options] [directory]"
+            echo "Options:"
+            echo "  -m, --move    Move original FLAC files to ./FLAC/ after conversion"
+            echo "  -h, --help    Show this help message"
+            exit 0
+            ;;
+        *)
+            DIRECTORY="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ ! -d "$DIRECTORY" ]; then
+    echo "Error: '$DIRECTORY' is not a valid directory" >&2
+    exit 1
+fi
+
+if $MOVE_FILES && [ ! -d "$DIRECTORY/FLAC" ]; then
+    mkdir -p "$DIRECTORY/FLAC"
+fi
+
+found_files=false
+for flacfile in "$DIRECTORY"/*.flac; do
+    if [ -f "$flacfile" ]; then
+        found_files=true
+        flactomp3 "$flacfile"
+
+        if [ $? -eq 0 ] && $MOVE_FILES; then
+            mv "$flacfile" "$DIRECTORY/FLAC/"
+            echo "Moved $flacfile to $DIRECTORY/FLAC/"
+        fi
+    fi
+done
+
+if ! $found_files; then
+    echo "No FLAC files found in $DIRECTORY"
+    exit 1
+fi
