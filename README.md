@@ -4,6 +4,34 @@
 
 My personal macOS setup. For those who no longer find spiritual enlightenment in the 47-click System Preferences pilgrimage after each reinstall.
 
+## How This Works
+
+The symlink architecture that makes this all work:
+
+```
+~/dotfiles/
+├── .config/              # Modern configs → symlinked to ~/.config/
+│   ├── fish/            # Primary shell (vi mode, fzf, zoxide)
+│   │                    # Zsh config also kept for compatibility
+│   ├── zed/             # Daily driver editor
+│   ├── karabiner/       # Keyboard customization
+│   ├── amethyst/        # Window management
+│   └── linearmouse/     # Mouse settings
+├── .vimrc, .zshrc, etc  # Classic dotfiles → symlinked to ~/
+├── .hammerspoon/        # Hotkey automation
+├── tools/               # Productivity scripts → symlinked to ~/bin/tools (in PATH)
+│                        # Audio conversion, doc generation, game launchers, etc
+├── scripts/
+│   ├── symlink-setup.sh    # Wires everything up
+│   ├── macos-defaults.sh   # System preferences automation
+│   └── vscode-sync.sh      # Keeps VS Code settings in sync
+├── Brewfile             # Every app and CLI tool
+└── setup.sh             # Orchestrates it all
+```
+
+### Private Dotfiles Pattern
+Sensitive configs (API keys, work stuff, private scripts) live in `~/Documents/dotfiles_private/` and get symlinked to `~/dotfiles_private` and `~/bin`. Fork this? Make your own.
+
 ## Example Features
 
 ### System Configuration That Makes Sense
@@ -20,11 +48,11 @@ My personal macOS setup. For those who no longer find spiritual enlightenment in
 - **Karabiner/LinearMouse**: Input device customizations for maximum comfort (mouse acceleration, caps lock doubles as ESC/ctrl)
 
 ### Dev Environment That Prioritizes Sanity
-- **Fish Shell**: With vi mode and aliases etc
-- **Zed**: The new daily driver
-- **Vim/Neovim**: I mean I probably could live with vanilla vim/neovim but I keep the config around
-- **VS Code**: I hate it, but I use it
-- **Doom Emacs**: For when you want your text editor to be an operating system - mostly used as glorified git client with magit
+- **Fish Shell**: Primary shell with vi mode, better defaults than Zsh (which is kept for compatibility)
+- **Zed**: The daily driver
+- **VS Code**: Kept around because sometimes you need it
+- **Vim/Neovim**: Vanilla is probably fine but the config lives on
+- **Doom Emacs**: Glorified magit launcher, aka the best git client
 
 ## Installation
 
@@ -40,16 +68,6 @@ My personal macOS setup. For those who no longer find spiritual enlightenment in
    ```
 
 3. Go make coffee. Or tea. Or grab a beer. This will take a bit.
-
-## What Exactly Happens?
-
-1. Installs Homebrew
-2. Installs a ton of stuff from Brewfile:
-   - All the dev tools (git, python, rust, go, etc.)
-   - CLI utilities that make terminal life bearable
-   - Apps like VSCode, iTerm2, and more
-3. Configures macOS with sensible defaults
-4. Symlinks configs so everything just works™
 
 ## The Brewfile
 
