@@ -77,40 +77,28 @@ Peruse the Brewfile if you're curious about what I use daily. It's a mess, but i
 
 Fork it. Break it. Fix it. It's yours now.
 
-## Notes
+## Highlights
 
-- iterm themes aren't auto-installed, you'll need to do that yourself (gasp)
-- Some shortcuts are very specific to my workflow (see: the "Productivity Enhancement" Balatro alias)
-- All text autocorrections and substitutions are disabled (smart quotes aren't that smart)
+**Caps Lock as Hyper Key**
+Karabiner maps caps lock to ESC (tap) and SUPER/Hyper (hold), giving you a whole new modifier key. Hammerspoon then uses SUPER for system-wide hotkeys:
+- `SUPER+H`: Show all available hotkeys
+- `SUPER+A`: Toggle between AirPods and speakers
+- `SUPER+D`: Toggle dark mode
 
----
-
-### Notable Features You Might Want to Steal
-
-```lua
--- One-key audio device switching (Hammerspoon)
-hs.hotkey.bind(super, "A", function()
-    -- Toggle between speakers and AirPods because menus are for people with time to waste
-end)
-```
-
+**Smart PR Review List**
+Get PRs awaiting your review as Markdown links, ready to paste:
 ```fish
-# Smart PR review list command
 function to_review
-    gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
+    gh pr list -S "review-requested:@me" --json title,url,author \
+      --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
 end
 ```
 
+**Kill All the Animations**
+macOS is faster when it's not busy being pretty:
 ```bash
-# Disable animations and speed up macOS
 defaults write -g NSWindowResizeTime -float 0.001
 defaults write -g NSToolbarFullScreenAnimationDuration -float 0
 defaults write com.apple.dock expose-animation-duration -float 0
 ```
-
-```fish
-# The most important productivity tool
-function balatro
-    "/Users/stephenkirk/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
-end
-```
+See `scripts/macos-defaults.sh` for the full list.
