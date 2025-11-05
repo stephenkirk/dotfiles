@@ -4,6 +4,34 @@
 
 My personal macOS setup. For those who no longer find spiritual enlightenment in the 47-click System Preferences pilgrimage after each reinstall.
 
+## How This Works
+
+The symlink architecture that makes this all work:
+
+```
+~/dotfiles/
+├── .config/              # Modern configs → symlinked to ~/.config/
+│   ├── fish/            # Primary shell (vi mode, fzf, zoxide)
+│   │                    # Zsh config also kept for compatibility
+│   ├── zed/             # Daily driver editor
+│   ├── karabiner/       # Keyboard customization
+│   ├── amethyst/        # Window management
+│   └── linearmouse/     # Mouse settings
+├── .vimrc, .zshrc, etc  # Classic dotfiles → symlinked to ~/
+├── .hammerspoon/        # Hotkey automation
+├── tools/               # Productivity scripts → symlinked to ~/bin/tools (in PATH)
+│                        # Audio conversion, doc generation, game launchers, etc
+├── scripts/
+│   ├── symlink-setup.sh    # Wires everything up
+│   ├── macos-defaults.sh   # System preferences automation
+│   └── vscode-sync.sh      # Keeps VS Code settings in sync
+├── Brewfile             # Every app and CLI tool
+└── setup.sh             # Orchestrates it all
+```
+
+### Private Dotfiles Pattern
+Sensitive configs (API keys, work stuff, private scripts) live in `~/Documents/dotfiles_private/` and get symlinked to `~/dotfiles_private` and `~/bin`. Fork this? Make your own.
+
 ## Example Features
 
 ### System Configuration That Makes Sense
@@ -20,11 +48,11 @@ My personal macOS setup. For those who no longer find spiritual enlightenment in
 - **Karabiner/LinearMouse**: Input device customizations for maximum comfort (mouse acceleration, caps lock doubles as ESC/ctrl)
 
 ### Dev Environment That Prioritizes Sanity
-- **Fish Shell**: With vi mode and aliases etc
-- **Zed**: The new daily driver
-- **Vim/Neovim**: I mean I probably could live with vanilla vim/neovim but I keep the config around
-- **VS Code**: I hate it, but I use it
-- **Doom Emacs**: For when you want your text editor to be an operating system - mostly used as glorified git client with magit
+- **Fish Shell**: Primary shell with vi mode, better defaults than Zsh (which is kept for compatibility)
+- **Zed**: The daily driver
+- **VS Code**: Kept around because sometimes you need it
+- **Vim/Neovim**: Vanilla is probably fine but the config lives on
+- **Doom Emacs**: Glorified magit launcher, aka the best git client
 
 ## Installation
 
@@ -41,16 +69,6 @@ My personal macOS setup. For those who no longer find spiritual enlightenment in
 
 3. Go make coffee. Or tea. Or grab a beer. This will take a bit.
 
-## What Exactly Happens?
-
-1. Installs Homebrew
-2. Installs a ton of stuff from Brewfile:
-   - All the dev tools (git, python, rust, go, etc.)
-   - CLI utilities that make terminal life bearable
-   - Apps like VSCode, iTerm2, and more
-3. Configures macOS with sensible defaults
-4. Symlinks configs so everything just works™
-
 ## The Brewfile
 
 Peruse the Brewfile if you're curious about what I use daily. It's a mess, but it's *my* mess.
@@ -59,40 +77,35 @@ Peruse the Brewfile if you're curious about what I use daily. It's a mess, but i
 
 Fork it. Break it. Fix it. It's yours now.
 
-## Notes
+## Highlights
 
-- iterm themes aren't auto-installed, you'll need to do that yourself (gasp)
-- Some shortcuts are very specific to my workflow (see: the "Productivity Enhancement" Balatro alias)
-- All text autocorrections and substitutions are disabled (smart quotes aren't that smart)
+**Ergonomic Keyboard Remapping**
 
----
+Karabiner handles the magic:
+- Caps Lock (tap) = ESC, (hold) = CTRL (no more pinky destruction)
+- ESC key = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
 
-### Notable Features You Might Want to Steal
+Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with anything:
+- `Hyper+H`: Show all available hotkeys
+- `Hyper+A`: Toggle between AirPods and speakers
+- `Hyper+D`: Toggle dark mode
 
-```lua
--- One-key audio device switching (Hammerspoon)
-hs.hotkey.bind(super, "A", function()
-    -- Toggle between speakers and AirPods because menus are for people with time to waste
-end)
-```
+**Smart PR Review List**
 
+Get PRs awaiting your review as Markdown links, ready to paste:
 ```fish
-# Smart PR review list command
 function to_review
-    gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
+    gh pr list -S "review-requested:@me" --json title,url,author \
+      --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
 end
 ```
 
+**Kill All the Animations**
+
+macOS is faster when it's not busy being pretty:
 ```bash
-# Disable animations and speed up macOS
 defaults write -g NSWindowResizeTime -float 0.001
 defaults write -g NSToolbarFullScreenAnimationDuration -float 0
 defaults write com.apple.dock expose-animation-duration -float 0
 ```
-
-```fish
-# The most important productivity tool
-function balatro
-    "/Users/stephenkirk/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
-end
-```
+See `scripts/macos-defaults.sh` for the full list.
