@@ -91,6 +91,7 @@ Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with any
 - `Hyper+D`: Toggle dark mode
 
 **Smart PR Review List**
+
 Get PRs awaiting your review as Markdown links, ready to paste:
 ```fish
 function to_review
@@ -100,6 +101,7 @@ end
 ```
 
 **Kill All the Animations**
+
 macOS is faster when it's not busy being pretty:
 ```bash
 defaults write -g NSWindowResizeTime -float 0.001
