@@ -80,14 +80,15 @@ Fork it. Break it. Fix it. It's yours now.
 ## Highlights
 
 **Ergonomic Keyboard Remapping**
+
 Karabiner handles the magic:
 - Caps Lock (tap) = ESC, (hold) = CTRL (no more pinky destruction)
 - ESC key = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
 
 Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with anything:
-- `SUPER+H`: Show all available hotkeys
-- `SUPER+A`: Toggle between AirPods and speakers
-- `SUPER+D`: Toggle dark mode
+- `Hyper+H`: Show all available hotkeys
+- `Hyper+A`: Toggle between AirPods and speakers
+- `Hyper+D`: Toggle dark mode
 
 **Smart PR Review List**
 Get PRs awaiting your review as Markdown links, ready to paste:
