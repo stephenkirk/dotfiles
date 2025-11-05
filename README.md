@@ -79,8 +79,12 @@ Fork it. Break it. Fix it. It's yours now.
 
 ## Highlights
 
-**Caps Lock as Hyper Key**
-Karabiner maps caps lock to ESC (tap) and SUPER/Hyper (hold), giving you a whole new modifier key. Hammerspoon then uses SUPER for system-wide hotkeys:
+**Ergonomic Keyboard Remapping**
+Karabiner handles the magic:
+- Caps Lock (tap) = ESC, (hold) = CTRL (no more pinky destruction)
+- ESC key = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
+
+Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with anything:
 - `SUPER+H`: Show all available hotkeys
 - `SUPER+A`: Toggle between AirPods and speakers
 - `SUPER+D`: Toggle dark mode
