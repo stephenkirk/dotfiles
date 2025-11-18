@@ -84,7 +84,7 @@ Fork it. Break it. Fix it. It's yours now.
 
 Karabiner handles the magic:
 - Caps Lock (tap) = ESC, (hold) = CTRL (no more pinky destruction)
-- ESC key = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
+- ESC (tap) = Caps Lock, (hold) = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
 
 Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with anything:
 - `Hyper+H`: Show all available hotkeys
