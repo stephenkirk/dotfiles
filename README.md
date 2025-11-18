@@ -18,6 +18,7 @@ The symlink architecture that makes this all work:
 │   ├── amethyst/        # Window management
 │   └── linearmouse/     # Mouse settings
 ├── .vimrc, .zshrc, etc  # Classic dotfiles → symlinked to ~/
+├── .doom.d/             # Doom Emacs config
 ├── .hammerspoon/        # Hotkey automation
 ├── tools/               # Productivity scripts → symlinked to ~/bin/tools (in PATH)
 │                        # Audio conversion, doc generation, game launchers, etc
