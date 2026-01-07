@@ -73,22 +73,6 @@ alias gpl='git pull'
 alias -s git="git clone" # Expand urls into `git clone $URL` 
 
 # Functions
-toggle_desktop () {
-	is_active=`defaults read com.apple.finder CreateDesktop`
-	
-	if ((is_active))
-	then
-		defaults write com.apple.finder CreateDesktop 0; killall Finder
-		echo "Disabled desktop"
-	fi
-
-	if ! ((is_active))
-	then 
-		defaults write com.apple.finder CreateDesktop 1; killall Finder
-		echo "Enabled desktop"
-	fi
-}
-
 # Schedule sleep in ARG minutes
 function sleep-in() {
   local minutes=$1

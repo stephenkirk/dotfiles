@@ -45,10 +45,7 @@ alias grc='git rebase --continue'
 alias gpl='git pull'
 
 
-# Fetch a list of pull requests where I am requested for review, format it as Markdown links, and copy to clipboard.
-function to_review
-	gh pr list -S "review-requested:@me" --json title,url,author --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
-end
+# to_review function moved to ~/bin/tools/to_review
 
 function shell --argument-names param
 	llm -t shell "$param"
@@ -63,3 +60,6 @@ if test -f ~/.machine-work
 else if test -f ~/.machine-personal
     source ~/.config/fish/config.personal.fish
 end
+
+# Added by tally installer
+fish_add_path $HOME/.tally/bin

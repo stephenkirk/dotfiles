@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Fetch a list of pull requests where I am requested for review,
+# format it as Markdown links, and copy to clipboard.
+
+gh pr list -S "review-requested:@me" --json title,url,author \
+  --jq 'map("[\"@\(.author.login): \(.title)\"](\(.url))") | .[]'
