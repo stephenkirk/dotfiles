@@ -1,0 +1,18 @@
+# Personal machine packages
+# Installed when ~/.machine-personal exists
+
+# Gaming
+cask "steam"
+cask "minecraft"
+cask "discord"
+
+# Music & Audio
+cask "spotify"
+cask "soulseek"
+cask "rekordbox"
+cask "ableton-live-suite@11"
+cask "blackhole-2ch"
+
+# Media
+cask "obs"
+brew "yt-dlp"

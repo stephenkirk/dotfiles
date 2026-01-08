@@ -1,0 +1,5 @@
+# Personal machine configuration
+# Loaded when ~/.machine-personal exists
+
+# pipx path (personal username)
+export PATH="$PATH:/Users/stephenkirk/.local/bin"
