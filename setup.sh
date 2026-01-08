@@ -12,6 +12,12 @@ brew update
 brew tap homebrew/bundle
 brew bundle
 
+# Install personal packages if this is a personal machine
+if [ -f "$HOME/.machine-personal" ]; then
+    echo "Personal machine detected, installing personal packages..."
+    brew bundle --file=Brewfile.personal
+fi
+
 # add symlinks
 source ./scripts/symlink-setup.sh
 source ./scripts/macos-defaults.sh
