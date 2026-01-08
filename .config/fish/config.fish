@@ -47,9 +47,6 @@ alias gc='git commit'
 alias grc='git rebase --continue'
 alias gpl='git pull'
 
-alias grid='cd ~/src/grid && ./run.sh'
-
-alias whisperer='cd ~/src/whisperer && sh ./run.sh'
 
 # Fetch a list of pull requests where I am requested for review, format it as Markdown links, and copy to clipboard.
 function to_review
