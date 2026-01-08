@@ -14,6 +14,8 @@ create_symlink ~/dotfiles/.doom.d ~/.doom.d
 create_symlink ~/dotfiles/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/.zshrc ~/.zshrc
+create_symlink ~/dotfiles/.zshrc.personal ~/.zshrc.personal
+create_symlink ~/dotfiles/.zshrc.work ~/.zshrc.work
 create_symlink ~/dotfiles/.gitconfig ~/.gitconfig
 
 # Config files in .config directory
@@ -21,6 +23,8 @@ mkdir -p ~/.config/
 mkdir -p ~/.config/fish
 
 create_symlink ~/dotfiles/.config/fish/config.fish ~/.config/fish/config.fish
+create_symlink ~/dotfiles/.config/fish/config.personal.fish ~/.config/fish/config.personal.fish
+create_symlink ~/dotfiles/.config/fish/config.work.fish ~/.config/fish/config.work.fish
 create_symlink ~/dotfiles/.config/karabiner ~/.config/karabiner
 create_symlink ~/dotfiles/.config/amethyst ~/.config/amethyst
 create_symlink ~/dotfiles/.config/linearmouse ~/.config/linearmouse

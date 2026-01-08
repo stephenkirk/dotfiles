@@ -1,0 +1,7 @@
+# Work machine configuration
+# Loaded when ~/.machine-work exists
+
+# mise for version management
+if [[ -f ~/.local/bin/mise ]]; then
+    eval "$(~/.local/bin/mise activate zsh)"
+fi
