@@ -57,13 +57,12 @@ function shell --argument-names param
 	llm -t shell "$param"
 end
 
-# Created by `pipx` on 2024-11-28 14:13:39
-set PATH $PATH /Users/stephenkirk/.local/bin
-
 # add zoxide / z
 zoxide init fish | source
 
-# "Productivity Enhancement" alias
-function balatro
-    "/Users/stephenkirk/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
+# Load machine-specific config (personal or work)
+if test -f ~/.machine-work
+    source ~/.config/fish/config.work.fish
+else if test -f ~/.machine-personal
+    source ~/.config/fish/config.personal.fish
 end
