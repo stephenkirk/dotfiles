@@ -137,3 +137,10 @@ function toggle-cursor-size() {
 	resize-cursor
 	resize-cursor
 }
+
+# Load machine-specific config (personal or work)
+if [[ -f ~/.machine-work ]]; then
+    source ~/.zshrc.work
+elif [[ -f ~/.machine-personal ]]; then
+    source ~/.zshrc.personal
+fi
