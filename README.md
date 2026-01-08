@@ -6,7 +6,7 @@ My personal macOS setup. For those who no longer find spiritual enlightenment in
 
 ## How This Works
 
-The symlink architecture that makes this all work:
+The symlink architecture that makes this work:
 
 ```
 ~/dotfiles/
@@ -30,18 +30,18 @@ The symlink architecture that makes this all work:
 └── setup.sh             # Orchestrates it all
 ```
 
-### Private Dotfiles Pattern
-Sensitive configs (API keys, work stuff, private scripts) live in `~/Documents/dotfiles_private/` and get symlinked to `~/dotfiles_private` and `~/bin`. Fork this? Make your own.
+### Private Dotfiles
+Sensitive or personal configuration (API keys, private scripts) lives in `~/Documents/dotfiles_private/` and get symlinked to `~/dotfiles_private` and `~/bin`. 
 
 ## Example Features
 
-### System Configuration That Makes Sense
+### System Configuration
 - **macOS Defaults**: Disables animations in favor of speed and responsiveness
 - **Key Repeat**: Set to ludicrous speed for zooming around in vim
-- **Finder**: Forces column view because efficiency matters
+- **Finder**: Forces column view
 - **No More Accents**: Disabled the accent menu that pops up when you hold a key
 
-### Tools That Enhance Productivity
+### Productivity 
 - **Hammerspoon**: Hotkeys for essentials like:
   - `super+A`: Toggling between AirPods and laptop speakers (because auto switching is finicky at best)
   - `super+D`: Toggle dark mode
