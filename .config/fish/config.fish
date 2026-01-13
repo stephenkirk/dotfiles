@@ -15,10 +15,7 @@ set -gx DOTNET_ROOT $HOME/.dotnet/dotnet
 set -Ua fish_user_paths $HOME/bin
 set -Ua fish_user_paths $HOME/bin/tools
 set -Ua fish_user_paths /opt/homebrew/bin
-set -Ua fish_user_paths $HOME/.dotnet/dotnet
-set -Ua fish_user_paths $HOME/.dotnet/tools
 set -Ua fish_user_paths $HOME/.config/emacs/bin
-set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
 set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
 set -Ua fish_user_paths $HOME/go
 

@@ -2,7 +2,10 @@
 # Loaded when ~/.machine-personal exists
 
 # pipx path (personal username)
-set PATH $PATH /Users/stephenkirk/.local/bin
+set PATH $PATH ~/.local/bin
+
+set -Ua fish_user_paths $HOME/.dotnet/dotnet
+set -Ua fish_user_paths $HOME/.dotnet/tools
 
 # Game launchers
 function balatro
