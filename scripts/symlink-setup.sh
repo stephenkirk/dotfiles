@@ -28,6 +28,7 @@ create_symlink ~/dotfiles/.config/fish/config.work.fish ~/.config/fish/config.wo
 create_symlink ~/dotfiles/.config/karabiner ~/.config/karabiner
 create_symlink ~/dotfiles/.config/amethyst ~/.config/amethyst
 create_symlink ~/dotfiles/.config/linearmouse ~/.config/linearmouse
+create_symlink ~/dotfiles/.config/nvim ~/.config/nvim
 
 create_symlink ~/dotfiles/.config/zed/keymap.json ~/.config/zed/keymap.json
 create_symlink ~/dotfiles/.config/zed/settings.json ~/.config/zed/settings.json
