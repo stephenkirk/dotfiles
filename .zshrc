@@ -46,20 +46,6 @@ export PATH
 
 source ~/.profile
 
-# Antigen pre-config
-export ALIEN_SECTION_TIME_FORMAT=%H:%M:%S # default is %r
-export ALIEN_THEME="gruvbox"
-
-# Antigen
-source $(brew --prefix)/share/antigen/antigen.zsh
-antigen use oh-my-zsh
-antigen bundle git
-antigen theme eendroroy/alien alien
-antigen bundle paulirish/git-open
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle agkozak/zsh-z
-antigen apply
-
 # z nice completions
 zstyle ':completion:*' menu select
 # vi mode in shell
