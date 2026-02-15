@@ -61,5 +61,3 @@ else if test -f ~/.machine-personal
     source ~/.config/fish/config.personal.fish
 end
 
-# Added by tally installer
-fish_add_path $HOME/.tally/bin
