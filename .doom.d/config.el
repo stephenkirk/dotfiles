@@ -40,4 +40,44 @@
 (use-package magit-delta
   :hook (magit-mode . magit-delta-mode))
 
+(defun magit-insert-local-branches-with-age ()
+  "Insert a section showing local branches with their age."
+  (magit-insert-section (local-branches-age)
+    (magit-insert-heading "Local branches:")
+    (let* ((current (magit-get-current-branch))
+           (branches (magit-list-local-branch-names))
+           (entries
+            (sort
+             (mapcar
+              (lambda (branch)
+                (let ((time (string-to-number
+                             (or (magit-git-string
+                                  "log" "-1" "--format=%ct" branch)
+                                 "0"))))
+                  (list branch time
+                        (magit-git-string
+                         "log" "-1" "--format=%cr" branch))))
+              branches)
+             (lambda (a b) (> (cadr a) (cadr b))))))
+      (dolist (entry (seq-take entries 10))
+        (let ((branch (car entry))
+              (age (caddr entry)))
+          (magit-insert-section (branch branch)
+            (insert (if (equal branch current) "* " "  ")
+                    (propertize (truncate-string-to-width branch 40 nil ?\s)
+                                'font-lock-face
+                                (if (equal branch current)
+                                    'magit-branch-current
+                                  'magit-branch-local))
+                    " "
+                    (propertize age 'font-lock-face 'magit-log-date)
+                    "\n")))))
+    (insert "\n")))
+
+(after! magit
+  (magit-add-section-hook 'magit-status-sections-hook
+                          #'magit-insert-local-branches-with-age
+                          #'magit-insert-stashes
+                          'append))
+
 (setq doom-font (font-spec :family "Iosevka Term" :size 14))
