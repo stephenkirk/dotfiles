@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "terminal": {
+    "dock": "right"
+  },
   "ui_font_family": "Nokia Sans Wide",
   // "ui_font_weight": 200,
   // The default font size for text in the UI
