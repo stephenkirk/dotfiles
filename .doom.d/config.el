@@ -64,8 +64,13 @@
                         (magit-git-string
                          "log" "-1" "--format=%cr" branch))))
               branches)
-             (lambda (a b) (> (cadr a) (cadr b))))))
-      (dolist (entry (seq-take entries 10))
+             (lambda (a b) (> (cadr a) (cadr b)))))
+           (entries
+            (let ((cur (seq-find (lambda (e) (equal (car e) current)) entries))
+                  (rest (seq-remove (lambda (e) (equal (car e) current)) entries)))
+              (append (when cur (list cur))
+                      (seq-take rest (if cur 9 10))))))
+      (dolist (entry entries)
         (let ((branch (car entry))
               (age (caddr entry)))
           (magit-insert-section (branch branch)
