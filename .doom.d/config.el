@@ -85,10 +85,75 @@
                     "\n")))))
     (insert "\n")))
 
+(defun magit-insert-worktrees ()
+  "Insert a section showing git worktrees."
+  (let ((worktrees (magit-git-lines "worktree" "list" "--porcelain")))
+    (when worktrees
+      (magit-insert-section (worktrees)
+        (magit-insert-heading "Worktrees:")
+        (let ((current-toplevel (magit-toplevel))
+              path branch bare locked prunable)
+          (dolist (line (append worktrees '("")))
+            (cond
+             ((string-prefix-p "worktree " line)
+              (when path
+                (let* ((name (abbreviate-file-name path))
+                       (currentp (string= (file-name-as-directory path)
+                                          current-toplevel)))
+                  (magit-insert-section (worktree path)
+                    (insert (if currentp "* " "  ")
+                            (propertize (truncate-string-to-width name 40 nil ?\s)
+                                        'font-lock-face
+                                        (if currentp 'magit-branch-current
+                                          'magit-filename))
+                            " "
+                            (propertize (or branch "(detached)")
+                                        'font-lock-face
+                                        (if currentp 'magit-branch-current
+                                          'magit-branch-local))
+                            (if bare " (bare)" "")
+                            (if locked " (locked)" "")
+                            (if prunable " (prunable)" "")
+                            "\n"))))
+              (setq path (substring line 9)
+                    branch nil bare nil locked nil prunable nil))
+             ((string-prefix-p "branch " line)
+              (setq branch (replace-regexp-in-string
+                            "^refs/heads/" "" (substring line 7))))
+             ((string= "bare" line) (setq bare t))
+             ((string-prefix-p "locked" line) (setq locked t))
+             ((string-prefix-p "prunable" line) (setq prunable t))
+             ((string= "" line)
+              (when path
+                (let* ((name (abbreviate-file-name path))
+                       (currentp (string= (file-name-as-directory path)
+                                          current-toplevel)))
+                  (magit-insert-section (worktree path)
+                    (insert (if currentp "* " "  ")
+                            (propertize (truncate-string-to-width name 40 nil ?\s)
+                                        'font-lock-face
+                                        (if currentp 'magit-branch-current
+                                          'magit-filename))
+                            " "
+                            (propertize (or branch "(detached)")
+                                        'font-lock-face
+                                        (if currentp 'magit-branch-current
+                                          'magit-branch-local))
+                            (if bare " (bare)" "")
+                            (if locked " (locked)" "")
+                            (if prunable " (prunable)" "")
+                            "\n")))
+                (setq path nil))))))
+        (insert "\n")))))
+
 (after! magit
   (magit-add-section-hook 'magit-status-sections-hook
                           #'magit-insert-local-branches-with-age
                           #'magit-insert-stashes
+                          'append)
+  (magit-add-section-hook 'magit-status-sections-hook
+                          #'magit-insert-worktrees
+                          #'magit-insert-local-branches-with-age
                           'append))
 
 (setq doom-font (font-spec :family "Iosevka Term" :size 14))
