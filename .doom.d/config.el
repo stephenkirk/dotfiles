@@ -6,6 +6,12 @@
 ;;             '(ns-appearance . light))
 
 
+;; Encoding — set early so vterm inherits UTF-8
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LC_ALL" "en_US.UTF-8")
+
 (setq user-full-name "Stephen"
       user-mail-address "me@thestephen.net"
       org-directory "~/org/"
@@ -81,3 +87,7 @@
                           'append))
 
 (setq doom-font (font-spec :family "Iosevka Term" :size 14))
+
+;; Glyph fallback for nerd font / powerline symbols in vterm
+(after! fontset
+  (set-fontset-font t 'symbol "Symbols Nerd Font Mono" nil 'prepend))
