@@ -8,7 +8,7 @@
 // command palette
 {
   "terminal": {
-    "dock": "right"
+    "dock": "right",
   },
   "ui_font_family": "Nokia Sans Wide",
   // "ui_font_weight": 200,
@@ -19,32 +19,32 @@
     "default_profile": "minimal",
     "inline_assistant_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4",
     },
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-sonnet-4-5-latest"
-    }
+      "model": "claude-sonnet-4-5-latest",
+    },
   },
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "vim_mode": true,
   "buffer_font_size": 13.0,
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light Hard",
-    "dark": "Gruvbox Dark Hard"
+    "dark": "Gruvbox Dark Hard",
   },
   "lsp": {
     "deno": {
       "settings": {
         "deno": {
-          "enable": true
-        }
-      }
-    }
+          "enable": true,
+        },
+      },
+    },
   },
   "autosave": "on_focus_change",
   "languages": {
@@ -58,28 +58,28 @@
             "--respect-ignores",
             "--stdin-filepath",
             "{buffer_path}",
-            "-"
-          ]
-        }
-      }
+            "-",
+          ],
+        },
+      },
     },
     "TypeScript": {
       "language_servers": [
+        "vtsls",
         "deno",
         "!typescript-language-server",
-        "!vtsls",
-        "!eslint"
+        "!eslint",
       ],
-      "formatter": "language_server"
+      "formatter": "language_server",
     },
     "TSX": {
       "language_servers": [
+        "vtsls",
         "deno",
         "!typescript-language-server",
-        "!vtsls",
-        "!eslint"
+        "!eslint",
       ],
-      "formatter": "language_server"
-    }
-  }
+      "formatter": "language_server",
+    },
+  },
 }
