@@ -27,7 +27,7 @@
 
 ;; ...but use fish for terminal emulators
     (setq-default vterm-shell (executable-find "fish"))
-(setq-default explicit-shell-file-name (executable-find "fish")) 
+(setq-default explicit-shell-file-name (executable-find "fish"))
 
 
 (setq-default evil-want-C-i-jump t)
@@ -56,20 +56,15 @@
   (magit-insert-section (local-branches-age)
     (magit-insert-heading "Local branches:")
     (let* ((current (magit-get-current-branch))
-           (branches (magit-list-local-branch-names))
-           (entries
-            (sort
-             (mapcar
-              (lambda (branch)
-                (let ((time (string-to-number
-                             (or (magit-git-string
-                                  "log" "-1" "--format=%ct" branch)
-                                 "0"))))
-                  (list branch time
-                        (magit-git-string
-                         "log" "-1" "--format=%cr" branch))))
-              branches)
-             (lambda (a b) (> (cadr a) (cadr b)))))
+           (lines (magit-git-lines
+                   "for-each-ref" "--sort=-committerdate"
+                   "--format=%(refname:short)\t%(committerdate:relative)"
+                   "refs/heads/"))
+           (entries (mapcar
+                     (lambda (line)
+                       (let ((parts (split-string line "\t")))
+                         (list (car parts) (cadr parts))))
+                     lines))
            (entries
             (let ((cur (seq-find (lambda (e) (equal (car e) current)) entries))
                   (rest (seq-remove (lambda (e) (equal (car e) current)) entries)))
@@ -77,7 +72,7 @@
                       (seq-take rest (if cur 9 10))))))
       (dolist (entry entries)
         (let ((branch (car entry))
-              (age (caddr entry)))
+              (age (cadr entry)))
           (magit-insert-section (branch branch)
             (insert (if (equal branch current) "* " "  ")
                     (propertize (truncate-string-to-width branch 40 nil ?\s)
