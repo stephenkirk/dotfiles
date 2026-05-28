@@ -86,37 +86,25 @@
     (insert "\n")))
 
 (defun magit-insert-worktrees ()
-  "Insert a section showing git worktrees."
-  (let ((worktrees (magit-git-lines "worktree" "list" "--porcelain")))
-    (when worktrees
+  "Insert a section showing git worktrees, sorted by HEAD recency.
+The main worktree is pinned on top (git always emits it first in
+--porcelain output)."
+  (let ((porcelain (magit-git-lines "worktree" "list" "--porcelain")))
+    (when porcelain
       (magit-insert-section (worktrees)
         (magit-insert-heading "Worktrees:")
         (let ((current-toplevel (magit-toplevel))
-              path branch bare locked prunable)
-          (dolist (line (append worktrees '("")))
+              (entries nil)
+              path head branch bare locked prunable)
+          (dolist (line (append porcelain '("")))
             (cond
              ((string-prefix-p "worktree " line)
               (when path
-                (let* ((name (abbreviate-file-name path))
-                       (currentp (string= (file-name-as-directory path)
-                                          current-toplevel)))
-                  (magit-insert-section (worktree path)
-                    (insert (if currentp "* " "  ")
-                            (propertize (truncate-string-to-width name 40 nil ?\s)
-                                        'font-lock-face
-                                        (if currentp 'magit-branch-current
-                                          'magit-filename))
-                            " "
-                            (propertize (or branch "(detached)")
-                                        'font-lock-face
-                                        (if currentp 'magit-branch-current
-                                          'magit-branch-local))
-                            (if bare " (bare)" "")
-                            (if locked " (locked)" "")
-                            (if prunable " (prunable)" "")
-                            "\n"))))
+                (push (list path head branch bare locked prunable) entries))
               (setq path (substring line 9)
-                    branch nil bare nil locked nil prunable nil))
+                    head nil branch nil bare nil locked nil prunable nil))
+             ((string-prefix-p "HEAD " line)
+              (setq head (substring line 5)))
              ((string-prefix-p "branch " line)
               (setq branch (replace-regexp-in-string
                             "^refs/heads/" "" (substring line 7))))
@@ -125,25 +113,48 @@
              ((string-prefix-p "prunable" line) (setq prunable t))
              ((string= "" line)
               (when path
-                (let* ((name (abbreviate-file-name path))
-                       (currentp (string= (file-name-as-directory path)
-                                          current-toplevel)))
-                  (magit-insert-section (worktree path)
-                    (insert (if currentp "* " "  ")
-                            (propertize (truncate-string-to-width name 40 nil ?\s)
-                                        'font-lock-face
-                                        (if currentp 'magit-branch-current
-                                          'magit-filename))
-                            " "
-                            (propertize (or branch "(detached)")
-                                        'font-lock-face
-                                        (if currentp 'magit-branch-current
-                                          'magit-branch-local))
-                            (if bare " (bare)" "")
-                            (if locked " (locked)" "")
-                            (if prunable " (prunable)" "")
-                            "\n")))
-                (setq path nil))))))
+                (push (list path head branch bare locked prunable) entries)
+                (setq path nil)))))
+          (setq entries (nreverse entries))
+          (let* ((main-entry (car entries))
+                 (rest (cdr entries))
+                 (shas (delq nil (mapcar #'cadr rest)))
+                 (times (make-hash-table :test 'equal)))
+            (when shas
+              (dolist (l (apply #'magit-git-lines
+                                "show" "-s" "--format=%H %ct" shas))
+                (let ((parts (split-string l " ")))
+                  (puthash (car parts) (string-to-number (cadr parts)) times))))
+            (setq entries
+                  (cons main-entry
+                        (sort rest
+                              (lambda (a b)
+                                (> (or (gethash (cadr a) times) 0)
+                                   (or (gethash (cadr b) times) 0)))))))
+          (dolist (entry entries)
+            (let* ((p (nth 0 entry))
+                   (b (nth 2 entry))
+                   (br (nth 3 entry))
+                   (lk (nth 4 entry))
+                   (pr (nth 5 entry))
+                   (name (abbreviate-file-name p))
+                   (currentp (string= (file-name-as-directory p)
+                                      current-toplevel)))
+              (magit-insert-section (worktree p)
+                (insert (if currentp "* " "  ")
+                        (propertize (truncate-string-to-width name 40 nil ?\s)
+                                    'font-lock-face
+                                    (if currentp 'magit-branch-current
+                                      'magit-filename))
+                        " "
+                        (propertize (or b "(detached)")
+                                    'font-lock-face
+                                    (if currentp 'magit-branch-current
+                                      'magit-branch-local))
+                        (if br " (bare)" "")
+                        (if lk " (locked)" "")
+                        (if pr " (prunable)" "")
+                        "\n")))))
         (insert "\n")))))
 
 (after! magit
