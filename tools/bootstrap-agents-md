@@ -1,0 +1,59 @@
+#!/bin/bash
+# bootstrap-agents-md — initialise AGENTS.md in a directory and symlink CLAUDE.md to it.
+#
+# Usage: bootstrap-agents-md [DIR]
+#
+# - Creates AGENTS.md from a stub if it doesn't exist.
+# - Symlinks CLAUDE.md -> AGENTS.md.
+# - If CLAUDE.md exists as a regular file, backs it up to CLAUDE.md.bak first.
+# - Idempotent: re-running on a configured dir is a no-op.
+
+set -euo pipefail
+
+target_dir="${1:-$PWD}"
+cd "$target_dir"
+
+if [[ -e AGENTS.md ]]; then
+    echo "AGENTS.md already exists — leaving content alone."
+else
+    cat > AGENTS.md <<'EOF'
+# AGENTS.md
+
+<one-line description of the project>
+
+## Layout
+
+- TODO
+
+## Conventions
+
+- TODO
+
+## Cookbook
+
+- TODO
+
+## Gotchas
+
+- TODO
+EOF
+    echo "Created AGENTS.md scaffold."
+fi
+
+if [[ -L CLAUDE.md ]]; then
+    link_target=$(readlink CLAUDE.md)
+    if [[ "$link_target" == "AGENTS.md" ]]; then
+        echo "CLAUDE.md already symlinks to AGENTS.md."
+        exit 0
+    fi
+    echo "CLAUDE.md is a symlink to '$link_target', not AGENTS.md. Refusing to overwrite." >&2
+    exit 1
+fi
+
+if [[ -f CLAUDE.md ]]; then
+    mv CLAUDE.md CLAUDE.md.bak
+    echo "Existing CLAUDE.md backed up to CLAUDE.md.bak."
+fi
+
+ln -s AGENTS.md CLAUDE.md
+echo "CLAUDE.md -> AGENTS.md"
