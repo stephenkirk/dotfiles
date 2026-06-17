@@ -7,6 +7,25 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "buffer_font_family": "Iosevka",
   "terminal": {
     "dock": "right",
   },
@@ -16,6 +35,7 @@
   "ui_font_size": 16,
 
   "agent": {
+    "dock": "left",
     "default_profile": "minimal",
     "inline_assistant_model": {
       "provider": "zed.dev",
@@ -31,7 +51,7 @@
     "metrics": false,
   },
   "vim_mode": true,
-  "buffer_font_size": 13.0,
+  "buffer_font_size": 15.0,
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light Hard",
