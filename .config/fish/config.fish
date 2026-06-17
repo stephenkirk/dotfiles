@@ -9,7 +9,6 @@ set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -gx LC_ALL en_US.UTF-8
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
-set -gx DOTNET_ROOT $HOME/.dotnet/dotnet
 
 # Paths
 set -Ua fish_user_paths $HOME/bin
