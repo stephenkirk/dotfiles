@@ -1,0 +1,133 @@
+#!/bin/bash
+# hn-search — thin fetch wrapper around the HN Algolia Search API.
+#
+# Mechanical plumbing only: URL-encoding, calling the right endpoint, decoding
+# HTML entities, and trimming responses to the fields worth reading. All the
+# research judgement lives in the SKILL.md, not here. For anything this doesn't
+# cover, hit the API directly with curl | jq — see reference.md.
+#
+# Usage:
+#   hn-search stories  "<query>"   [opts]   # canonical discussions (search?tags=story)
+#   hn-search comments "<query>"   [opts]   # scattered deep takes (search?tags=comment)
+#   hn-search thread   <story-id>           # flatten a full comment tree (/items/:id)
+#
+# Options (stories/comments):
+#   --recent          sort by date (search_by_date) instead of relevance
+#   --min-points N    drop hits below N points (numericFilters=points>N)
+#   -n N              number of hits (default: stories 10, comments 20)
+#   --json            emit raw API JSON instead of decoded text (pipe to jq)
+#
+# Examples:
+#   hn-search stories "static site generator" --min-points 50
+#   hn-search comments "hugo too complex" --recent -n 30
+#   hn-search thread 39200197
+
+set -euo pipefail
+
+API="https://hn.algolia.com/api/v1"
+
+die() { echo "hn-search: $*" >&2; exit 1; }
+
+# --- jq helpers -------------------------------------------------------------
+# Decode the ~handful of HTML entities/tags HN actually emits in text fields.
+# &amp; is decoded last so we don't double-decode.
+JQ_DECODE='
+def decode:
+  ( . // "" )
+  | gsub("<p>"; "\n\n")
+  | gsub("</?(i|b|em|strong|pre|code)>"; "")
+  | gsub("<a[^>]*>"; "") | gsub("</a>"; "")
+  | gsub("&#x2F;"; "/")
+  | gsub("&#x27;"; "\u0027")
+  | gsub("&#39;"; "\u0027")
+  | gsub("&#34;"; "\"")
+  | gsub("&quot;"; "\"")
+  | gsub("&gt;"; ">")
+  | gsub("&lt;"; "<")
+  | gsub("&amp;"; "&");
+'
+
+# --- arg parsing ------------------------------------------------------------
+[ $# -ge 1 ] || die "no subcommand (stories|comments|thread). See: hn-search --help"
+case "${1:-}" in -h|--help) sed -n '2,30p' "$0" | sed 's/^# \{0,1\}//'; exit 0;; esac
+
+cmd="$1"; shift
+
+recent=0; min_points=""; n=""; json=0; query=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --recent)     recent=1; shift;;
+    --min-points) min_points="${2:?--min-points needs a value}"; shift 2;;
+    -n)           n="${2:?-n needs a value}"; shift 2;;
+    --json)       json=1; shift;;
+    -*)           die "unknown option: $1";;
+    *)            query="$1"; shift;;
+  esac
+done
+
+# --- thread -----------------------------------------------------------------
+if [ "$cmd" = "thread" ]; then
+  [ -n "$query" ] || die "thread needs a story/item id"
+  raw="$(curl -sf "$API/items/$query")" || die "fetch failed for item $query"
+  if [ "$json" = 1 ]; then echo "$raw"; exit 0; fi
+  echo "$raw" | jq -r "$JQ_DECODE"'
+    def line(depth):
+      (if depth > 0 then ("  " * depth) else "" end) as $ind
+      | $ind + "• " + (.author // "?")
+        + " (" + ((.points // 0)|tostring) + "pts, " + ((.created_at // "")[0:10]) + "): "
+        + ((.text // .title // "") | decode | gsub("\n+"; " ") | .[0:600]),
+        (.children[]? | line(depth + 1));
+    "Thread \(.id) — \(.title // .text // "" | .[0:80])\n" ,
+    "https://news.ycombinator.com/item?id=\(.id)\n",
+    (line(0))
+  ' | head -n 300
+  exit 0
+fi
+
+# --- stories / comments -----------------------------------------------------
+[ "$cmd" = "stories" ] || [ "$cmd" = "comments" ] || die "unknown subcommand: $cmd"
+[ -n "$query" ] || die "$cmd needs a query string"
+
+if [ "$cmd" = "stories" ]; then tag="story"; size="${n:-10}"; else tag="comment"; size="${n:-20}"; fi
+
+endpoint="search"; [ "$recent" = 1 ] && endpoint="search_by_date"
+
+# points is NOT server-filterable on this index (only created_at_i is), so
+# --min-points is applied client-side: pull a bigger pool, filter, then trim.
+fetch="$size"
+if [ -n "$min_points" ]; then fetch=$(( size > 50 ? size : 50 )); fi
+
+args=(-sf -G "$API/$endpoint"
+      --data-urlencode "query=$query"
+      --data-urlencode "tags=$tag"
+      --data-urlencode "hitsPerPage=$fetch")
+
+raw="$(curl "${args[@]}")" || die "search failed"
+
+# client-side points filter + trim back to the requested size
+raw="$(echo "$raw" | jq --argjson min "${min_points:-0}" --argjson size "$size" '
+  .hits |= (map(select((.points // 0) >= $min)) | .[:$size])')"
+
+if [ "$json" = 1 ]; then echo "$raw"; exit 0; fi
+
+if [ "$cmd" = "stories" ]; then
+  echo "$raw" | jq -r "$JQ_DECODE"'
+    "# stories: \(.query)  (\(.nbHits) hits)\n",
+    (.hits[] |
+      "\(.title // "(no title)")  — \(.points // 0)pts, \(.num_comments // 0) comments, \((.created_at // "")[0:10])\n"
+      + "  url:  \(.url // "(self)")\n"
+      + "  HN:   https://news.ycombinator.com/item?id=\(.objectID)\n"
+      + (if (.story_text // "") != "" then "  text: " + (.story_text | decode | gsub("\n+"; " ") | .[0:400]) + "\n" else "" end)
+    )
+  '
+else
+  echo "$raw" | jq -r "$JQ_DECODE"'
+    "# comments: \(.query)  (\(.nbHits) hits)\n",
+    (.hits[] |
+      "\(.author // "?")  — \(.points // 0)pts, \((.created_at // "")[0:10])\n"
+      + "  on:  \(.story_title // "?")  (story \(.story_id // "?"))\n"
+      + "  HN:  https://news.ycombinator.com/item?id=\(.objectID)\n"
+      + "  " + ((.comment_text // "") | decode | gsub("\n+"; "\n  ") | .[0:1200]) + "\n"
+    )
+  '
+fi

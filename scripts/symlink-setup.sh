@@ -41,4 +41,8 @@ create_symlink ~/Documents/dotfiles_private/bin ~/bin
 # Tools directory
 create_symlink ~/dotfiles/tools ~/bin/tools
 
+# Claude Code skills (per-skill; ~/.claude/skills also holds non-dotfiles skills)
+mkdir -p ~/.claude/skills
+create_symlink ~/dotfiles/skills/hn-search ~/.claude/skills/hn-search
+
 echo "Symlink creation completed."
