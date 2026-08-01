@@ -20,18 +20,25 @@ The symlink architecture that makes this work:
 ├── .vimrc, .zshrc, etc  # Classic dotfiles → symlinked to ~/
 ├── .doom.d/             # Doom Emacs config
 ├── .hammerspoon/        # Hotkey automation
-├── tools/               # Productivity scripts → symlinked to ~/bin/tools (in PATH)
+├── tools/               # Productivity scripts → on PATH directly
 │                        # Audio conversion, doc generation, game launchers, etc
 ├── scripts/
 │   ├── symlink-setup.sh    # Wires everything up
 │   ├── macos-defaults.sh   # System preferences automation
-│   └── vscode-sync.sh      # Keeps VS Code settings in sync
+│   ├── vscode-sync.sh      # Keeps VS Code settings in sync
+│   └── fish-paths-reset.fish  # Rebuilds PATH when fish won't let go
 ├── Brewfile             # Every app and CLI tool
 └── setup.sh             # Orchestrates it all
 ```
 
 ### Private Dotfiles
-Sensitive or personal configuration (API keys, private scripts) lives in `~/Documents/dotfiles_private/` and get symlinked to `~/dotfiles_private` and `~/bin`. 
+
+Secrets, machine-specific paths and Claude config live in a second repo that isn't
+this one and isn't on GitHub, cloned to `~/dotfiles-private`. `symlink-setup.sh`
+wires it up if it's there and shrugs if it isn't, so this repo stands alone on a
+fresh machine — you just get no API keys with it.
+
+Nothing sensitive is in here. That's the whole point of the split.
 
 ## Example Features
 
@@ -93,12 +100,10 @@ Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with any
 
 **Smart PR Review List**
 
-Get PRs awaiting your review as Markdown links, ready to paste:
-```fish
-function to_review
-    gh pr list -S "review-requested:@me" --json title,url,author \
-      --jq 'map("[\\"@\\(.author.login): \\(.title)\\"](\\(.url))") | .[]'
-end
+Get PRs awaiting your review as Markdown links, ready to paste — `tools/to_review`:
+```bash
+gh pr list -S "review-requested:@me" --json title,url,author \
+  --jq 'map("[\"@\(.author.login): \(.title)\"](\(.url))") | .[]'
 ```
 
 **Kill All the Animations**
