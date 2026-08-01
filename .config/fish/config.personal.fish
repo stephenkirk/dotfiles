@@ -9,6 +9,6 @@ fish_add_path $HOME/.tally/bin
 
 # Game launchers
 function balatro
-    "/Users/stephenkirk/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
+    "$HOME/Library/Application Support/Steam/steamapps/common/Balatro/run_lovely_macos.sh" $argv
 end
 

@@ -13,9 +13,14 @@
 (setenv "LC_ALL" "en_US.UTF-8")
 
 (setq user-full-name "Stephen"
-      user-mail-address "me@thestephen.net"
       org-directory "~/org/"
       display-line-numbers-type t)
+
+;; Identity (user-mail-address) and anything else that should not be public
+;; lives outside this repo — see private.el, symlinked in and gitignored.
+(let ((private (expand-file-name "private.el" doom-user-dir)))
+  (when (file-exists-p private)
+    (load private nil 'nomessage)))
 
 ;; Make emacs use bash instead of fish to prevent garbage output
 (setq shell-file-name (executable-find "bash"))

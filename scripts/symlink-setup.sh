@@ -5,6 +5,23 @@ create_symlink() {
     echo "Created symlink: $target -> $source"
 }
 
+# Like create_symlink, but safe when the target is an existing REAL directory.
+#
+# `ln -nsf dir target` does NOT replace a real directory — it creates the link
+# *inside* it (~/.claude/skills/skills), which is silent and confusing. So move
+# any real directory aside first. Never deletes: the displaced copy is left at
+# <target>.pre-private for you to remove once you trust the new wiring.
+replace_symlink() {
+    local source=$1
+    local target=$2
+    if [ -d "$target" ] && [ ! -L "$target" ]; then
+        mv "$target" "$target.pre-private"
+        echo "Moved aside: $target -> $target.pre-private"
+    fi
+    ln -nsf "$source" "$target"
+    echo "Created symlink: $target -> $source"
+}
+
 echo "Creating symlinks..."
 
 # Dotfiles in home directory
@@ -33,16 +50,54 @@ create_symlink ~/dotfiles/.config/nvim ~/.config/nvim
 create_symlink ~/dotfiles/.config/zed/keymap.json ~/.config/zed/keymap.json
 create_symlink ~/dotfiles/.config/zed/settings.json ~/.config/zed/settings.json
 
+# ---------------------------------------------------------------------------
 # Private dotfiles
-create_symlink ~/Documents/dotfiles_private ~/dotfiles_private
-create_symlink ~/Documents/dotfiles_private/.profile ~/.profile
-create_symlink ~/Documents/dotfiles_private/bin ~/bin
+#
+# ---------------------------------------------------------------------------
+if [ -d ~/dotfiles-private ]; then
+    echo "Private dotfiles found — wiring."
 
-# Tools directory
-create_symlink ~/dotfiles/tools ~/bin/tools
+    create_symlink ~/dotfiles-private/.env.private ~/.env.private
+    create_symlink ~/dotfiles-private/.zshrc.private ~/.zshrc.private
+    create_symlink ~/dotfiles-private/.gitconfig.local ~/.gitconfig.local
 
-# Claude Code skills (per-skill; ~/.claude/skills also holds non-dotfiles skills)
-mkdir -p ~/.claude/skills
-create_symlink ~/dotfiles/skills/hn-search ~/.claude/skills/hn-search
+    # conf.d is auto-sourced by fish, so private PATH entries need no other hook.
+    mkdir -p ~/.config/fish/conf.d
+    create_symlink ~/dotfiles-private/.config/fish/conf.d/private.fish ~/.config/fish/conf.d/private.fish
+
+    # Doom loads this itself if it exists. It lands inside the public repo's
+    # .doom.d, which is why that path is gitignored there.
+    create_symlink ~/dotfiles-private/.doom.d/private.el ~/dotfiles/.doom.d/private.el
+
+    mkdir -p ~/.ssh
+    create_symlink ~/dotfiles-private/.ssh/config ~/.ssh/config
+
+    # Warp reads ~/.warp/settings.toml, not ~/.config/warp.
+    mkdir -p ~/.warp
+    create_symlink ~/dotfiles-private/.config/warp/settings.toml ~/.warp/settings.toml
+    replace_symlink ~/dotfiles-private/.config/fish/functions ~/.config/fish/functions
+
+    # Claude Code, two profiles. ~/.claude is really the *work* profile — it is
+    # the default when CLAUDE_CONFIG_DIR is unset. ~/.claude-personal is chosen
+    # explicitly by the `claude-priv` fish function.
+    #
+    # Per-file, NOT whole-directory: these dirs are Claude Code's own working
+    # state (projects/, sessions/, history.jsonl) with a few authored files
+    # mixed in. skills/ is the exception — see below.
+    mkdir -p ~/.claude ~/.claude-personal
+    for profile in .claude .claude-personal; do
+        create_symlink  ~/dotfiles-private/$profile/settings.json ~/$profile/settings.json
+        create_symlink  ~/dotfiles-private/$profile/statusline.sh ~/$profile/statusline.sh
+        replace_symlink ~/dotfiles-private/$profile/themes ~/$profile/themes
+        # One shared skill set for both profiles. Safe to symlink whole because
+        # the private repo owns every entry — nothing else writes here.
+        replace_symlink ~/dotfiles-private/skills ~/$profile/skills
+    done
+    replace_symlink ~/dotfiles-private/.claude/output-styles ~/.claude/output-styles
+    replace_symlink ~/dotfiles-private/.claude/agents ~/.claude/agents
+    replace_symlink ~/dotfiles-private/.claude/memories ~/.claude/memories
+else
+    echo "No ~/dotfiles-private — skipping private config."
+fi
 
 echo "Symlink creation completed."

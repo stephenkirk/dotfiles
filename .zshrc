@@ -36,7 +36,8 @@ export EDITOR=vim
 export DOTNET_ROOT=$HOME/.dotnet/dotnet
 
 # Paths
-path+=("$HOME/bin")
+path+=("$HOME/dotfiles/tools")
+path+=("$HOME/.local/bin")
 path+=("/opt/homebrew/bin")
 path+=("$HOME/.dotnet/dotnet")
 path+=("$HOME/.dotnet/tools")
@@ -44,7 +45,13 @@ path+=("$HOME/.emacs.d/bin")
 path+=("$HOME/Library/Python/3.8/bin")
 export PATH
 
-source ~/.profile
+if [ -f ~/.env.private ]; then
+    set -a
+    source ~/.env.private
+    set +a
+fi
+
+[ -f ~/.zshrc.private ] && source ~/.zshrc.private
 
 # z nice completions
 zstyle ':completion:*' menu select

@@ -2,7 +2,7 @@
 # Converts all Markdown files in current directory to PDFs using pandoc with LaTeX template
 
 mkdir -p OUTPUT
-TEMPLATE_PATH="$HOME/bin/template.tex"
+TEMPLATE_PATH="$HOME/dotfiles/tools/template.tex"
 
 for file in *.md; do
     if [ -f "$file" ]; then

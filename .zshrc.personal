@@ -2,4 +2,4 @@
 # Loaded when ~/.machine-personal exists
 
 # pipx path (personal username)
-export PATH="$PATH:/Users/stephenkirk/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"

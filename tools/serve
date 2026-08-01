@@ -1,0 +1,3 @@
+#!/bin/bash
+# Starts local HTTP server for current dir access from network
+python3 -m http.server --bind 0.0.0.0

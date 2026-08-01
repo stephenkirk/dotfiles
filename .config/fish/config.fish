@@ -11,8 +11,10 @@ set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 
 # Paths
-set -Ua fish_user_paths $HOME/bin
-set -Ua fish_user_paths $HOME/bin/tools
+# NOTE: fish_user_paths is a *universal* variable — these `set -Ua` lines append
+# to a persisted store, so editing this file does not remove an old entry. Stale
+# paths must be erased explicitly (see scripts/fish-paths-reset.fish).
+set -Ua fish_user_paths $HOME/dotfiles/tools
 set -Ua fish_user_paths /opt/homebrew/bin
 set -Ua fish_user_paths $HOME/.config/emacs/bin
 set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
@@ -44,7 +46,15 @@ alias grc='git rebase --continue'
 alias gpl='git pull'
 
 
-# to_review function moved to ~/bin/tools/to_review
+# to_review function moved to ~/dotfiles/tools/to_review
+
+# Private environment. Same file zsh sources; it is plain KEY=value precisely
+# because fish cannot parse `export`. Absent on machines without private config.
+if test -f ~/.env.private
+    for line in (string match -rv '^\s*(#|$)' < ~/.env.private)
+        set -gx (string split -m1 '=' -- $line)
+    end
+end
 
 function shell --argument-names param
 	llm -t shell "$param"
@@ -60,3 +70,7 @@ else if test -f ~/.machine-personal
     source ~/.config/fish/config.personal.fish
 end
 
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

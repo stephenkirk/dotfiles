@@ -1,0 +1,10 @@
+#!/bin/bash
+
+find . -name "*, 2023.md" | while read -r file; do
+  # Print the relative file name
+  echo "File: $file"
+  echo "--------------------------------------------------"
+  # Print the contents of the file
+  cat "$file"
+  echo "=================================================="
+done

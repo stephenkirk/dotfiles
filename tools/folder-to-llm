@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Default extensions
+allowed_extensions=("js" "jsx" "ts" "tsx" "cs")
+DIR="."
+
+# Process command line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -e|--extensions)
+      if [[ "$2" ]]; then
+        IFS=',' read -ra additional_extensions <<< "$2"
+        allowed_extensions+=("${additional_extensions[@]}")
+        shift 2
+      else
+        echo "Error: -e|--extensions requires an argument" >&2
+        exit 1
+      fi
+      ;;
+    -h|--help)
+      echo "Usage: folder-to-llm [OPTIONS] [DIRECTORY]"
+      echo
+      echo "OPTIONS:"
+      echo "  -e, --extensions EXT1,EXT2,...  Additional file extensions to include"
+      echo "  -h, --help                      Show this help message"
+      echo
+      echo "DIRECTORY:"
+      echo "  Path to search (default: current directory)"
+      exit 0
+      ;;
+    *)
+      DIR="$1"
+      shift
+      ;;
+  esac
+done
+
+# ripgrep respects gitignore, yay!
+rg_command="rg --files"
+
+allowed_globs=$(printf " --glob '*.%s'" "${allowed_extensions[@]}")
+
+rg_command+="$allowed_globs --glob '!**/Migrations/*'"
+
+eval "$rg_command" "$DIR" | while read -r file; do
+  echo "File: $file"
+  echo "--------------------------------------------------"
+  cat "$file"
+  echo "=================================================="
+done

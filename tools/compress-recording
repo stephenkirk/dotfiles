@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# compress-recording - Compress screen recordings significantly
+# Usage: compress-recording [-s SPEED] input.mov [output.mp4]
+
+speed=""
+while getopts "s:" opt; do
+    case $opt in
+        s) speed="$OPTARG" ;;
+        *) echo "Usage: compress-recording [-s SPEED] input.mov [output.mp4]"; exit 1 ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+if [ $# -eq 0 ]; then
+    echo "Usage: compress-recording [-s SPEED] input.mov [output.mp4]"
+    echo "Compresses screen recordings to much smaller file sizes"
+    echo "  -s SPEED  Speed up factor (e.g. 4 for 4x speed)"
+    exit 1
+fi
+
+input_file="$1"
+output_file="${2:-${input_file%.*}_compressed.mp4}"
+
+if [ ! -f "$input_file" ]; then
+    echo "Error: Input file '$input_file' not found"
+    exit 1
+fi
+
+echo "Compressing '$input_file' to '$output_file'..."
+
+vf="scale=1280:-2"
+af=""
+if [ -n "$speed" ]; then
+    pts=$(echo "scale=10; 1 / $speed" | bc)
+    vf="scale=1280:-2,setpts=${pts}*PTS"
+    af="-af atempo=$speed"
+fi
+
+ffmpeg -i "$input_file" \
+    -c:v libx264 \
+    -crf 28 \
+    -preset medium \
+    -c:a aac \
+    -b:a 128k \
+    -vf "$vf" \
+    $af \
+    -movflags +faststart \
+    "$output_file"
+
+if [ $? -eq 0 ]; then
+    original_size=$(stat -f%z "$input_file" 2>/dev/null || stat -c%s "$input_file" 2>/dev/null)
+    compressed_size=$(stat -f%z "$output_file" 2>/dev/null || stat -c%s "$output_file" 2>/dev/null)
+    
+    if [ -n "$original_size" ] && [ -n "$compressed_size" ]; then
+        reduction=$(echo "scale=1; (1 - $compressed_size / $original_size) * 100" | bc 2>/dev/null || echo "")
+        if [ -n "$reduction" ]; then
+            echo "Compression complete! File size reduced by ${reduction}%"
+        else
+            echo "Compression complete!"
+        fi
+    else
+        echo "Compression complete!"
+    fi
+else
+    echo "Error: Compression failed"
+    exit 1
+fi
