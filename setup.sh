@@ -24,7 +24,4 @@ source ./scripts/macos-defaults.sh
 source ./scripts/vscode-sync.sh
 
 # vim folder structure
-mkdir ~/.vim
-mkdir ~/.vim/backup
-mkdir ~/.vim/swap
-mkdir ~/.vim/undodir
+mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undodir
