@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "disable_ai": true,
   "agent_servers": {
     "claude-acp": {
       "type": "registry"
@@ -35,6 +36,7 @@
   "ui_font_size": 16,
 
   "agent": {
+    "sidebar_side": "right",
     "dock": "left",
     "default_profile": "minimal",
     "inline_assistant_model": {
