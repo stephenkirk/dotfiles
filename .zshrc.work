@@ -7,3 +7,7 @@ if [[ -f ~/.local/bin/mise ]]; then
 fi
 
 path+=("/opt/homebrew/opt/postgresql@16/bin")
+
+# qlty
+export QLTY_INSTALL="$HOME/.qlty"
+path=("$QLTY_INSTALL/bin" $path)
