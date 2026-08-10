@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# Fetch my open PRs that have no approvals or change requests yet,
-# format as Markdown links, and copy to clipboard.
-
-gh pr list --author @me --state open \
-  --json number,title,url,reviewDecision,isDraft \
-  --jq '.[] | select(.reviewDecision != "APPROVED" and .reviewDecision != "CHANGES_REQUESTED") | "[\(.title)](\(.url))"'
