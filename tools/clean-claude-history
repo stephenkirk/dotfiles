@@ -1,0 +1,212 @@
+#!/usr/bin/env bash
+# Remove Claude session links and Claude co-author trailers from a branch range.
+#
+#   clean-claude-history [--apply] [BASE]
+#
+# With BASE, inspect BASE..HEAD. Without it, inspect commits unique to the
+# current branch relative to the repository's primary branch. Preview only
+# unless --apply is given.
+
+set -euo pipefail
+
+usage() {
+  sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+die() {
+  printf 'clean-claude-history: %s\n' "$*" >&2
+  exit 1
+}
+
+apply=false
+base_arg=""
+
+while (($#)); do
+  case "$1" in
+    --apply)
+      apply=true
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      if (($#)); then
+        [[ -z "$base_arg" ]] || die "only one BASE may be supplied"
+        base_arg="$1"
+        shift
+      fi
+      (($# == 0)) || die "only one BASE may be supplied"
+      break
+      ;;
+    -*)
+      die "unknown option: $1"
+      ;;
+    *)
+      [[ -z "$base_arg" ]] || die "only one BASE may be supplied"
+      base_arg="$1"
+      ;;
+  esac
+  shift
+done
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "not inside a Git worktree"
+
+branch=$(git symbolic-ref --quiet --short HEAD) || die "detached HEAD; check out a branch first"
+branch_ref=$(git symbolic-ref --quiet HEAD)
+
+if [[ -n $(git status --porcelain) ]]; then
+  die "worktree or index is dirty; commit or stash changes first"
+fi
+
+find_primary_ref() {
+  local remote candidate
+
+  remote=$(git config --get "branch.${branch}.remote" || true)
+  if [[ -n "$remote" && "$remote" != "." ]]; then
+    candidate=$(git symbolic-ref --quiet --short "refs/remotes/${remote}/HEAD" || true)
+    if [[ -n "$candidate" ]]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  fi
+
+  candidate=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD || true)
+  if [[ -n "$candidate" ]]; then
+    printf '%s\n' "$candidate"
+    return
+  fi
+
+  for candidate in main master trunk; do
+    if git show-ref --verify --quiet "refs/heads/${candidate}"; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  done
+
+  return 1
+}
+
+if [[ -n "$base_arg" ]]; then
+  base=$(git rev-parse --verify "${base_arg}^{commit}" 2>/dev/null) || die "BASE is not a commit: $base_arg"
+  git merge-base --is-ancestor "$base" HEAD || die "BASE is not an ancestor of HEAD: $base_arg"
+  base_label="$base_arg"
+else
+  primary_ref=$(find_primary_ref) || die "could not discover the primary branch; supply BASE explicitly"
+  primary_name=${primary_ref##*/}
+
+  if [[ "$branch" == "$primary_name" ]]; then
+    if [[ "$primary_ref" == "$branch" ]]; then
+      die "on primary branch '$branch'; supply the last clean commit as BASE"
+    fi
+
+    primary_tip=$(git rev-parse "$primary_ref")
+    head_tip=$(git rev-parse HEAD)
+    if [[ "$primary_tip" == "$head_tip" ]]; then
+      die "primary branch '$branch' matches $primary_ref; supply the last clean commit as BASE"
+    fi
+    git merge-base --is-ancestor "$primary_ref" HEAD || \
+      die "primary branch '$branch' has diverged from $primary_ref; supply BASE explicitly"
+    base="$primary_tip"
+    base_label="$primary_ref"
+  else
+    base=$(git merge-base "$primary_ref" HEAD) || die "no merge base between HEAD and $primary_ref"
+    base_label="merge-base($primary_ref, HEAD)"
+  fi
+fi
+
+head_tip=$(git rev-parse HEAD)
+if [[ "$base" == "$head_tip" ]]; then
+  printf 'No commits to inspect: %s is HEAD.\n' "$base_label"
+  exit 0
+fi
+
+range="${base}..${branch_ref}"
+grep_args=(
+  --regexp-ignore-case
+  --extended-regexp
+  '--grep=^[[:space:]]*Claude-Session:'
+  '--grep=^[[:space:]]*Co-authored-by:[[:space:]]*Claude[^<]*<[^>]*@anthropic[.]com>'
+)
+
+matches=$(git log "$range" "${grep_args[@]}" --format='%H%x09%s')
+
+printf 'Branch: %s\n' "$branch"
+printf 'Range:  %s..HEAD (%s)\n' "$(git rev-parse --short "$base")" "$base_label"
+
+if [[ -z "$matches" ]]; then
+  printf 'No Claude metadata found.\n'
+  exit 0
+fi
+
+printf 'Affected commits:\n'
+while IFS=$'\t' read -r commit subject; do
+  printf '  %s  %s\n' "$(git rev-parse --short "$commit")" "$subject"
+done <<<"$matches"
+
+if [[ "$apply" != true ]]; then
+  printf '\nPreview only. Re-run with --apply to rewrite this range.\n'
+  exit 0
+fi
+
+command -v git-filter-repo >/dev/null 2>&1 || die "git-filter-repo is required for --apply"
+
+old_tip=$head_tip
+old_tree=$(git rev-parse "${old_tip}^{tree}")
+old_count=$(git rev-list --count "${base}..${old_tip}")
+timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+backup_ref="refs/claude-cleanup/${branch//\//-}-${timestamp}-$$"
+git update-ref "$backup_ref" "$old_tip"
+
+expressions_file=$(mktemp "${TMPDIR:-/tmp}/clean-claude-history.XXXXXX")
+cleanup() {
+  rm -f -- "$expressions_file"
+}
+trap cleanup EXIT
+
+printf '%s\n' \
+  'regex:(?im)^[ \t]*Claude-Session:[^\r\n]*(?:\r?\n(?:\r?\n)?|\Z)==>' \
+  'regex:(?im)^[ \t]*Co-authored-by:[ \t]*Claude[^<\r\n]*<[^>\r\n]*@anthropic[.]com>[ \t]*(?:\r?\n(?:\r?\n)?|\Z)==>' \
+  >"$expressions_file"
+
+git filter-repo \
+  --force \
+  --refs "${base}..${branch_ref}" \
+  --replace-message "$expressions_file" \
+  --preserve-commit-hashes \
+  --preserve-commit-encoding \
+  --prune-empty never
+
+new_tip=$(git rev-parse "$branch_ref")
+new_tree=$(git rev-parse "${new_tip}^{tree}")
+new_count=$(git rev-list --count "${base}..${new_tip}")
+
+[[ "$new_tree" == "$old_tree" ]] || \
+  die "verification failed: final tree changed (original tip is $backup_ref)"
+[[ "$new_count" == "$old_count" ]] || \
+  die "verification failed: commit count changed (original tip is $backup_ref)"
+
+if git log "${base}..${branch_ref}" "${grep_args[@]}" --format='%H' | grep -q .; then
+  die "verification failed: Claude metadata remains (original tip is $backup_ref)"
+fi
+
+printf '\nCleaned %s.\n' "$branch"
+printf 'Backup: %s -> %s\n' "$backup_ref" "$(git rev-parse --short "$old_tip")"
+
+remote=$(git config --get "branch.${branch}.remote" || true)
+merge_ref=$(git config --get "branch.${branch}.merge" || true)
+if [[ -n "$remote" && "$remote" != "." && "$merge_ref" == refs/heads/* ]]; then
+  remote_branch=${merge_ref#refs/heads/}
+  remote_tracking_ref="refs/remotes/${remote}/${remote_branch}"
+  lease_tip=$(git rev-parse --verify "${remote_tracking_ref}^{commit}" 2>/dev/null || true)
+  if [[ -n "$lease_tip" ]]; then
+    printf 'Publish after reviewing:\n'
+    printf '  git push --force-with-lease=%s:%s %s HEAD:%s\n' \
+      "$merge_ref" "$lease_tip" "$remote" "$merge_ref"
+  else
+    printf 'No push command shown; remote-tracking ref %s is missing.\n' "$remote_tracking_ref"
+  fi
+else
+  printf 'No remote push command shown; this branch has no remote upstream.\n'
+fi
