@@ -65,6 +65,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="rg --files --hidden --follow --no-messages"
 
 # Aliases
+[ -f "$HOME/.codex-work/worky.zsh" ] && source "$HOME/.codex-work/worky.zsh"
 alias rc="$EDITOR $HOME/.zshrc"
 alias stat="stat -x"
 alias dir='pwd'

@@ -30,6 +30,11 @@ set -gx FZF_DEFAULT_OPTS "--height 50% --layout=reverse --border --inline-info"
 set -gx FZF_DEFAULT_COMMAND 'rg --files'
 set -gx FZF_CTRL_T_COMMAND "rg --files --hidden --follow --no-messages"
 
+# Work account uses its own Codex configuration and credentials.
+function codex-work --wraps codex
+    env CODEX_HOME="$HOME/.codex-work" codex $argv
+end
+
 # aliases
 alias dir='pwd'
 alias where='grealpath'
