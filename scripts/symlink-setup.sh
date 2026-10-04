@@ -84,19 +84,18 @@ if [ -d ~/dotfiles-private ]; then
     #
     # Per-file, NOT whole-directory: these dirs are Claude Code's own working
     # state (projects/, sessions/, history.jsonl) with a few authored files
-    # mixed in. skills/ is the exception — see below.
+    # mixed in. The shared dirs in the inner loop are the exception.
     mkdir -p ~/.claude ~/.claude-work
     for profile in .claude .claude-work; do
         create_symlink  ~/dotfiles-private/$profile/settings.json ~/$profile/settings.json
         create_symlink  ~/dotfiles-private/$profile/statusline.sh ~/$profile/statusline.sh
         replace_symlink ~/dotfiles-private/$profile/themes ~/$profile/themes
-        # One shared skill set for both profiles. Safe to symlink whole because
-        # the private repo owns every entry — nothing else writes here.
-        replace_symlink ~/dotfiles-private/skills ~/$profile/skills
+        # One authored set, both profiles. Safe to symlink whole because the
+        # private repo owns every entry — nothing else writes here.
+        for shared in skills agents memories output-styles; do
+            replace_symlink ~/dotfiles-private/$shared ~/$profile/$shared
+        done
     done
-    replace_symlink ~/dotfiles-private/.claude/output-styles ~/.claude/output-styles
-    replace_symlink ~/dotfiles-private/.claude/agents ~/.claude/agents
-    replace_symlink ~/dotfiles-private/.claude/memories ~/.claude/memories
 else
     echo "No ~/dotfiles-private — skipping private config."
 fi

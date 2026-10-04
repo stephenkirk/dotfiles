@@ -29,7 +29,7 @@ Personal macOS dotfiles. Source of truth lives in this repo; the live system is 
 
 ## Gotchas
 
-- Don't symlink a directory into a target that must hold other content: symlink children, not the parent. This still applies to `~/.claude` itself (Claude Code's own state lives there). It no longer applies to `~/.claude/skills`, because `~/dotfiles-private` now owns every entry in it.
+- Don't symlink a directory into a target that must hold other content: symlink children, not the parent. This still applies to `~/.claude` and `~/.claude-work` themselves (Claude Code's own state lives there). It no longer applies to their `skills/`, `agents/`, `memories/` and `output-styles/`, because `~/dotfiles-private` owns every entry in those.
 - Claude Code has two profiles, same shape as Codex: bare `claude` is personal (`~/.claude`, the default), `claude-work` is work (`~/.claude-work`, via `CLAUDE_CONFIG_DIR`). `.claude.json` is the odd one out — it sits at `~/.claude.json` for the default profile but *inside* the config dir for the explicit one.
 - Secrets never enter this repo — they live in `~/dotfiles-private`. Keep it that way.
 - `fish_user_paths` is a *universal* variable. Editing the Paths block in `config.fish` does not remove old entries; run `scripts/fish-paths-reset.fish` to rebuild it.
