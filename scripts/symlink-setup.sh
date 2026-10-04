@@ -77,15 +77,16 @@ if [ -d ~/dotfiles-private ]; then
     create_symlink ~/dotfiles-private/.config/warp/settings.toml ~/.warp/settings.toml
     replace_symlink ~/dotfiles-private/.config/fish/functions ~/.config/fish/functions
 
-    # Claude Code, two profiles. ~/.claude is really the *work* profile — it is
-    # the default when CLAUDE_CONFIG_DIR is unset. ~/.claude-personal is chosen
-    # explicitly by the `claude-priv` fish function.
+    # Claude Code, two profiles. ~/.claude is the *personal* profile — it is the
+    # default when CLAUDE_CONFIG_DIR is unset. ~/.claude-work is chosen
+    # explicitly by the `claude-work` fish function. Same shape as codex /
+    # codex-work: private is the bare command, work is the one you opt into.
     #
     # Per-file, NOT whole-directory: these dirs are Claude Code's own working
     # state (projects/, sessions/, history.jsonl) with a few authored files
     # mixed in. skills/ is the exception — see below.
-    mkdir -p ~/.claude ~/.claude-personal
-    for profile in .claude .claude-personal; do
+    mkdir -p ~/.claude ~/.claude-work
+    for profile in .claude .claude-work; do
         create_symlink  ~/dotfiles-private/$profile/settings.json ~/$profile/settings.json
         create_symlink  ~/dotfiles-private/$profile/statusline.sh ~/$profile/statusline.sh
         replace_symlink ~/dotfiles-private/$profile/themes ~/$profile/themes
