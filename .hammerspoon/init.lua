@@ -1,4 +1,4 @@
--- User configuration
+-- Preferences
 local config = {
     super = { "ctrl", "alt", "cmd", "shift" },
     preferredAudioDevices = {
@@ -8,7 +8,7 @@ local config = {
     }
 }
 
--- Dark Mode management
+-- Dark mode
 local darkmode = {}
 function darkmode.init()
     darkmode.menubar = hs.menubar.new()
@@ -45,7 +45,7 @@ function darkmode.toggle()
     darkmode.set(not darkmode.isEnabled())
 end
 
--- Night Shift management
+-- Night Shift
 local nightshift = {
     isEnabled = false
 }
@@ -62,7 +62,7 @@ function nightshift.toggle()
     end
 end
 
--- Audio device management
+-- Audio output
 local audio = {}
 function audio.cycleOutputDevices()
     local currentDevice = hs.execute('/opt/homebrew/bin/SwitchAudioSource -c'):gsub("%s+$", "")
@@ -109,7 +109,7 @@ function audio.cycleOutputDevices()
     hs.alert.show("Output device: " .. nextDevice)
 end
 
--- Hotkey help system
+-- Hotkeys
 local hotkeys = {
     definitions = {
         { key = "R", description = "Reload Hammerspoon config" },
@@ -129,10 +129,8 @@ function hotkeys.showHelp()
     hs.alert.show(helpText, 5)
 end
 
--- Initialize components
 darkmode.init()
 
--- Set up hotkeys
 hs.hotkey.bind(config.super, "R", hs.reload)
 hs.hotkey.bind(config.super, "D", darkmode.toggle)
 hs.hotkey.bind(config.super, "A", audio.cycleOutputDevices)

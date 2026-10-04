@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Set some useful OS X defaults.
+# Write macOS preferences. Some keys target older macOS releases.
 
 # Ask for the administrator password upfront
 sudo -v
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+# Refresh sudo credentials while this script is running.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 osascript -e 'tell application "System Preferences" to quit'
 
-# Set the perfect key repeat rate and ensure we don't get those stupid accent characters when holding keys
+# Repeat held keys quickly instead of opening the accent picker.
 defaults write -g InitialKeyRepeat -int 15
 defaults write -g KeyRepeat -int 1
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -43,11 +43,7 @@ chflags nohidden ~/Library
 
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
-# Always open everything in Finder's column view. This is important.
-# Icon View   : `icnv`
-# List View   : `Nlsv`
-# Column View : `clmv`
-# Cover Flow  : `Flwv`
+# Prefer Finder column view (clmv).
 defaults write com.apple.Finder FXPreferredViewStyle clmv
 defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -61,18 +57,15 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Expand print panel by default
-# I have no idea which one of these actually changes things, so I'm throwing them all in here
+# Request expanded print and save panels through several preference keys.
+# Which keys take effect has not been verified for this macOS version.
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForPrintMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForPrintMode2 -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
-# Set search scope.
-# This Mac       : `SCev`
-# Current Folder : `SCcf`
-# Previous Scope : `SCsp`
+# Search the current Finder folder (SCcf).
 defaults write com.apple.finder FXDefaultSearchScope SCcf
 
 # Expand save panel by default.

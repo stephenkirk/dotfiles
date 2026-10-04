@@ -1,31 +1,23 @@
-
-# Set a huge history
+# History: share sessions, retain timestamps, and discard duplicates.
+# Leading spaces keep commands out of history.
 HISTSIZE=50000
 SAVEHIST=50000
 
 
-# Immediately append to history file:
 setopt INC_APPEND_HISTORY
 
-# Record timestamp in history:
 setopt EXTENDED_HISTORY
 
-# Expire duplicate entries first when trimming history:
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# Dont record an entry that was just recorded again:
 setopt HIST_IGNORE_DUPS
 
-# Delete old recorded entry if new entry is a duplicate:
 setopt HIST_IGNORE_ALL_DUPS
 
-# Dont record an entry starting with a space:
 setopt HIST_IGNORE_SPACE
 
-# Dont write duplicate entries in the history file:
 setopt HIST_SAVE_NO_DUPS
 
-# Share history between all sessions:
 setopt SHARE_HISTORY
 
 # Environment variables
@@ -53,7 +45,7 @@ fi
 
 [ -f ~/.zshrc.private ] && source ~/.zshrc.private
 
-# z nice completions
+# Select completions from a menu
 zstyle ':completion:*' menu select
 # vi mode in shell
 bindkey -v
@@ -70,7 +62,7 @@ alias rc="$EDITOR $HOME/.zshrc"
 alias stat="stat -x"
 alias dir='pwd'
 alias where='grealpath'
-alias tree='tree -C' # Colored trees by default
+alias tree='tree -C'
 alias pt='papertrail'
 
 alias gs='git status'
@@ -80,7 +72,6 @@ alias grc='git rebase --continue'
 alias gpl='git pull'
 alias -s git="git clone" # Expand urls into `git clone $URL` 
 
-# Functions
 # Schedule sleep in ARG minutes
 function sleep-in() {
   local minutes=$1
@@ -88,9 +79,7 @@ function sleep-in() {
   sudo pmset schedule sleep "$datetime"
 }
 
-# Safari flickers on the integated graphics card when playing some full screen video with subtitles
-# Apparently this can be fixed by changing the cursor size in accessibility settings
-# Let's automate that
+# Cursor-size workaround for Safari fullscreen video flicker on integrated graphics.
 function resize-cursor() {
 	osascript -e 'tell application "System Preferences"
 	    reveal anchor "Seeing_Cursor" of pane id "com.apple.preference.universalaccess"

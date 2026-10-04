@@ -5,18 +5,15 @@ MOVE_DESTINATION=""
 DIRECTORY="."
 DRY_RUN=false
 
-# Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -m|--move)
             MOVE_FILES=true
             shift
-            # Check if next argument exists and doesn't start with -
             if [[ $# -gt 0 && "$1" != -* ]]; then
                 MOVE_DESTINATION="$1"
                 shift
             else
-                # Default to ../FLAC when no path specified
                 MOVE_DESTINATION="../FLAC"
             fi
             ;;
@@ -58,16 +55,14 @@ if [ ! -d "$DIRECTORY" ]; then
     exit 1
 fi
 
-# Set up move destination path
 if $MOVE_FILES; then
-    # Handle relative paths from the target directory
+    # Resolve ./ and ../ destinations relative to the input directory.
     if [[ "$MOVE_DESTINATION" == ./* ]] || [[ "$MOVE_DESTINATION" == ../* ]]; then
         FULL_MOVE_PATH="$DIRECTORY/$MOVE_DESTINATION"
     else
         FULL_MOVE_PATH="$MOVE_DESTINATION"
     fi
 
-    # Create destination directory if needed (and not in dry-run mode)
     if [ ! -d "$FULL_MOVE_PATH" ] && ! $DRY_RUN; then
         mkdir -p "$FULL_MOVE_PATH"
         echo "Created directory: $FULL_MOVE_PATH"
@@ -76,7 +71,6 @@ if $MOVE_FILES; then
     fi
 fi
 
-# Show dry-run header
 if $DRY_RUN; then
     echo "=== DRY RUN MODE ==="
     echo "No files will be modified. Showing what would happen:"
@@ -89,7 +83,6 @@ for flacfile in "$DIRECTORY"/*.flac; do
         found_files=true
 
         if $DRY_RUN; then
-            # Get the output filename that would be created
             filename=$(basename "$flacfile")
             mp3file="${flacfile%.flac}.mp3"
             echo "[DRY RUN] Would convert: $flacfile -> $(basename "$mp3file")"
@@ -98,7 +91,6 @@ for flacfile in "$DIRECTORY"/*.flac; do
                 echo "[DRY RUN] Would move: $flacfile -> $FULL_MOVE_PATH/$(basename "$flacfile")"
             fi
         else
-            # Actually run the conversion
             flactomp3 "$flacfile"
 
             if [ $? -eq 0 ] && $MOVE_FILES; then

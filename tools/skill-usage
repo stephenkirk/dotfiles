@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Show how many times each skill is invoked across project CLAUDE.md files
-# Checks both global (~/.claude/skills) and local ($PWD/.claude/skills)
+# Count lines containing /skill-name under ~/.claude/projects.
+# Names come from global and local skills; matches are not verified invocations.
 
 GLOBAL_SKILLS="$HOME/.claude/skills"
 LOCAL_SKILLS="$PWD/.claude/skills"
@@ -22,7 +22,7 @@ printf "%-25s %-12s %s\n" "-------------------------" "------------" "------"
     for skill in "$dir"/*/; do
       [ -d "$skill" ] || continue
       name=$(basename "$skill")
-      # skip duplicates (local would shadow a global skill)
+      # Global names are visited first; skip matching local names.
       echo "$skills" | grep -qw "$name" && continue
       skills="$skills $name"
       count=$(rg -c "/$name" "$PROJECTS_DIR" 2>/dev/null | awk -F: '{s+=$NF} END {print s+0}')

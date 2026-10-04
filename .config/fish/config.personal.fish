@@ -1,7 +1,6 @@
 # Personal machine configuration
 # Loaded when ~/.machine-personal exists
 
-# pipx path (personal username)
 set PATH $PATH ~/.local/bin
 
 # Added by tally installer

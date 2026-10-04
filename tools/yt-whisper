@@ -1,35 +1,29 @@
 #!/bin/bash
 
-# yt-whisper.sh - Download YouTube video and transcribe with Whisper
-# Usage: ./yt-whisper.sh [youtube_url] [start_time (optional)] [end_time (optional)]
-# Example: ./yt-whisper.sh https://www.youtube.com/watch?v=dQw4w9WgXcQ 30 60
+# Transcribe YouTube audio to a title-named .txt file in the current directory.
+# Usage: yt-whisper URL [START_TIME [END_TIME]]
 
-# Check if required tools are installed
 command -v yt-dlp >/dev/null 2>&1 || { echo "Error: yt-dlp is required but not installed. Install with 'pip install yt-dlp'"; exit 1; }
 command -v whisper >/dev/null 2>&1 || { echo "Error: OpenAI Whisper is required but not installed. Install with 'pip install -U openai-whisper'"; exit 1; }
 command -v ffmpeg >/dev/null 2>&1 || { echo "Error: ffmpeg is required but not installed."; exit 1; }
 
-# Check for URL argument
 if [ -z "$1" ]; then
     echo "Error: YouTube URL is required"
     echo "Usage: $0 [youtube_url] [start_time (optional)] [end_time (optional)]"
     exit 1
 fi
 
-# Set variables
 URL="$1"
 START_TIME="$2"
 END_TIME="$3"
 TEMP_DIR=$(mktemp -d)
 AUDIO_FILE="$TEMP_DIR/audio.mp3"
 
-# Function to clean up temporary files
 cleanup() {
     echo "Cleaning up temporary files..."
     rm -rf "$TEMP_DIR"
 }
 
-# Set trap to clean up on exit
 trap cleanup EXIT
 
 
@@ -41,7 +35,6 @@ echo "$VIDEO_TITLE"
 
 echo "Downloading audio from YouTube..."
 
-# Build download args with optional time parameters
 YT_ARGS=(-x --audio-format mp3 --audio-quality 2)
 if [ -n "$START_TIME" ] && [ -n "$END_TIME" ]; then
     YT_ARGS+=(--download-sections "*$START_TIME-$END_TIME")
@@ -50,7 +43,6 @@ elif [ -n "$START_TIME" ]; then
 fi
 yt-dlp "${YT_ARGS[@]}" -o "$AUDIO_FILE" "$URL"
 
-# Check if download was successful
 if [ ! -f "$AUDIO_FILE" ]; then
     echo "Error: Failed to download audio"
     exit 1
@@ -58,7 +50,6 @@ fi
 
 echo "Transcribing audio with Whisper..."
 
-# Using the base model by default for speed, but you can change to other models
 if ! whisper "$AUDIO_FILE" --model base --output_format txt --output_dir "$TEMP_DIR"; then
     echo "Error: Whisper transcription failed"
     exit 1

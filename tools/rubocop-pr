@@ -1,17 +1,14 @@
 #!/bin/bash
 
-# Script to run RuboCop on all Ruby files changed on the current branch
-# Run this before opening a pull request!
+# Lint tracked .rb and .rake files changed on this branch or in the working tree.
 
 set -e
 
-# Get the git repository root directory
 git_root=$(git rev-parse --show-toplevel)
 
 # Change to the git root to ensure RuboCop finds .rubocop.yml and .rubocop_todo.yml
 cd "$git_root" || exit 1
 
-# Determine the base branch (try main first, then master)
 if git rev-parse --verify origin/main &> /dev/null; then
   base_branch="origin/main"
 elif git rev-parse --verify main &> /dev/null; then
@@ -25,21 +22,17 @@ else
   exit 1
 fi
 
-# Get the merge base between current branch and base branch
 merge_base=$(git merge-base "$base_branch" HEAD)
 
-# Get list of changed Ruby files on this branch (added, copied, modified, renamed)
-# Using merge-base ensures we only get files changed on THIS branch
+# Compare from the fork point to exclude later changes on the base branch.
 changed_ruby_files=$(git diff --name-only --diff-filter=ACMR "$merge_base" HEAD | grep -E '\.(rb|rake)$' || true)
 
 # Also include any uncommitted changes (staged or unstaged)
 uncommitted_ruby_files=$(git diff --name-only --diff-filter=ACMR HEAD | grep -E '\.(rb|rake)$' || true)
 staged_ruby_files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(rb|rake)$' || true)
 
-# Combine all files and remove duplicates, filter to only existing files
 all_files=$(echo -e "${changed_ruby_files}\n${uncommitted_ruby_files}\n${staged_ruby_files}" | sort -u | grep -v '^$' || true)
 
-# Filter to only files that exist (in case some were deleted)
 existing_files=""
 for file in $all_files; do
   if [ -f "$file" ]; then
@@ -47,30 +40,25 @@ for file in $all_files; do
   fi
 done
 
-# Trim leading whitespace
 existing_files=$(echo "$existing_files" | xargs)
 
-# If there are no changed Ruby files, exit successfully
 if [ -z "$existing_files" ]; then
   echo "✅ No Ruby files changed on this branch."
   exit 0
 fi
 
-# Check if bundle is available
 if ! command -v bundle &> /dev/null; then
   echo "Error: bundle command not found."
   exit 1
 fi
 
-# Count files
 file_count=$(echo "$existing_files" | wc -w | xargs)
 
 echo "🔍 Running RuboCop on $file_count Ruby file(s) changed on this branch (compared to $base_branch)..."
 echo ""
 
-# Run RuboCop on changed Ruby files
 # --force-exclusion ensures Exclude patterns from .rubocop.yml and .rubocop_todo.yml are respected
-# `|| rubocop_exit_code=$?` keeps set -e from killing the script before the summary below
+# Capture failures so set -e does not skip the summary.
 rubocop_exit_code=0
 bundle exec rubocop --force-exclusion $existing_files || rubocop_exit_code=$?
 

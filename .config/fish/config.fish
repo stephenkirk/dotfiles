@@ -1,5 +1,4 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
 end
 
 set -U fish_greeting
@@ -11,9 +10,8 @@ set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 
 # Paths
-# NOTE: fish_user_paths is a *universal* variable — these `set -Ua` lines append
-# to a persisted store, so editing this file does not remove an old entry. Stale
-# paths must be erased explicitly (see scripts/fish-paths-reset.fish).
+# Removing a line leaves its path in the universal variable.
+# Run scripts/fish-paths-reset.fish to remove stale entries.
 set -Ua fish_user_paths $HOME/dotfiles/tools
 set -Ua fish_user_paths /opt/homebrew/bin
 set -Ua fish_user_paths $HOME/.config/emacs/bin
@@ -38,7 +36,7 @@ end
 # aliases
 alias dir='pwd'
 alias where='grealpath'
-alias tree='tree -C' # Colored trees by default
+alias tree='tree -C'
 alias pt='papertrail'
 alias rc='vim ~/.config/fish/config.fish'
 alias em='open -a Emacs'
@@ -51,10 +49,8 @@ alias grc='git rebase --continue'
 alias gpl='git pull'
 
 
-# to_review function moved to ~/dotfiles/tools/to_review
 
-# Private environment. Same file zsh sources; it is plain KEY=value precisely
-# because fish cannot parse `export`. Absent on machines without private config.
+# Shared with zsh: .env.private must contain plain KEY=value lines, without export.
 if test -f ~/.env.private
     for line in (string match -rv '^\s*(#|$)' < ~/.env.private)
         set -gx (string split -m1 '=' -- $line)
@@ -65,7 +61,6 @@ function shell --argument-names param
 	llm -t shell "$param"
 end
 
-# add zoxide / z
 zoxide init fish | source
 
 # Load machine-specific config (personal or work)

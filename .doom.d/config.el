@@ -1,9 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; (add-to-list 'default-frame-alist
-;;             '(ns-transparent-titlebar . t))
-;; (add-to-list 'default-frame-alist
-;;             '(ns-appearance . light))
 
 
 ;; Encoding — set early so vterm inherits UTF-8
@@ -16,26 +12,24 @@
       org-directory "~/org/"
       display-line-numbers-type t)
 
-;; Identity (user-mail-address) and anything else that should not be public
-;; lives outside this repo — see private.el, symlinked in and gitignored.
+;; Load private settings from the gitignored symlink to dotfiles-private.
 (let ((private (expand-file-name "private.el" doom-user-dir)))
   (when (file-exists-p private)
     (load private nil 'nomessage)))
 
-;; Make emacs use bash instead of fish to prevent garbage output
+;; Use bash for subprocesses that expect POSIX shell syntax.
 (setq shell-file-name (executable-find "bash"))
 
-;; ...but use fish for terminal emulators
+;; Use fish in interactive terminals.
     (setq-default vterm-shell (executable-find "fish"))
 (setq-default explicit-shell-file-name (executable-find "fish"))
 
 
 (setq-default evil-want-C-i-jump t)
 
-;; Option modifier - right option key for symbols; left for meta
+;; Let right Option type symbols instead of acting as Meta.
 (setq-default mac-right-option-modifier nil)
 
-; magit
 (setq +magit-hub-features t)
 ;; Set switch project default behaviour to magit
 (setq +workspaces-switch-project-function #'magit-status)

@@ -47,6 +47,5 @@ EOF
     echo "Applied laptop config: ${LAPTOP_WIDTH}x${LAPTOP_HEIGHT}"
 fi
 
-# Launch the game
 echo "Launching Slay the Spire..."
 open "$HOME/Library/Application Support/Steam/steamapps/common/SlayTheSpire/SlayTheSpire.app"

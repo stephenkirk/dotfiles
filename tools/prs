@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# One PR tool to rule them all. Everything outputs Markdown links.
+# List PRs in the current repository. Lists use Markdown links; merged includes bodies.
 #
-#   prs inbox        PRs waiting on my review
-#   prs waiting      my open PRs with no review yet
+#   prs inbox        others' open non-draft PRs with no reviews
+#   prs waiting      my open PRs without approval or change requests
 #   prs approved     my open PRs that are approved (ready to merge)
 #   prs merged [N]   my merged PRs from the past N days (default 7)
 
@@ -18,20 +18,17 @@ cmd="${1:-}"
 
 case "$cmd" in
   inbox)
-    # Open non-draft PRs by others where no review has happened yet.
     gh pr list -S "is:open draft:false review:none -author:@me" --json title,url,author \
       --jq 'map("[\"@\(.author.login): \(.title)\"](\(.url))") | .[]'
     ;;
 
   waiting)
-    # My open PRs with no approvals or change requests yet.
     gh pr list --author @me --state open \
       --json title,url,reviewDecision,isDraft \
       --jq '.[] | select(.reviewDecision != "APPROVED" and .reviewDecision != "CHANGES_REQUESTED") | "[\(.title)](\(.url))"'
     ;;
 
   approved)
-    # My open PRs that are approved — merge queue fodder.
     gh pr list --author @me --state open \
       --json number,title,url,reviewDecision \
       --jq '.[] | select(.reviewDecision == "APPROVED") | "[#\(.number) \(.title)](\(.url))"'
