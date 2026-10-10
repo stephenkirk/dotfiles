@@ -34,7 +34,6 @@ path+=("/opt/homebrew/bin")
 path+=("$HOME/.dotnet/dotnet")
 path+=("$HOME/.dotnet/tools")
 path+=("$HOME/.emacs.d/bin")
-path+=("$HOME/Library/Python/3.8/bin")
 export PATH
 
 if [ -f ~/.env.private ]; then

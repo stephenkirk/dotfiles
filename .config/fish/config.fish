@@ -15,7 +15,6 @@ set -gx EDITOR vim
 fish_add_path -a $HOME/dotfiles/tools
 fish_add_path -a /opt/homebrew/bin
 fish_add_path -a $HOME/.config/emacs/bin
-fish_add_path -a $HOME/Library/Python/3.8/bin
 fish_add_path -a $HOME/go
 
 # vi mode in shell

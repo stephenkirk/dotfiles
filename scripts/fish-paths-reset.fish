@@ -10,7 +10,6 @@ set -l wanted \
     /nix/var/nix/profiles/default/bin \
     $HOME/.tally/bin \
     $HOME/.config/emacs/bin \
-    $HOME/Library/Python/3.8/bin \
     $HOME/go \
     $HOME/.local/bin
 
