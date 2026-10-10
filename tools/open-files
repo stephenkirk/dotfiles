@@ -1,10 +1,17 @@
 #!/bin/bash
+# Print every file under the current directory whose name matches PATTERN,
+# each with a header, e.g. for pasting a batch of notes into an LLM.
+#
+# Usage: open-files PATTERN    (find -name glob, e.g. "*, 2023.md")
 
-find . -name "*, 2023.md" | while read -r file; do
-  # Print the relative file name
+if [ $# -ne 1 ]; then
+  echo "Usage: $(basename "$0") PATTERN" >&2
+  exit 1
+fi
+
+find . -name "$1" | while read -r file; do
   echo "File: $file"
   echo "--------------------------------------------------"
-  # Print the contents of the file
   cat "$file"
   echo "=================================================="
 done
