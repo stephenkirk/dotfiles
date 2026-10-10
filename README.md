@@ -1,117 +1,68 @@
-# My Dotfiles
+# dotfiles
 
-## What's this?
-
-My personal macOS setup. For those who no longer find spiritual enlightenment in the 47-click System Preferences pilgrimage after each reinstall.
-
-## How This Works
-
-The symlink architecture that makes this work:
-
-```
-~/dotfiles/
-├── .config/              # Modern configs → symlinked to ~/.config/
-│   ├── fish/            # Primary shell (vi mode, fzf, zoxide)
-│   │                    # Zsh config also kept for compatibility
-│   ├── zed/             # Daily driver editor
-│   ├── karabiner/       # Keyboard customization
-│   ├── amethyst/        # Window management
-│   └── linearmouse/     # Mouse settings
-├── .vimrc, .zshrc, etc  # Classic dotfiles → symlinked to ~/
-├── .doom.d/             # Doom Emacs config
-├── .hammerspoon/        # Hotkey automation
-├── tools/               # Productivity scripts → on PATH directly
-│                        # Audio conversion, doc generation, game launchers, etc
-├── scripts/
-│   ├── symlink-setup.sh    # Wires everything up
-│   ├── macos-defaults.sh   # System preferences automation
-│   ├── vscode-sync.sh      # Keeps VS Code settings in sync
-│   └── fish-paths-reset.fish  # Rebuilds PATH when fish won't let go
-├── Brewfile             # Every app and CLI tool
-└── setup.sh             # Orchestrates it all
-```
-
-### Private Dotfiles
-
-Secrets, machine-specific paths and Claude config live in a second repo that isn't
-this one and isn't on GitHub, cloned to `~/dotfiles-private`. `symlink-setup.sh`
-wires it up if it's there and shrugs if it isn't, so this repo stands alone on a
-fresh machine — you just get no API keys with it.
-
-Nothing sensitive is in here. That's the whole point of the split.
-
-## Example Features
-
-### System Configuration
-- **macOS Defaults**: Disables animations in favor of speed and responsiveness
-- **Key Repeat**: Set to ludicrous speed for zooming around in vim
-- **Finder**: Forces column view
-- **No More Accents**: Disabled the accent menu that pops up when you hold a key
-
-### Productivity 
-- **Hammerspoon**: Hotkeys for essentials like:
-  - `super+A`: Toggling between AirPods and laptop speakers (because auto switching is finicky at best)
-  - `super+D`: Toggle dark mode
-- **Amethyst**: Window management for keyboard-focused workflows
-- **Karabiner/LinearMouse**: Input device customizations for maximum comfort (mouse acceleration, caps lock doubles as ESC/ctrl)
-
-### Dev Environment That Prioritizes Sanity
-- **Fish Shell**: Primary shell with vi mode, better defaults than Zsh (which is kept for compatibility)
-- **Zed**: The daily driver
-- **VS Code**: Kept around because sometimes you need it
-- **Vim/Neovim**: Vanilla is probably fine but the config lives on
-- **Doom Emacs**: Glorified magit launcher, aka the best git client
-
-## Installation
-
-1. Clone this thing:
-   ```bash
-   git clone https://github.com/stephenkirk/dotfiles.git ~/dotfiles
-   ```
-
-2. Run the script:
-   ```bash
-   cd ~/dotfiles
-   ./setup.sh
-   ```
-
-3. Go make coffee. Or tea. Or grab a beer. This will take a bit.
-
-## The Brewfile
-
-Peruse the Brewfile if you're curious about what I use daily. It's a mess, but it's *my* mess.
-
-## Customization
-
-Fork it. Break it. Fix it. It's yours now.
+Personal macOS setup. The repo is the source of truth; the live system points at it via symlinks.
 
 ## Highlights
 
-**Ergonomic Keyboard Remapping**
+- **Key repeat below the System Settings floor**: `KeyRepeat 1` (15 ms; the slider stops at 2), `InitialKeyRepeat 15` (225 ms). Press-and-hold accent picker disabled, so held keys repeat.
+- **Caps Lock**: tap = Esc, hold = Ctrl.
+- **Esc**: tap = Caps Lock, hold = Hyper (Cmd+Ctrl+Opt+Shift).
+- **Hyper hotkeys** (Hammerspoon): `A` cycle audio output, `D` dark mode, `N` Night Shift, `R` reload config, `H` list hotkeys.
+- **No animations**: window resize, Mission Control, full-screen toolbar, Dock autohide, Mail send/reply.
+- **No text "help"**: autocorrect, auto-capitalisation, smart quotes/dashes, period substitution, text completion all off.
+- **Finder**: column view, hidden files and all extensions shown, search scoped to current folder, `~/Library` unhidden.
+- **No Gatekeeper "are you sure" dialog, no crash reporter dialog.**
+- **Fish** with vi key bindings, fzf, zoxide.
+- **`prs`**: PR lists as paste-ready Markdown links (`inbox`, `waiting`, `approved`, `merged [N]`).
 
-Karabiner handles the magic:
-- Caps Lock (tap) = ESC, (hold) = CTRL (no more pinky destruction)
-- ESC (tap) = Caps Lock, (hold) = Hyper (Shift+Ctrl+Opt+Cmd combined into one super-modifier)
+Full list of defaults: [`scripts/macos-defaults.sh`](scripts/macos-defaults.sh).
 
-Hammerspoon then uses Hyper for system-wide hotkeys that won't conflict with anything:
-- `Hyper+H`: Show all available hotkeys
-- `Hyper+A`: Toggle between AirPods and speakers
-- `Hyper+D`: Toggle dark mode
+## Layout
 
-**Smart PR Review List**
-
-Get PRs awaiting your review as Markdown links, ready to paste — `tools/to_review`:
-```bash
-gh pr list -S "review-requested:@me" --json title,url,author \
-  --jq 'map("[\"@\(.author.login): \(.title)\"](\(.url))") | .[]'
+```
+.config/          → ~/.config/   fish, zed, nvim, karabiner, amethyst, linearmouse
+.vimrc .zshrc …   → ~/           flat dotfiles; also .doom.d, .hammerspoon, .tmux.conf, .gitconfig
+tools/            on PATH as-is; standalone scripts
+scripts/
+  symlink-setup.sh     wires everything (idempotent, re-run to apply)
+  macos-defaults.sh    defaults writes
+  vscode-sync.sh       VS Code settings
+  fish-paths-reset.fish  rebuilds universal fish_user_paths
+Brewfile          apps and CLI tools; Brewfile.personal gated on ~/.machine-personal
+setup.sh          Homebrew → brew bundle → symlinks → defaults → vim dirs
 ```
 
-**Kill All the Animations**
+Secrets, machine-specific paths and Claude config live in a separate private repo at `~/dotfiles-private`. `symlink-setup.sh` wires it if present and skips it otherwise; this repo works standalone, minus credentials.
 
-macOS is faster when it's not busy being pretty:
+## Editors
+
+- **Zed**: primary.
+- **Doom Emacs**: used for magit.
+- **Vim/Neovim**, **VS Code**: configs maintained, used occasionally.
+
+## Tools
+
+| | |
+|---|---|
+| `prs` | PR lists as Markdown links |
+| `bootstrap-agents-md` | create `AGENTS.md` in a repo and symlink `CLAUDE.md` to it |
+| `clean-claude-history` | strip Claude session links / co-author trailers from a branch range |
+| `compress-recording` | shrink screen recordings, optional speed-up |
+| `yt-whisper` | transcribe a YouTube video (optionally a time range) to text |
+| `folder-to-llm` | concatenate source files in a directory (by extension) for pasting into an LLM |
+| `md-to-pdf`, `md-to-pdf-html` | Markdown → PDF via pandoc (LaTeX or wkhtmltopdf) |
+| `flactomp3`, `flactomp3dir` | FLAC → MP3 |
+| `serve` | HTTP server for the current dir, reachable on the LAN |
+| `skill-usage` | count Claude skill mentions across session logs |
+| `rubocop-pr` | rubocop only the Ruby files changed on this branch |
+| `sts` | Slay the Spire launcher, sets display config per monitor |
+| `balatro` | Balatro launcher with the Lovely mod loader |
+
+## Install
+
 ```bash
-defaults write -g NSWindowResizeTime -float 0.001
-defaults write -g NSToolbarFullScreenAnimationDuration -float 0
-defaults write com.apple.dock expose-animation-duration -float 0
+git clone https://github.com/stephenkirk/dotfiles.git ~/dotfiles
+cd ~/dotfiles && ./setup.sh
 ```
-See `scripts/macos-defaults.sh` for the full list.
+
+`macos-defaults.sh` asks for sudo and restarts the Dock. Some keys target older macOS releases and are no-ops on current ones.
