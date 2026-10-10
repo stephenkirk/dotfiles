@@ -10,13 +10,13 @@ set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 
 # Paths
-# Removing a line leaves its path in the universal variable.
+# fish_add_path skips entries already present; removing a line leaves its path.
 # Run scripts/fish-paths-reset.fish to remove stale entries.
-set -Ua fish_user_paths $HOME/dotfiles/tools
-set -Ua fish_user_paths /opt/homebrew/bin
-set -Ua fish_user_paths $HOME/.config/emacs/bin
-set -Ua fish_user_paths $HOME/Library/Python/3.8/bin
-set -Ua fish_user_paths $HOME/go
+fish_add_path -a $HOME/dotfiles/tools
+fish_add_path -a /opt/homebrew/bin
+fish_add_path -a $HOME/.config/emacs/bin
+fish_add_path -a $HOME/Library/Python/3.8/bin
+fish_add_path -a $HOME/go
 
 # vi mode in shell
 set -U fish_escape_delay_ms 10
