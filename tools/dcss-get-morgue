@@ -1,7 +1,8 @@
 #!/bin/bash
 
 url="https://crawl.xtahua.com/crawl/morgue/steph/"
-local_directory="~/Documents/crawl-morgue"
+local_directory="$HOME/Documents/crawl-morgue"
+mkdir -p "$local_directory"
 
 # Get the URLs of txt files using curl and parse them with grep and sed
 txt_file_urls=$(curl -s "$url" | grep -Eo 'href="[^"]+\.txt' | sed -E 's/^href="([^"]+\.txt)/\1/' | awk -v url="$url" '{print url$0}')
